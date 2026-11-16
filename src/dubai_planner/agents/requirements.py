@@ -26,6 +26,7 @@ from dubai_planner.agents.base import LLMOutput, context_block, load_prompt, use
 from dubai_planner.llm.mock import MockRequest, register_generator
 from dubai_planner.llm.structured import build_messages, invoke_structured
 from dubai_planner.models.common import StrictModel
+from dubai_planner.models.planning import PlanEdit
 from dubai_planner.models.request import (
     MAX_TRIP_DAYS,
     AccessibilityNeed,
@@ -253,6 +254,17 @@ def run(data: RequirementsInput, llm: Any, tools: Toolbox) -> RequirementsResult
                                    postprocess=lambda ex: resolve(ex, data, tools)).value
         span.update(missing=result.missing, complete=result.is_complete)
         return result
+
+
+def unchanged(edit: PlanEdit) -> RequirementsResult | None:
+    """The edit's base request as a result, without an LLM call (local edits keep it)."""
+    if not edit.keep_request or edit.base_request is None:
+        return None
+    draft = edit.base_draft()
+    assert draft is not None  # noqa: S101 - base_request is set
+    with agent_span(AGENT, reused=True) as span:
+        span.update(missing=[], complete=True, reused=True)
+        return RequirementsResult(draft=draft, request=edit.base_request)
 
 
 def _mock_requirements(req: MockRequest) -> RequirementsExtraction:

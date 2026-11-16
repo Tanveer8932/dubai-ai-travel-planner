@@ -49,6 +49,7 @@ from dubai_planner.llm.mock import MockLLM
 from dubai_planner.models import (
     ChatMessage,
     ChatRole,
+    PlanEdit,
     PlannerMode,
     PlannerUpdate,
     PlanResult,
@@ -198,12 +199,13 @@ class CrewAIPlanner:
         return None
 
     # ------------------------------------------------------------------ running
-    def stream(self, message: str | None, session_id: str, *, today: date | None = None
-               ) -> Iterator[PlannerUpdate]:
+    def stream(self, message: str | None, session_id: str, *, today: date | None = None,
+               edit: PlanEdit | None = None) -> Iterator[PlannerUpdate]:
         """Plan (or answer the pending clarification); yield one update per finished task.
 
         ``message=None`` re-runs the session's unfinished request from the start. The
-        last update has ``result`` set.
+        last update has ``result`` set. ``edit`` (a refinement of a saved itinerary, see
+        ``services.refinement``) seeds the run; it is ignored for a clarification answer.
         """
         if not session_id.strip():
             raise ValueError("session_id must not be empty")
@@ -218,13 +220,22 @@ class CrewAIPlanner:
             text = check_message(message)
             pending = self._pending(session_id)
             run_id = pending.run_id if pending else uuid.uuid4().hex
+            if pending is not None:
+                edit = None
         history = self._history(session_id)
         self._record_start(session_id, run_id, text if record_message else None)
         board = CrewRunBoard(
             session_id=session_id, run_id=run_id, mode=self.mode, today=today or date.today(),
             user_message=text, history=history,
-            previous_draft=pending.draft if pending else self._previous_draft(session_id),
-            max_iterations=self.max_review_iterations)
+            previous_draft=(pending.draft if pending else
+                            (edit.base_draft() if edit else None)
+                            or self._previous_draft(session_id)),
+            max_iterations=self.max_review_iterations, edit=edit)
+        if edit is not None:
+            board.itinerary = edit.previous
+            board.locked_days = list(edit.locked_days)
+            board.feedback = list(edit.instructions)
+            board.day_constraints = list(edit.day_constraints)
         rounds = pending.rounds if pending else 0
         stats = RunStats(run_id)
         updates: queue.Queue[PlannerUpdate | BaseException | None] = queue.Queue()
@@ -264,11 +275,11 @@ class CrewAIPlanner:
         yield PlannerUpdate(session_id=session_id, run_id=run_id, node=END_NODE,
                             iteration=result.iterations, result=result)
 
-    def run(self, message: str | None, session_id: str, *, today: date | None = None
-            ) -> PlanResult:
+    def run(self, message: str | None, session_id: str, *, today: date | None = None,
+            edit: PlanEdit | None = None) -> PlanResult:
         """Like :meth:`stream`, but only returns the final result."""
         final: PlanResult | None = None
-        for update in self.stream(message, session_id, today=today):
+        for update in self.stream(message, session_id, today=today, edit=edit):
             final = update.result or final
         if final is None:  # pragma: no cover - stream always ends with a result
             raise RuntimeError("planner produced no result")

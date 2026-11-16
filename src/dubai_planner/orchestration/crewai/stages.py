@@ -25,6 +25,7 @@ from dubai_planner.agents import (
     transport,
     weather_events,
 )
+from dubai_planner.agents.revision import applicable_locks
 from dubai_planner.agents.suite import AgentSuite
 from dubai_planner.orchestration.crewai.board import CrewRunBoard
 from dubai_planner.tools.toolbox import Toolbox
@@ -50,6 +51,9 @@ class StageRunner:
         }[stage]
 
     def requirements(self, board: CrewRunBoard) -> BaseModel:
+        reused = requirements.unchanged(board.edit) if board.edit is not None else None
+        if reused is not None:  # a local edit keeps the request: no LLM call
+            return reused
         result: BaseModel = self.agents.requirements(
             requirements.RequirementsInput(message=board.user_message, history=board.history,
                                            previous=board.previous_draft, today=board.today),
@@ -92,13 +96,15 @@ class StageRunner:
         return result
 
     def compose(self, board: CrewRunBoard) -> BaseModel:
-        locked = list(board.locked_days)
+        request, previous = board.request, board.itinerary
+        locked = applicable_locks(list(board.locked_days), previous, request)
         result: BaseModel = self.agents.composer(
             composer.ComposerInput(
-                session_id=board.session_id, mode=board.mode, request=board.request,
+                session_id=board.session_id, mode=board.mode, request=request,
                 research=board.research(), budget=board.budget_plan(),
                 feedback=list(board.feedback),
-                previous=board.itinerary if locked else None, locked_days=locked),
+                previous=previous if locked else None, locked_days=locked,
+                day_constraints=list(board.day_constraints)),
             self.llm_for(composer.AGENT), self.tools)
         return result
 

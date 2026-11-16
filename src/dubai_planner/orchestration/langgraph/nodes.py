@@ -34,7 +34,7 @@ from dubai_planner.agents import (
     transport,
     weather_events,
 )
-from dubai_planner.agents.revision import plan_revision
+from dubai_planner.agents.revision import applicable_locks, plan_revision
 from dubai_planner.agents.suite import AgentSuite
 from dubai_planner.llm import get_chat_llm
 from dubai_planner.models import (
@@ -42,6 +42,7 @@ from dubai_planner.models import (
     ChatMessage,
     ChatRole,
     Itinerary,
+    PlanEdit,
     PlannerMode,
     PlanStatus,
     Severity,
@@ -138,7 +139,10 @@ class PlannerNodes:
     def parse_request(self, state: PlannerState) -> dict[str, Any]:
         with node_span(PARSE, state) as span:
             history = list(state.get("messages", []))[:-1]  # the last one is this message
-            result = self.deps.agents.requirements(
+            fixed = state.get("fixed_request")
+            reused = (requirements.unchanged(PlanEdit(base_request=fixed, keep_request=True))
+                      if fixed is not None else None)
+            result = reused or self.deps.agents.requirements(
                 requirements.RequirementsInput(
                     message=state["user_message"], history=history,
                     previous=state.get("draft"), today=state["today"]),
@@ -238,13 +242,15 @@ class PlannerNodes:
 
     def compose_itinerary(self, state: PlannerState) -> dict[str, Any]:
         with node_span(COMPOSE, state) as span:
-            locked = list(state.get("locked_days", []))
+            request, previous = self._request(state), state.get("itinerary")
+            locked = applicable_locks(list(state.get("locked_days", [])), previous, request)
             itinerary = self.deps.agents.composer(
                 composer.ComposerInput(
-                    session_id=state["session_id"], mode=MODE, request=self._request(state),
+                    session_id=state["session_id"], mode=MODE, request=request,
                     research=state["research"], budget=state["budget_plan"],
                     feedback=list(state.get("feedback", [])),
-                    previous=state.get("itinerary") if locked else None, locked_days=locked),
+                    previous=previous if locked else None, locked_days=locked,
+                    day_constraints=list(state.get("day_constraints", []))),
                 self.deps.llm_for(composer.AGENT), self.deps.tools)
             span.update(total=str(itinerary.cost.total), locked_days=locked)
             return {"itinerary": itinerary}

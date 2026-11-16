@@ -56,6 +56,8 @@ from dubai_planner.models.options import (
 from dubai_planner.models.planning import (
     Attempt,
     AttemptSummary,
+    DayConstraint,
+    PlanEdit,
     PlannerUpdate,
     PlanResult,
     PlanStatus,
@@ -94,6 +96,7 @@ from dubai_planner.models.transport import (
     TransportPlan,
     TransportSeed,
 )
+from dubai_planner.models.versions import DayDiff, SlotRef, VersionDiff
 
 __all__ = [
     "AED",
@@ -120,6 +123,8 @@ __all__ = [
     "CostItem",
     "DailyWeather",
     "DataKind",
+    "DayConstraint",
+    "DayDiff",
     "DayPlan",
     "DietaryFlag",
     "DiningOption",
@@ -138,6 +143,7 @@ __all__ = [
     "OpeningHours",
     "OsmPoi",
     "Pace",
+    "PlanEdit",
     "PlanResult",
     "PlanStatus",
     "PlannerMode",
@@ -156,6 +162,7 @@ __all__ = [
     "SeedMeta",
     "Session",
     "Severity",
+    "SlotRef",
     "StoredMessage",
     "StrictModel",
     "TimeOfDay",
@@ -169,6 +176,7 @@ __all__ = [
     "Travellers",
     "TripRequest",
     "TripRequestDraft",
+    "VersionDiff",
     "WeatherContext",
     "WeatherSource",
     "Weekday",

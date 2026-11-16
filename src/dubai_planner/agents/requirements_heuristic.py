@@ -130,7 +130,7 @@ def _budget(text: str) -> tuple[Decimal | None, str, BudgetScope | None]:
             continue
         tail = text[match.end(): match.end() + 30]
         scope = None
-        if re.search(r"per\s+(person|head|pax)|each|pp\b", tail):
+        if re.search(r"per\s+(person|head|pax)|\beach\b|\bpp\b", tail):
             scope = BudgetScope.PER_PERSON
         elif re.search(r"per\s+day|a day|daily|/day", tail):
             scope = BudgetScope.PER_DAY

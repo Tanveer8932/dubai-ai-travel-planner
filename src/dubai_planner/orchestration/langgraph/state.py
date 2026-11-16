@@ -23,7 +23,9 @@ from dubai_planner.models import (
     AttemptSummary,
     BudgetPlan,
     ChatMessage,
+    DayConstraint,
     Itinerary,
+    PlanEdit,
     PlanStatus,
     ResearchBundle,
     ReviewReport,
@@ -68,6 +70,7 @@ class PlannerState(TypedDict, total=False):
 
     # --- requirements
     draft: TripRequestDraft | None
+    fixed_request: TripRequest | None  # a local edit reuses the request (Phase 5)
     request: TripRequest | None
     missing: list[str]
     clarification_question: str | None
@@ -85,6 +88,7 @@ class PlannerState(TypedDict, total=False):
     iteration: int
     feedback: list[str]
     locked_days: list[int]
+    day_constraints: list[DayConstraint]  # user constraints of a partial re-plan (Phase 5)
     best: Attempt | None
     attempts: list[AttemptSummary]
     status: PlanStatus | None
@@ -92,13 +96,23 @@ class PlannerState(TypedDict, total=False):
 
 
 def new_run_input(*, session_id: str, run_id: str, message: str, today: date,
-                  user_message: ChatMessage) -> dict[str, Any]:
+                  user_message: ChatMessage, edit: PlanEdit | None = None) -> dict[str, Any]:
     """Input for a new planning request on a (possibly existing) thread.
 
     The conversation (``messages``) and the request ``draft`` carry over, so a follow-up
     refines the previous request. Everything produced by the previous run is reset, so
-    nothing from it can leak into this run's result.
+    nothing from it can leak into this run's result. A :class:`PlanEdit` (a refinement
+    built from SQLite) seeds the draft, the previous itinerary, the locked days and the
+    user's day constraints.
     """
+    seeded: dict[str, Any] = {}
+    if edit is not None:
+        if (draft := edit.base_draft()) is not None:
+            seeded["draft"] = draft
+        seeded |= {"itinerary": edit.previous, "locked_days": list(edit.locked_days),
+                   "feedback": list(edit.instructions),
+                   "day_constraints": list(edit.day_constraints),
+                   "fixed_request": edit.base_request if edit.keep_request else None}
     return {
         "session_id": session_id, "run_id": run_id, "today": today,
         "user_message": message, "messages": [user_message],
@@ -107,4 +121,5 @@ def new_run_input(*, session_id: str, run_id: str, message: str, today: date,
         "research": None, "budget_plan": None, "itinerary": None, "validation": [],
         "review": None, "iteration": 0, "feedback": [], "locked_days": [], "best": None,
         "attempts": [], "status": None, "saved_version": None,
-    }
+        "day_constraints": [], "fixed_request": None,
+    } | seeded

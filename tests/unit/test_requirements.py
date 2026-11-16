@@ -233,3 +233,21 @@ def test_heuristic_direct_examples() -> None:
     nights = heuristic_extract("3 nights from 2 jan 2027, solo, €900", today=TODAY)
     assert nights.start_date == date(2027, 1, 2) and nights.duration_days == 4
     assert nights.adults == 1 and nights.budget_currency == "EUR"
+
+
+def test_heuristic_does_not_read_beach_as_each(toolbox: Toolbox) -> None:
+    """Regression (found in Phase 5): "beach" contains "each" → wrongly per person."""
+    from datetime import date
+
+    from dubai_planner.agents import requirements as req
+    from dubai_planner.llm.mock import MockLLM
+    from dubai_planner.models import BudgetScope
+
+    def scope(text: str) -> BudgetScope:
+        result = req.run(req.RequirementsInput(message=text, today=date(2026, 11, 16)),
+                         MockLLM(), toolbox)
+        assert result.request is not None
+        return result.request.budget_scope
+
+    assert scope("2 adults, 14-16 July 2027, AED 9000, beach and culture") is BudgetScope.TOTAL
+    assert scope("2 adults, 14-16 July 2027, AED 4000 each") is BudgetScope.PER_PERSON

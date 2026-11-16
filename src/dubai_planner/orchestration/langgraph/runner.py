@@ -33,6 +33,7 @@ from dubai_planner.config import Settings, get_settings
 from dubai_planner.models import (
     ChatMessage,
     ChatRole,
+    PlanEdit,
     PlannerMode,
     PlannerUpdate,
     PlanResult,
@@ -156,10 +157,12 @@ class LangGraphPlanner:
         )
 
     # ------------------------------------------------------------------ running
-    def stream(self, message: str | None, session_id: str, *, today: date | None = None
-               ) -> Iterator[PlannerUpdate]:
+    def stream(self, message: str | None, session_id: str, *, today: date | None = None,
+               edit: PlanEdit | None = None) -> Iterator[PlannerUpdate]:
         """Plan (or answer the pending clarification) and yield one update per node.
 
+        ``edit`` (a refinement of a saved itinerary, see ``services.refinement``) seeds a
+        new run; it is ignored when the message answers a pending clarification.
         ``message=None`` resumes an unfinished run. The last update has ``result`` set.
         """
         if not session_id.strip():
@@ -180,7 +183,7 @@ class LangGraphPlanner:
                 run_id = uuid.uuid4().hex
                 graph_input = new_run_input(
                     session_id=session_id, run_id=run_id, message=text,
-                    today=today or date.today(),
+                    today=today or date.today(), edit=edit,
                     user_message=ChatMessage(role=ChatRole.USER, content=text))
         self._record_start(session_id, run_id, message)
         stats = RunStats(run_id)
@@ -215,11 +218,11 @@ class LangGraphPlanner:
         yield PlannerUpdate(session_id=session_id, run_id=run_id, node=END_NODE,
                             iteration=result.iterations, result=result)
 
-    def run(self, message: str | None, session_id: str, *, today: date | None = None
-            ) -> PlanResult:
+    def run(self, message: str | None, session_id: str, *, today: date | None = None,
+            edit: PlanEdit | None = None) -> PlanResult:
         """Like :meth:`stream`, but only returns the final result."""
         final: PlanResult | None = None
-        for update in self.stream(message, session_id, today=today):
+        for update in self.stream(message, session_id, today=today, edit=edit):
             final = update.result or final
         if final is None:  # pragma: no cover - stream always ends with a result
             raise RuntimeError("planner produced no result")

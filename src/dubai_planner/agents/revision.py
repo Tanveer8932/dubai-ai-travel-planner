@@ -18,6 +18,7 @@ from pydantic import Field
 
 from dubai_planner.models.common import StrictModel
 from dubai_planner.models.itinerary import Itinerary
+from dubai_planner.models.request import TripRequest
 from dubai_planner.models.review import ReviewIssue, ReviewReport, Severity
 
 MAX_FEEDBACK_LINES = 12
@@ -34,6 +35,20 @@ def _line(issue: ReviewIssue) -> str:
     rule = f"[{issue.rule_id}]" if issue.rule_id else "[reviewer]"
     fix = f" Fix: {issue.suggested_fix}" if issue.suggested_fix else ""
     return f"{issue.severity.value.upper()} {rule}{where}: {issue.message}{fix}"[:400]
+
+
+def applicable_locks(edit_locked: list[int], previous: Itinerary | None,
+                     request: TripRequest) -> list[int]:
+    """Days a user edit may keep: only while the request's dates still match ``previous``.
+
+    A refinement that changed the dates or length makes the old days meaningless, so the
+    locks are dropped and every day is re-planned.
+    """
+    if not edit_locked or previous is None or len(previous.days) != request.num_days:
+        return []
+    if previous.days[0].date != request.start_date:
+        return []
+    return sorted(d for d in set(edit_locked) if 0 <= d < request.num_days)
 
 
 def plan_revision(review: ReviewReport, itinerary: Itinerary, *, num_days: int) -> RevisionPlan:

@@ -43,6 +43,7 @@ from dubai_planner.models.itinerary import (
     TimeSlot,
 )
 from dubai_planner.models.options import AttractionOption, DiningOption, HotelOption, MealType
+from dubai_planner.models.planning import DayConstraint
 from dubai_planner.models.request import TripRequest
 from dubai_planner.models.research import ResearchBundle
 from dubai_planner.models.trace import TraceEventType
@@ -75,6 +76,19 @@ class ComposerInput(StrictModel):
     feedback: list[str] = Field(default_factory=list, description="Reviewer/rule feedback")
     previous: Itinerary | None = None
     locked_days: list[int] = Field(default_factory=list, description="0-based days to keep")
+    day_constraints: list[DayConstraint] = Field(
+        default_factory=list, description="User constraints on re-planned days (Phase 5)")
+
+    def constraint(self, day_index: int) -> DayConstraint | None:
+        return next((c for c in self.day_constraints if c.day_index == day_index), None)
+
+    def locked_attraction_ids(self) -> set[str]:
+        """Attractions already on the kept days (not to be used again)."""
+        if self.previous is None:
+            return set()
+        return {s.activity.ref_id for d in self.locked_days if d < len(self.previous.days)
+                for s in self.previous.days[d].slots
+                if s.activity.kind is ActivityKind.ATTRACTION and s.activity.ref_id}
 
     @model_validator(mode="after")
     def _locked_days_valid(self) -> ComposerInput:
@@ -150,6 +164,8 @@ class DayBrief(StrictModel):
     weekday: str
     max_temp_c: float
     hot: bool
+    indoor_only: bool = False
+    note: str = ""
 
 
 class ComposerContext(StrictModel):
@@ -164,6 +180,8 @@ class ComposerContext(StrictModel):
     events: list[dict[str, str]]
     budget: dict[str, str]
     locked_days: list[int]
+    already_used: list[str] = Field(default_factory=list,
+                                    description="Attraction ids on locked days; do not reuse")
     feedback: list[str]
 
 
@@ -190,8 +208,11 @@ def build_context(data: ComposerInput, tools: Toolbox) -> ComposerContext:
     for i in range(req.num_days):
         day = req.start_date + timedelta(days=i)
         tmax = _max_temp(research, tools, day)
+        rule = data.constraint(i)
         days.append(DayBrief(day=i + 1, date=day, weekday=day.strftime("%a"),
-                             max_temp_c=round(tmax, 1), hot=tmax > HEAT_LIMIT_C))
+                             max_temp_c=round(tmax, 1), hot=tmax > HEAT_LIMIT_C,
+                             indoor_only=bool(rule and rule.indoor_only),
+                             note=rule.note if rule else ""))
     attractions = [
         AttractionBrief(
             id=a.id, name=a.name, area=a.area, lat=a.location.lat, lon=a.location.lon,
@@ -231,6 +252,7 @@ def build_context(data: ComposerInput, tools: Toolbox) -> ComposerContext:
                 "activities_cap": str(affordable_activities(data.budget)),
                 "food": str(data.budget.allocation(BudgetCategory.FOOD))},
         locked_days=[d + 1 for d in data.locked_days],
+        already_used=sorted(data.locked_attraction_ids()),
         feedback=data.feedback,
     )
 
@@ -321,6 +343,12 @@ def assemble(draft: DraftItinerary, data: ComposerInput, tools: Toolbox) -> Itin
                     problems.append(f"day {n}: {ds.kind} ref_id {ds.ref_id!r} is not in the "
                                     f"provided {ds.kind} list")
                     continue
+                rule = data.constraint(n - 1)
+                if (isinstance(venue, AttractionOption) and not venue.indoor and rule
+                        and rule.indoor_only):
+                    problems.append(f"day {n} must have indoor activities only; "
+                                    f"{venue.id} is outdoor")
+                    continue
                 if isinstance(venue, AttractionOption):
                     slot_cost = party_cost(venue.price, party)
                 elif isinstance(venue, DiningOption):
@@ -361,7 +389,8 @@ def assemble(draft: DraftItinerary, data: ComposerInput, tools: Toolbox) -> Itin
             continue
         day_plans[n] = plan.model_copy(update={"day_cost_aed": day_cost(plan)})
 
-    repeats = sorted(k for k, v in used_attractions.items() if v > 1)
+    kept = data.locked_attraction_ids()
+    repeats = sorted(k for k, v in used_attractions.items() if v > 1 or k in kept)
     if repeats:
         problems.append(f"attractions used more than once: {repeats}")
     if problems:
@@ -423,7 +452,7 @@ def _period(att: AttractionBrief, hot: bool) -> str:
 
 def baseline_draft(ctx: ComposerContext) -> DraftItinerary:
     """Deterministic schedule: cluster by area, heat-aware periods, two meals a day."""
-    used: set[str] = set()
+    used: set[str] = set(ctx.already_used)
     meals_used: Counter[str] = Counter()
     activity_budget = Decimal(ctx.budget.get("activities_cap")
                               or ctx.budget.get("activities") or "0")
@@ -436,7 +465,8 @@ def baseline_draft(ctx: ComposerContext) -> DraftItinerary:
         if day.day in locked:
             out_days.append(DraftDay(day=day.day, theme="(kept from previous version)"))
             continue
-        pool = [a for a in ctx.attractions if a.id not in used]
+        pool = [a for a in ctx.attractions if a.id not in used
+                and (a.indoor or not day.indoor_only)]
         affordable = [a for a in pool
                       if Decimal(a.cost_aed) == 0 or spent + Decimal(a.cost_aed) <= activity_budget]
         pool = affordable or [a for a in pool if Decimal(a.cost_aed) == 0]

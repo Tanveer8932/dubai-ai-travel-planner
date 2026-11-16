@@ -448,6 +448,8 @@ sequenceDiagram
     PS-->>UI: render diff v(n) → v(n+1)
 ```
 
+*As built (Phase 5).* `services/refinement.classify(message, latest, pending_question)` returns a `Refinement` (kind, the message to send, a `PlanEdit`): a **clarification answer** when the planner is waiting on a question, a **new request** when the session has no itinerary yet, a **request delta** when budget/dates/travellers change (a relative budget change such as "by 20%" is resolved in Python against the saved request and stated in the message), a **local edit** when the message names days (the other days are locked and copied verbatim, the request is reused without re-parsing, and the user's words plus deterministic `DayConstraint`s such as `indoor_only` go to the composer), else a **general change** (re-plan on the saved request). Both planners accept `stream(..., edit=PlanEdit)`, so refinement does not depend on framework state and works across modes. The UI never runs a planner in the page script: `services/runs.RunManager` runs it in a background thread (one active run per session) and the page polls the progress. `SessionService.diff` gives the cost delta per category and each day's added/removed slots. Trace visualisation is Phase 6.
+
 ## 10. LLM provider configuration
 
 Selected by environment variables only (see `.env.example`):
@@ -495,7 +497,7 @@ dubai-ai-travel-planner/
 │   │   ├── langgraph/             # state, nodes, graph builder
 │   │   ├── common.py              # helpers shared by both planners (Phase 4)
 │   │   └── crewai/                # config/*.yaml, board, stages, tools, guardrails, listener, crew, runner
-│   ├── services/                  # planner contract (Phase 4); session, refinement (Phase 5)
+│   ├── services/                  # planner contract (4); session, refinement, runs, presentation (5)
 │   ├── storage/                   # sqlite repo + schema.sql
 │   ├── tracing/                   # TraceEvent bus, adapters for both frameworks
 │   └── evaluation/                # metrics, judge, runner, report

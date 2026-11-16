@@ -107,6 +107,42 @@ class PlanResult(StrictModel):
         return issues
 
 
+class DayConstraint(StrictModel):
+    """A user constraint on one day of a partial re-plan (e.g. "indoor activities only")."""
+
+    day_index: int = Field(ge=0, description="0-based day")
+    indoor_only: bool = False
+    note: str = Field(default="", max_length=300)
+
+
+class PlanEdit(StrictModel):
+    """How a follow-up message relates to the session's saved itinerary (Phase 5).
+
+    Built by ``services.refinement`` from SQLite and passed to either planner, so a
+    refinement works the same in both modes and does not depend on framework state:
+
+    - ``base_request``: the request the follow-up refines (the requirements step
+      merges the message into it);
+    - ``keep_request``: a local edit, so the request is reused without re-parsing;
+    - ``previous`` + ``locked_days``: days kept verbatim; the others are re-planned
+      under ``day_constraints`` and ``instructions`` (composer feedback).
+    """
+
+    base_version: int | None = Field(default=None, ge=1)
+    base_request: TripRequest | None = None
+    keep_request: bool = False
+    previous: Itinerary | None = None
+    locked_days: list[int] = Field(default_factory=list)
+    day_constraints: list[DayConstraint] = Field(default_factory=list)
+    instructions: list[str] = Field(default_factory=list)
+
+    def base_draft(self) -> TripRequestDraft | None:
+        if self.base_request is None:
+            return None
+        fields = set(TripRequestDraft.model_fields)
+        return TripRequestDraft.model_validate(self.base_request.model_dump(include=fields))
+
+
 class PlannerUpdate(StrictModel):
     """One streamed progress event (a node finished, or the run ended)."""
 

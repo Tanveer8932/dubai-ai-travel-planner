@@ -15,20 +15,23 @@ from datetime import date
 from pathlib import Path
 from typing import Any, Protocol, runtime_checkable
 
-from dubai_planner.models import PlannerMode, PlannerUpdate, PlanResult
+from dubai_planner.models import PlanEdit, PlannerMode, PlannerUpdate, PlanResult
 
 
 @runtime_checkable
 class Planner(Protocol):
     """What every orchestration mode offers."""
 
-    def stream(self, message: str | None, session_id: str, *, today: date | None = None
-               ) -> Iterator[PlannerUpdate]:
-        """Yield progress updates; the last one carries the :class:`PlanResult`."""
+    def stream(self, message: str | None, session_id: str, *, today: date | None = None,
+               edit: PlanEdit | None = None) -> Iterator[PlannerUpdate]:
+        """Yield progress updates; the last one carries the :class:`PlanResult`.
+
+        ``edit`` refines a saved itinerary (Phase 5, ``services.refinement``).
+        """
         ...
 
-    def run(self, message: str | None, session_id: str, *, today: date | None = None
-            ) -> PlanResult: ...
+    def run(self, message: str | None, session_id: str, *, today: date | None = None,
+            edit: PlanEdit | None = None) -> PlanResult: ...
 
     def resume(self, session_id: str) -> PlanResult: ...
 

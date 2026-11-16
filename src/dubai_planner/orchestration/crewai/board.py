@@ -43,7 +43,9 @@ from dubai_planner.models import (
     AttemptSummary,
     BudgetPlan,
     ChatMessage,
+    DayConstraint,
     Itinerary,
+    PlanEdit,
     PlannerMode,
     ResearchBundle,
     ReviewReport,
@@ -114,6 +116,8 @@ class CrewRunBoard:
     history: list[ChatMessage] = field(default_factory=list)
     previous_draft: TripRequestDraft | None = None
     max_iterations: int = 2
+    edit: PlanEdit | None = None  # a refinement of a saved itinerary (Phase 5)
+    day_constraints: list[DayConstraint] = field(default_factory=list)
     # --- results
     requirements: requirements.RequirementsResult | None = None
     accepted: dict[str, BaseModel] = field(default_factory=dict)

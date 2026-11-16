@@ -9,7 +9,10 @@ Hard rules:
   (leave those out; they are kept as they are).
 - Times are 24-hour "HH:MM". Within a day, slots must not overlap and each must end after
   it starts, before midnight.
-- Do not use the same attraction twice in the trip.
+- Do not use the same attraction twice in the trip, nor any id in "already_used"
+  (those are on the locked days).
+- On days marked "indoor_only": true, use only indoor attractions (indoor: true). A day's
+  "note" is the traveller's request for that day; follow it.
 - On days marked "hot": true, outdoor attractions (indoor: false) must not overlap the
   midday window; schedule them early morning or after 16:00.
 - At most "max_activities_per_day" attractions/events per day; aim for
