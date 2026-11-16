@@ -1,0 +1,686 @@
+{
+  "meta": {
+    "description": "Dubai public-transport fares, taxi tariff, travel speeds and metro stations.",
+    "source": "RTA public fare information and OpenStreetMap (curated)",
+    "as_of": "2026-11-15",
+    "notes": [
+      "RTA Nol fares as publicly listed up to 2025-26; NOT live-verified [verify current fares on rta.ae].",
+      "Station coordinates approximate; line assignment simplified.",
+      "Speeds are planning heuristics, not measurements."
+    ]
+  },
+  "data": {
+    "nol_fares": {
+      "silver_by_zones": [
+        3,
+        5,
+        7.5
+      ],
+      "gold_by_zones": [
+        6,
+        10,
+        15
+      ],
+      "day_pass_silver": null,
+      "nol_card_cost": 25,
+      "provenance": {
+        "kind": "estimated",
+        "source": "RTA Nol fare table (curated)",
+        "as_of": "2026-11-15",
+        "note": "RTA Nol fares as publicly listed up to 2025-26; NOT live-verified [verify current fares on rta.ae]."
+      }
+    },
+    "taxi": {
+      "flag_fall_aed": 5,
+      "per_km_aed": 2.0,
+      "minimum_fare_aed": 12,
+      "airport_flag_fall_aed": 25,
+      "ride_hail_multiplier_min": 1.0,
+      "ride_hail_multiplier_max": 1.6,
+      "provenance": {
+        "kind": "estimated",
+        "source": "Dubai Taxi / RTA tariff (curated)",
+        "as_of": "2026-11-15",
+        "note": "Approximate metered tariff; peak/night surcharges and Salik tolls not modelled [verify]."
+      }
+    },
+    "fixed_fares": [
+      {
+        "id": "fare_abra_traditional",
+        "mode": "abra",
+        "description": "Traditional abra across Dubai Creek",
+        "fare": 1,
+        "provenance": {
+          "kind": "estimated",
+          "source": "RTA marine transport (curated)",
+          "as_of": "2026-11-15",
+          "note": "RTA Nol fares as publicly listed up to 2025-26; NOT live-verified [verify current fares on rta.ae]."
+        }
+      },
+      {
+        "id": "fare_palm_monorail",
+        "mode": "monorail",
+        "description": "Palm Monorail single journey",
+        "fare": 20,
+        "provenance": {
+          "kind": "estimated",
+          "source": "Palm Monorail (curated)",
+          "as_of": "2026-11-15",
+          "note": "RTA Nol fares as publicly listed up to 2025-26; NOT live-verified [verify current fares on rta.ae]."
+        }
+      },
+      {
+        "id": "fare_bus_abu_dhabi",
+        "mode": "intercity_bus",
+        "description": "Intercity bus Dubai (Al Ghubaiba) - Abu Dhabi, one way",
+        "fare": 25,
+        "provenance": {
+          "kind": "estimated",
+          "source": "RTA intercity bus (curated)",
+          "as_of": "2026-11-15",
+          "note": "RTA Nol fares as publicly listed up to 2025-26; NOT live-verified [verify current fares on rta.ae]."
+        }
+      },
+      {
+        "id": "fare_bus_sharjah",
+        "mode": "intercity_bus",
+        "description": "Intercity bus Dubai - Sharjah, one way",
+        "fare": 12,
+        "provenance": {
+          "kind": "estimated",
+          "source": "RTA intercity bus (curated)",
+          "as_of": "2026-11-15",
+          "note": "RTA Nol fares as publicly listed up to 2025-26; NOT live-verified [verify current fares on rta.ae]."
+        }
+      },
+      {
+        "id": "fare_bus_hatta",
+        "mode": "intercity_bus",
+        "description": "Hatta Express bus Dubai - Hatta, one way",
+        "fare": 25,
+        "provenance": {
+          "kind": "estimated",
+          "source": "RTA intercity bus (curated)",
+          "as_of": "2026-11-15",
+          "note": "RTA Nol fares as publicly listed up to 2025-26; NOT live-verified [verify current fares on rta.ae]."
+        }
+      }
+    ],
+    "speeds": {
+      "walk_kmh": 4.5,
+      "metro_kmh": 35,
+      "taxi_urban_kmh": 28,
+      "taxi_highway_kmh": 80,
+      "road_detour_factor": 1.3,
+      "metro_access_min": 10,
+      "provenance": {
+        "kind": "estimated",
+        "source": "Planning heuristic",
+        "as_of": "2026-11-15",
+        "note": "Average door-to-door speeds; not measured."
+      }
+    },
+    "metro_stations": [
+      {
+        "id": "stn_centrepoint",
+        "name": "Centrepoint",
+        "lines": [
+          "red"
+        ],
+        "location": {
+          "lat": 25.23,
+          "lon": 55.391
+        },
+        "area": "mirdif",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_airport_t3",
+        "name": "Airport Terminal 3",
+        "lines": [
+          "red"
+        ],
+        "location": {
+          "lat": 25.2445,
+          "lon": 55.359
+        },
+        "area": "al_garhoud",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_airport_t1",
+        "name": "Airport Terminal 1",
+        "lines": [
+          "red"
+        ],
+        "location": {
+          "lat": 25.2484,
+          "lon": 55.3527
+        },
+        "area": "al_garhoud",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_ggico",
+        "name": "GGICO",
+        "lines": [
+          "red"
+        ],
+        "location": {
+          "lat": 25.2526,
+          "lon": 55.34
+        },
+        "area": "al_garhoud",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_deira_city_centre",
+        "name": "Deira City Centre",
+        "lines": [
+          "red"
+        ],
+        "location": {
+          "lat": 25.2546,
+          "lon": 55.3302
+        },
+        "area": "deira",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_union",
+        "name": "Union",
+        "lines": [
+          "red",
+          "green"
+        ],
+        "location": {
+          "lat": 25.2665,
+          "lon": 55.3146
+        },
+        "area": "deira",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_burjuman",
+        "name": "BurJuman",
+        "lines": [
+          "red",
+          "green"
+        ],
+        "location": {
+          "lat": 25.2549,
+          "lon": 55.3036
+        },
+        "area": "karama",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_adcb",
+        "name": "ADCB",
+        "lines": [
+          "red"
+        ],
+        "location": {
+          "lat": 25.2447,
+          "lon": 55.2985
+        },
+        "area": "karama",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_max",
+        "name": "Max",
+        "lines": [
+          "red"
+        ],
+        "location": {
+          "lat": 25.2335,
+          "lon": 55.292
+        },
+        "area": "satwa",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_world_trade_centre",
+        "name": "World Trade Centre",
+        "lines": [
+          "red"
+        ],
+        "location": {
+          "lat": 25.2253,
+          "lon": 55.2856
+        },
+        "area": "difc",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_emirates_towers",
+        "name": "Emirates Towers",
+        "lines": [
+          "red"
+        ],
+        "location": {
+          "lat": 25.2177,
+          "lon": 55.2826
+        },
+        "area": "difc",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_financial_centre",
+        "name": "Financial Centre",
+        "lines": [
+          "red"
+        ],
+        "location": {
+          "lat": 25.2112,
+          "lon": 55.2763
+        },
+        "area": "difc",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_burj_khalifa_dubai_mall",
+        "name": "Burj Khalifa/Dubai Mall",
+        "lines": [
+          "red"
+        ],
+        "location": {
+          "lat": 25.2014,
+          "lon": 55.2696
+        },
+        "area": "downtown",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_business_bay",
+        "name": "Business Bay",
+        "lines": [
+          "red"
+        ],
+        "location": {
+          "lat": 25.1912,
+          "lon": 55.2603
+        },
+        "area": "business_bay",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_onpassive",
+        "name": "Onpassive",
+        "lines": [
+          "red"
+        ],
+        "location": {
+          "lat": 25.156,
+          "lon": 55.228
+        },
+        "area": "al_quoz",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_mall_of_the_emirates",
+        "name": "Mall of the Emirates",
+        "lines": [
+          "red"
+        ],
+        "location": {
+          "lat": 25.1213,
+          "lon": 55.2006
+        },
+        "area": "al_barsha",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_mashreq",
+        "name": "Mashreq",
+        "lines": [
+          "red"
+        ],
+        "location": {
+          "lat": 25.115,
+          "lon": 55.19
+        },
+        "area": "al_barsha",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_internet_city",
+        "name": "Dubai Internet City",
+        "lines": [
+          "red"
+        ],
+        "location": {
+          "lat": 25.1014,
+          "lon": 55.1736
+        },
+        "area": null,
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_sobha_realty",
+        "name": "Sobha Realty (Dubai Marina)",
+        "lines": [
+          "red"
+        ],
+        "location": {
+          "lat": 25.0805,
+          "lon": 55.1478
+        },
+        "area": "dubai_marina",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_dmcc",
+        "name": "DMCC",
+        "lines": [
+          "red"
+        ],
+        "location": {
+          "lat": 25.071,
+          "lon": 55.1387
+        },
+        "area": "jlt",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_expo_2020",
+        "name": "Expo 2020",
+        "lines": [
+          "red"
+        ],
+        "location": {
+          "lat": 24.9634,
+          "lon": 55.1475
+        },
+        "area": "expo_city",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_al_ras",
+        "name": "Al Ras",
+        "lines": [
+          "green"
+        ],
+        "location": {
+          "lat": 25.2687,
+          "lon": 55.2946
+        },
+        "area": "deira",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_gold_souk",
+        "name": "Gold Souk",
+        "lines": [
+          "green"
+        ],
+        "location": {
+          "lat": 25.274,
+          "lon": 55.303
+        },
+        "area": "deira",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_baniyas_square",
+        "name": "Baniyas Square",
+        "lines": [
+          "green"
+        ],
+        "location": {
+          "lat": 25.2693,
+          "lon": 55.3086
+        },
+        "area": "deira",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_al_ghubaiba",
+        "name": "Al Ghubaiba",
+        "lines": [
+          "green"
+        ],
+        "location": {
+          "lat": 25.2648,
+          "lon": 55.2885
+        },
+        "area": "bur_dubai",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_sharaf_dg",
+        "name": "Sharaf DG (Al Fahidi)",
+        "lines": [
+          "green"
+        ],
+        "location": {
+          "lat": 25.2582,
+          "lon": 55.2975
+        },
+        "area": "bur_dubai",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_oud_metha",
+        "name": "Oud Metha",
+        "lines": [
+          "green"
+        ],
+        "location": {
+          "lat": 25.238,
+          "lon": 55.317
+        },
+        "area": "karama",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_al_jadaf",
+        "name": "Al Jadaf",
+        "lines": [
+          "green"
+        ],
+        "location": {
+          "lat": 25.2252,
+          "lon": 55.3337
+        },
+        "area": "al_jaddaf",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_creek",
+        "name": "Creek",
+        "lines": [
+          "green"
+        ],
+        "location": {
+          "lat": 25.219,
+          "lon": 55.34
+        },
+        "area": "al_jaddaf",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_tram_palm_jumeirah",
+        "name": "Palm Jumeirah (tram)",
+        "lines": [
+          "tram"
+        ],
+        "location": {
+          "lat": 25.0986,
+          "lon": 55.1561
+        },
+        "area": "dubai_marina",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      },
+      {
+        "id": "stn_tram_jbr",
+        "name": "Jumeirah Beach Residence (tram)",
+        "lines": [
+          "tram"
+        ],
+        "location": {
+          "lat": 25.079,
+          "lon": 55.138
+        },
+        "area": "jbr",
+        "provenance": {
+          "kind": "curated",
+          "source": "Curated metro stations (RTA / OpenStreetMap)",
+          "as_of": "2026-11-15",
+          "note": "Approximate station coordinates; refine from OSM."
+        }
+      }
+    ]
+  }
+}

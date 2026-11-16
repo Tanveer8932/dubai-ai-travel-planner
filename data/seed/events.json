@@ -1,0 +1,232 @@
+{
+  "meta": {
+    "description": "Recurring annual events with typical date windows.",
+    "source": "Official event pages and Visit Dubai (curated)",
+    "as_of": "2026-11-15",
+    "notes": [
+      "Typical annual window; exact dates change every year. Check the organiser's official announcement."
+    ]
+  },
+  "items": [
+    {
+      "id": "evt_dubai_shopping_festival",
+      "name": "Dubai Shopping Festival",
+      "category": "shopping",
+      "start": {
+        "month": 12,
+        "day": 6
+      },
+      "end": {
+        "month": 1,
+        "day": 12
+      },
+      "area": null,
+      "odd_years_only": false,
+      "description": "City-wide sales, concerts, fireworks and raffles.",
+      "provenance": {
+        "kind": "estimated",
+        "source": "Curated event calendar",
+        "as_of": "2026-11-15",
+        "note": "Typical annual window; exact dates change every year. Check the organiser's official announcement."
+      }
+    },
+    {
+      "id": "evt_global_village_season",
+      "name": "Global Village season",
+      "category": "seasonal_attraction",
+      "start": {
+        "month": 10,
+        "day": 15
+      },
+      "end": {
+        "month": 5,
+        "day": 10
+      },
+      "area": "dubailand",
+      "odd_years_only": false,
+      "description": "Seasonal open-air multicultural festival park.",
+      "provenance": {
+        "kind": "estimated",
+        "source": "Curated event calendar",
+        "as_of": "2026-11-15",
+        "note": "Typical annual window; exact dates change every year. Check the organiser's official announcement."
+      }
+    },
+    {
+      "id": "evt_new_years_eve",
+      "name": "New Year's Eve fireworks",
+      "category": "celebration",
+      "start": {
+        "month": 12,
+        "day": 31
+      },
+      "end": {
+        "month": 1,
+        "day": 1
+      },
+      "area": "downtown",
+      "odd_years_only": false,
+      "description": "Fireworks at Burj Khalifa and other landmarks; very crowded.",
+      "provenance": {
+        "kind": "estimated",
+        "source": "Curated event calendar",
+        "as_of": "2026-11-15",
+        "note": "Typical annual window; exact dates change every year. Check the organiser's official announcement."
+      }
+    },
+    {
+      "id": "evt_dubai_fitness_challenge",
+      "name": "Dubai Fitness Challenge",
+      "category": "sport",
+      "start": {
+        "month": 10,
+        "day": 26
+      },
+      "end": {
+        "month": 11,
+        "day": 24
+      },
+      "area": null,
+      "odd_years_only": false,
+      "description": "30x30 city fitness month incl. Dubai Run and Dubai Ride on Sheikh Zayed Rd.",
+      "provenance": {
+        "kind": "estimated",
+        "source": "Curated event calendar",
+        "as_of": "2026-11-15",
+        "note": "Typical annual window; exact dates change every year. Check the organiser's official announcement."
+      }
+    },
+    {
+      "id": "evt_dubai_food_festival",
+      "name": "Dubai Food Festival",
+      "category": "festival",
+      "start": {
+        "month": 4,
+        "day": 20
+      },
+      "end": {
+        "month": 5,
+        "day": 12
+      },
+      "area": null,
+      "odd_years_only": false,
+      "description": "Food events and restaurant-week menus across the city.",
+      "provenance": {
+        "kind": "estimated",
+        "source": "Curated event calendar",
+        "as_of": "2026-11-15",
+        "note": "Typical annual window; exact dates change every year. Check the organiser's official announcement."
+      }
+    },
+    {
+      "id": "evt_dubai_summer_surprises",
+      "name": "Dubai Summer Surprises",
+      "category": "shopping",
+      "start": {
+        "month": 6,
+        "day": 28
+      },
+      "end": {
+        "month": 9,
+        "day": 1
+      },
+      "area": null,
+      "odd_years_only": false,
+      "description": "Summer retail promotions and indoor family entertainment.",
+      "provenance": {
+        "kind": "estimated",
+        "source": "Curated event calendar",
+        "as_of": "2026-11-15",
+        "note": "Typical annual window; exact dates change every year. Check the organiser's official announcement."
+      }
+    },
+    {
+      "id": "evt_dubai_world_cup",
+      "name": "Dubai World Cup (horse racing)",
+      "category": "sport",
+      "start": {
+        "month": 3,
+        "day": 25
+      },
+      "end": {
+        "month": 4,
+        "day": 5
+      },
+      "area": null,
+      "odd_years_only": false,
+      "description": "Richest race meeting, held at Meydan in late March / early April.",
+      "provenance": {
+        "kind": "estimated",
+        "source": "Curated event calendar",
+        "as_of": "2026-11-15",
+        "note": "Typical annual window; exact dates change every year. Check the organiser's official announcement."
+      }
+    },
+    {
+      "id": "evt_art_dubai",
+      "name": "Art Dubai",
+      "category": "culture",
+      "start": {
+        "month": 3,
+        "day": 1
+      },
+      "end": {
+        "month": 4,
+        "day": 30
+      },
+      "area": "umm_suqeim",
+      "odd_years_only": false,
+      "description": "International art fair at Madinat Jumeirah, usually in spring.",
+      "provenance": {
+        "kind": "estimated",
+        "source": "Curated event calendar",
+        "as_of": "2026-11-15",
+        "note": "Typical annual window; exact dates change every year. Check the organiser's official announcement."
+      }
+    },
+    {
+      "id": "evt_dubai_airshow",
+      "name": "Dubai Airshow",
+      "category": "culture",
+      "start": {
+        "month": 11,
+        "day": 10
+      },
+      "end": {
+        "month": 11,
+        "day": 21
+      },
+      "area": null,
+      "odd_years_only": true,
+      "description": "Biennial aerospace show (odd years) at Dubai World Central.",
+      "provenance": {
+        "kind": "estimated",
+        "source": "Curated event calendar",
+        "as_of": "2026-11-15",
+        "note": "Typical annual window; exact dates change every year. Check the organiser's official announcement."
+      }
+    },
+    {
+      "id": "evt_dubai_desert_classic",
+      "name": "Dubai Desert Classic (golf)",
+      "category": "sport",
+      "start": {
+        "month": 1,
+        "day": 15
+      },
+      "end": {
+        "month": 2,
+        "day": 5
+      },
+      "area": null,
+      "odd_years_only": false,
+      "description": "DP World Tour golf event at Emirates Golf Club.",
+      "provenance": {
+        "kind": "estimated",
+        "source": "Curated event calendar",
+        "as_of": "2026-11-15",
+        "note": "Typical annual window; exact dates change every year. Check the organiser's official announcement."
+      }
+    }
+  ]
+}

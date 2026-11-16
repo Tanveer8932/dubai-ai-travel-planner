@@ -1,0 +1,1466 @@
+{
+  "meta": {
+    "description": "Curated hotels across Dubai areas with nightly-rate bands.",
+    "source": "Hotel public listings and Wikipedia (curated)",
+    "as_of": "2026-11-15",
+    "notes": [
+      "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue.",
+      "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking.",
+      "Nightly rates vary strongly by season (peak Dec-Mar, low Jun-Aug)."
+    ]
+  },
+  "items": [
+    {
+      "id": "htl_armani_dubai",
+      "name": "Armani Hotel Dubai",
+      "area": "downtown",
+      "location": {
+        "lat": 25.1972,
+        "lon": 55.2744
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "luxury",
+      "nightly_rate": {
+        "min_aed": 1500,
+        "max_aed": 4000,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Burj Khalifa/Dubai Mall",
+      "amenities": [
+        "spa",
+        "fine dining"
+      ]
+    },
+    {
+      "id": "htl_address_downtown",
+      "name": "Address Downtown",
+      "area": "downtown",
+      "location": {
+        "lat": 25.1937,
+        "lon": 55.2793
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "luxury",
+      "nightly_rate": {
+        "min_aed": 1000,
+        "max_aed": 3000,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Burj Khalifa/Dubai Mall",
+      "amenities": [
+        "pool",
+        "fountain views"
+      ]
+    },
+    {
+      "id": "htl_palace_downtown",
+      "name": "Palace Downtown",
+      "area": "downtown",
+      "location": {
+        "lat": 25.195,
+        "lon": 55.277
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "luxury",
+      "nightly_rate": {
+        "min_aed": 900,
+        "max_aed": 2500,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Burj Khalifa/Dubai Mall",
+      "amenities": [
+        "pool",
+        "spa"
+      ]
+    },
+    {
+      "id": "htl_vida_downtown",
+      "name": "Vida Downtown",
+      "area": "downtown",
+      "location": {
+        "lat": 25.191,
+        "lon": 55.283
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 4,
+      "price_band": "premium",
+      "nightly_rate": {
+        "min_aed": 600,
+        "max_aed": 1200,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Burj Khalifa/Dubai Mall",
+      "amenities": [
+        "pool"
+      ]
+    },
+    {
+      "id": "htl_rove_downtown",
+      "name": "Rove Downtown",
+      "area": "downtown",
+      "location": {
+        "lat": 25.1906,
+        "lon": 55.2842
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 3,
+      "price_band": "budget",
+      "nightly_rate": {
+        "min_aed": 300,
+        "max_aed": 550,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Burj Khalifa/Dubai Mall",
+      "amenities": [
+        "pool",
+        "24h cafe"
+      ]
+    },
+    {
+      "id": "htl_sofitel_downtown",
+      "name": "Sofitel Dubai Downtown",
+      "area": "downtown",
+      "location": {
+        "lat": 25.2005,
+        "lon": 55.2709
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "premium",
+      "nightly_rate": {
+        "min_aed": 600,
+        "max_aed": 1300,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Burj Khalifa/Dubai Mall",
+      "amenities": [
+        "pool",
+        "spa"
+      ]
+    },
+    {
+      "id": "htl_jw_marriott_marquis",
+      "name": "JW Marriott Marquis Hotel Dubai",
+      "area": "business_bay",
+      "location": {
+        "lat": 25.1856,
+        "lon": 55.2575
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "premium",
+      "nightly_rate": {
+        "min_aed": 500,
+        "max_aed": 1200,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Business Bay",
+      "amenities": [
+        "pool",
+        "many restaurants"
+      ]
+    },
+    {
+      "id": "htl_oberoi_dubai",
+      "name": "The Oberoi Dubai",
+      "area": "business_bay",
+      "location": {
+        "lat": 25.188,
+        "lon": 55.265
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "premium",
+      "nightly_rate": {
+        "min_aed": 700,
+        "max_aed": 1500,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Business Bay",
+      "amenities": [
+        "pool",
+        "spa"
+      ]
+    },
+    {
+      "id": "htl_taj_dubai",
+      "name": "Taj Dubai",
+      "area": "business_bay",
+      "location": {
+        "lat": 25.1906,
+        "lon": 55.2712
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "premium",
+      "nightly_rate": {
+        "min_aed": 600,
+        "max_aed": 1300,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Burj Khalifa/Dubai Mall",
+      "amenities": [
+        "pool",
+        "spa"
+      ]
+    },
+    {
+      "id": "htl_jumeirah_emirates_towers",
+      "name": "Jumeirah Emirates Towers",
+      "area": "difc",
+      "location": {
+        "lat": 25.2175,
+        "lon": 55.2826
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "premium",
+      "nightly_rate": {
+        "min_aed": 700,
+        "max_aed": 1500,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Emirates Towers",
+      "amenities": [
+        "pool",
+        "business"
+      ]
+    },
+    {
+      "id": "htl_four_seasons_difc",
+      "name": "Four Seasons Hotel DIFC",
+      "area": "difc",
+      "location": {
+        "lat": 25.2125,
+        "lon": 55.2805
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "luxury",
+      "nightly_rate": {
+        "min_aed": 1200,
+        "max_aed": 2800,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Financial Centre",
+      "amenities": [
+        "spa",
+        "fine dining"
+      ]
+    },
+    {
+      "id": "htl_rove_trade_centre",
+      "name": "Rove Trade Centre",
+      "area": "difc",
+      "location": {
+        "lat": 25.227,
+        "lon": 55.286
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 3,
+      "price_band": "budget",
+      "nightly_rate": {
+        "min_aed": 280,
+        "max_aed": 500,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "World Trade Centre",
+      "amenities": [
+        "pool"
+      ]
+    },
+    {
+      "id": "htl_al_seef_heritage",
+      "name": "Al Seef Heritage Hotel Dubai, Curio Collection",
+      "area": "bur_dubai",
+      "location": {
+        "lat": 25.2605,
+        "lon": 55.304
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 4,
+      "price_band": "mid",
+      "nightly_rate": {
+        "min_aed": 400,
+        "max_aed": 900,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Sharaf DG (Al Fahidi)",
+      "amenities": [
+        "heritage",
+        "creek views"
+      ]
+    },
+    {
+      "id": "htl_xva_art_hotel",
+      "name": "XVA Art Hotel",
+      "area": "bur_dubai",
+      "location": {
+        "lat": 25.264,
+        "lon": 55.3
+      },
+      "family_friendly": false,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 3,
+      "price_band": "mid",
+      "nightly_rate": {
+        "min_aed": 350,
+        "max_aed": 700,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Sharaf DG (Al Fahidi)",
+      "amenities": [
+        "boutique",
+        "gallery"
+      ]
+    },
+    {
+      "id": "htl_arabian_courtyard",
+      "name": "Arabian Courtyard Hotel & Spa",
+      "area": "bur_dubai",
+      "location": {
+        "lat": 25.262,
+        "lon": 55.296
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 4,
+      "price_band": "mid",
+      "nightly_rate": {
+        "min_aed": 300,
+        "max_aed": 600,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Al Ghubaiba",
+      "amenities": [
+        "pool",
+        "spa"
+      ]
+    },
+    {
+      "id": "htl_four_points_bur_dubai",
+      "name": "Four Points by Sheraton Bur Dubai",
+      "area": "bur_dubai",
+      "location": {
+        "lat": 25.255,
+        "lon": 55.293
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 4,
+      "price_band": "mid",
+      "nightly_rate": {
+        "min_aed": 300,
+        "max_aed": 600,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "BurJuman",
+      "amenities": [
+        "pool"
+      ]
+    },
+    {
+      "id": "htl_hyatt_regency_deira",
+      "name": "Hyatt Regency Dubai (Deira Corniche)",
+      "area": "deira",
+      "location": {
+        "lat": 25.2797,
+        "lon": 55.306
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "mid",
+      "nightly_rate": {
+        "min_aed": 450,
+        "max_aed": 900,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Gold Souk",
+      "amenities": [
+        "pool",
+        "sea views"
+      ]
+    },
+    {
+      "id": "htl_radisson_blu_deira_creek",
+      "name": "Radisson Blu Hotel, Dubai Deira Creek",
+      "area": "deira",
+      "location": {
+        "lat": 25.264,
+        "lon": 55.31
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "mid",
+      "nightly_rate": {
+        "min_aed": 400,
+        "max_aed": 800,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Union",
+      "amenities": [
+        "pool",
+        "creek views"
+      ]
+    },
+    {
+      "id": "htl_sheraton_dubai_creek",
+      "name": "Sheraton Dubai Creek Hotel",
+      "area": "deira",
+      "location": {
+        "lat": 25.261,
+        "lon": 55.316
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "mid",
+      "nightly_rate": {
+        "min_aed": 400,
+        "max_aed": 800,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Union",
+      "amenities": [
+        "pool",
+        "creek views"
+      ]
+    },
+    {
+      "id": "htl_premier_inn_airport",
+      "name": "Premier Inn Dubai International Airport",
+      "area": "al_garhoud",
+      "location": {
+        "lat": 25.245,
+        "lon": 55.346
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 3,
+      "price_band": "budget",
+      "nightly_rate": {
+        "min_aed": 250,
+        "max_aed": 450,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Airport Terminal 1",
+      "amenities": [
+        "pool"
+      ]
+    },
+    {
+      "id": "htl_park_hyatt_dubai",
+      "name": "Park Hyatt Dubai",
+      "area": "al_garhoud",
+      "location": {
+        "lat": 25.243,
+        "lon": 55.333
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "luxury",
+      "nightly_rate": {
+        "min_aed": 900,
+        "max_aed": 2000,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "GGICO",
+      "amenities": [
+        "spa",
+        "creek marina"
+      ]
+    },
+    {
+      "id": "htl_burj_al_arab",
+      "name": "Burj Al Arab Jumeirah",
+      "area": "umm_suqeim",
+      "location": {
+        "lat": 25.1412,
+        "lon": 55.1853
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "luxury",
+      "nightly_rate": {
+        "min_aed": 4000,
+        "max_aed": 12000,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": null,
+      "amenities": [
+        "butler",
+        "beach"
+      ]
+    },
+    {
+      "id": "htl_jumeirah_beach_hotel",
+      "name": "Jumeirah Beach Hotel",
+      "area": "umm_suqeim",
+      "location": {
+        "lat": 25.141,
+        "lon": 55.191
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "luxury",
+      "nightly_rate": {
+        "min_aed": 1200,
+        "max_aed": 3000,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": null,
+      "amenities": [
+        "beach",
+        "kids club"
+      ]
+    },
+    {
+      "id": "htl_jumeirah_al_qasr",
+      "name": "Jumeirah Al Qasr",
+      "area": "umm_suqeim",
+      "location": {
+        "lat": 25.131,
+        "lon": 55.183
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "luxury",
+      "nightly_rate": {
+        "min_aed": 1500,
+        "max_aed": 3500,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": null,
+      "amenities": [
+        "beach",
+        "Madinat access"
+      ]
+    },
+    {
+      "id": "htl_mina_a_salam",
+      "name": "Jumeirah Mina A'Salam",
+      "area": "umm_suqeim",
+      "location": {
+        "lat": 25.133,
+        "lon": 55.188
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "luxury",
+      "nightly_rate": {
+        "min_aed": 1200,
+        "max_aed": 3000,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": null,
+      "amenities": [
+        "beach",
+        "Madinat access"
+      ]
+    },
+    {
+      "id": "htl_four_seasons_jumeirah",
+      "name": "Four Seasons Resort Dubai at Jumeirah Beach",
+      "area": "jumeirah",
+      "location": {
+        "lat": 25.203,
+        "lon": 55.244
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "luxury",
+      "nightly_rate": {
+        "min_aed": 1800,
+        "max_aed": 4500,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": null,
+      "amenities": [
+        "beach",
+        "spa"
+      ]
+    },
+    {
+      "id": "htl_kempinski_moe",
+      "name": "Kempinski Hotel Mall of the Emirates",
+      "area": "al_barsha",
+      "location": {
+        "lat": 25.118,
+        "lon": 55.199
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "premium",
+      "nightly_rate": {
+        "min_aed": 700,
+        "max_aed": 1500,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Mall of the Emirates",
+      "amenities": [
+        "ski chalets",
+        "pool"
+      ]
+    },
+    {
+      "id": "htl_sheraton_moe",
+      "name": "Sheraton Mall of the Emirates",
+      "area": "al_barsha",
+      "location": {
+        "lat": 25.119,
+        "lon": 55.201
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "premium",
+      "nightly_rate": {
+        "min_aed": 500,
+        "max_aed": 1100,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Mall of the Emirates",
+      "amenities": [
+        "pool"
+      ]
+    },
+    {
+      "id": "htl_novotel_al_barsha",
+      "name": "Novotel Dubai Al Barsha",
+      "area": "al_barsha",
+      "location": {
+        "lat": 25.113,
+        "lon": 55.192
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 4,
+      "price_band": "mid",
+      "nightly_rate": {
+        "min_aed": 300,
+        "max_aed": 600,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Mashreq",
+      "amenities": [
+        "pool"
+      ]
+    },
+    {
+      "id": "htl_ibis_moe",
+      "name": "ibis Mall of the Emirates",
+      "area": "al_barsha",
+      "location": {
+        "lat": 25.116,
+        "lon": 55.196
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 3,
+      "price_band": "budget",
+      "nightly_rate": {
+        "min_aed": 200,
+        "max_aed": 400,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Mall of the Emirates",
+      "amenities": []
+    },
+    {
+      "id": "htl_grosvenor_house",
+      "name": "Grosvenor House Dubai",
+      "area": "dubai_marina",
+      "location": {
+        "lat": 25.087,
+        "lon": 55.146
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "premium",
+      "nightly_rate": {
+        "min_aed": 700,
+        "max_aed": 1500,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Sobha Realty",
+      "amenities": [
+        "pool",
+        "beach access"
+      ]
+    },
+    {
+      "id": "htl_address_dubai_marina",
+      "name": "Address Dubai Marina",
+      "area": "dubai_marina",
+      "location": {
+        "lat": 25.078,
+        "lon": 55.14
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "premium",
+      "nightly_rate": {
+        "min_aed": 700,
+        "max_aed": 1500,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Sobha Realty",
+      "amenities": [
+        "pool"
+      ]
+    },
+    {
+      "id": "htl_rove_dubai_marina",
+      "name": "Rove Dubai Marina",
+      "area": "dubai_marina",
+      "location": {
+        "lat": 25.085,
+        "lon": 55.144
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 3,
+      "price_band": "budget",
+      "nightly_rate": {
+        "min_aed": 300,
+        "max_aed": 550,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Sobha Realty",
+      "amenities": [
+        "pool"
+      ]
+    },
+    {
+      "id": "htl_hilton_the_walk",
+      "name": "Hilton Dubai The Walk",
+      "area": "jbr",
+      "location": {
+        "lat": 25.079,
+        "lon": 55.134
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 4,
+      "price_band": "mid",
+      "nightly_rate": {
+        "min_aed": 500,
+        "max_aed": 1000,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Sobha Realty",
+      "amenities": [
+        "beach access",
+        "pool"
+      ]
+    },
+    {
+      "id": "htl_ja_ocean_view",
+      "name": "JA Ocean View Hotel",
+      "area": "jbr",
+      "location": {
+        "lat": 25.08,
+        "lon": 55.135
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 4,
+      "price_band": "mid",
+      "nightly_rate": {
+        "min_aed": 500,
+        "max_aed": 1000,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Sobha Realty",
+      "amenities": [
+        "beachfront",
+        "pool"
+      ]
+    },
+    {
+      "id": "htl_rixos_premium_jbr",
+      "name": "Rixos Premium Dubai JBR",
+      "area": "jbr",
+      "location": {
+        "lat": 25.0745,
+        "lon": 55.13
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "premium",
+      "nightly_rate": {
+        "min_aed": 800,
+        "max_aed": 1800,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "DMCC",
+      "amenities": [
+        "beach",
+        "pool"
+      ]
+    },
+    {
+      "id": "htl_amwaj_rotana",
+      "name": "Amwaj Rotana",
+      "area": "jbr",
+      "location": {
+        "lat": 25.077,
+        "lon": 55.132
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "premium",
+      "nightly_rate": {
+        "min_aed": 600,
+        "max_aed": 1200,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": "Sobha Realty",
+      "amenities": [
+        "beach access",
+        "pool"
+      ]
+    },
+    {
+      "id": "htl_atlantis_the_palm",
+      "name": "Atlantis The Palm",
+      "area": "palm_jumeirah",
+      "location": {
+        "lat": 25.1304,
+        "lon": 55.1171
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "luxury",
+      "nightly_rate": {
+        "min_aed": 1500,
+        "max_aed": 4000,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": null,
+      "amenities": [
+        "waterpark access",
+        "aquarium",
+        "beach"
+      ]
+    },
+    {
+      "id": "htl_atlantis_the_royal",
+      "name": "Atlantis The Royal",
+      "area": "palm_jumeirah",
+      "location": {
+        "lat": 25.138,
+        "lon": 55.129
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "luxury",
+      "nightly_rate": {
+        "min_aed": 3000,
+        "max_aed": 8000,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": null,
+      "amenities": [
+        "beach",
+        "fine dining"
+      ]
+    },
+    {
+      "id": "htl_one_and_only_the_palm",
+      "name": "One&Only The Palm",
+      "area": "palm_jumeirah",
+      "location": {
+        "lat": 25.104,
+        "lon": 55.155
+      },
+      "family_friendly": false,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "luxury",
+      "nightly_rate": {
+        "min_aed": 3000,
+        "max_aed": 7000,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": null,
+      "amenities": [
+        "beach",
+        "adults-oriented"
+      ]
+    },
+    {
+      "id": "htl_five_palm",
+      "name": "FIVE Palm Jumeirah",
+      "area": "palm_jumeirah",
+      "location": {
+        "lat": 25.103,
+        "lon": 55.148
+      },
+      "family_friendly": false,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "premium",
+      "nightly_rate": {
+        "min_aed": 900,
+        "max_aed": 2000,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": null,
+      "amenities": [
+        "beach",
+        "nightlife"
+      ]
+    },
+    {
+      "id": "htl_jumeirah_zabeel_saray",
+      "name": "Jumeirah Zabeel Saray",
+      "area": "palm_jumeirah",
+      "location": {
+        "lat": 25.099,
+        "lon": 55.121
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "luxury",
+      "nightly_rate": {
+        "min_aed": 1200,
+        "max_aed": 3000,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": null,
+      "amenities": [
+        "beach",
+        "spa"
+      ]
+    },
+    {
+      "id": "htl_anantara_the_palm",
+      "name": "Anantara The Palm Dubai Resort",
+      "area": "palm_jumeirah",
+      "location": {
+        "lat": 25.127,
+        "lon": 55.155
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "stars": 5,
+      "price_band": "luxury",
+      "nightly_rate": {
+        "min_aed": 1000,
+        "max_aed": 2500,
+        "unit": "per_room_night",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated nightly-rate band (double room, varies by season)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "nearest_metro": null,
+      "amenities": [
+        "beach",
+        "lagoon pools"
+      ]
+    }
+  ]
+}

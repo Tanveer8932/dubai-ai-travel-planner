@@ -1,0 +1,2700 @@
+{
+  "meta": {
+    "description": "Curated Dubai attractions (plus Abu Dhabi / Sharjah / Hatta day trips).",
+    "source": "Visit Dubai, Wikipedia, OpenStreetMap (curated)",
+    "as_of": "2026-11-15",
+    "notes": [
+      "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue.",
+      "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking.",
+      "wheelchair_accessible=null means unknown, not inaccessible."
+    ],
+    "licence": "Facts curated from public sources; OSM-derived data ODbL"
+  },
+  "items": [
+    {
+      "id": "att_burj_khalifa_at_the_top",
+      "name": "Burj Khalifa — At the Top",
+      "area": "downtown",
+      "location": {
+        "lat": 25.1972,
+        "lon": 55.2744
+      },
+      "description": "Observation decks on levels 124-125 (and 148 premium).",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "views",
+        "iconic"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "landmark",
+      "indoor": true,
+      "typical_duration_min": 90,
+      "price": {
+        "min_aed": 160,
+        "max_aed": 400,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": true,
+      "day_trip": false
+    },
+    {
+      "id": "att_dubai_mall",
+      "name": "The Dubai Mall",
+      "area": "downtown",
+      "location": {
+        "lat": 25.1985,
+        "lon": 55.2796
+      },
+      "description": "One of the world's largest malls.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "shopping",
+        "indoor",
+        "heat refuge"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "shopping",
+      "indoor": true,
+      "typical_duration_min": 180,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "afternoon",
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false,
+      "opening_hours": {
+        "open": "10:00",
+        "close": "00:00"
+      }
+    },
+    {
+      "id": "att_dubai_fountain",
+      "name": "Dubai Fountain show",
+      "area": "downtown",
+      "location": {
+        "lat": 25.1956,
+        "lon": 55.2753
+      },
+      "description": "Choreographed fountain shows every 30 min in the evening.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "free",
+        "evening"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "entertainment",
+      "indoor": false,
+      "typical_duration_min": 30,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false,
+      "opening_hours": {
+        "open": "18:00",
+        "close": "23:00"
+      }
+    },
+    {
+      "id": "att_dubai_aquarium",
+      "name": "Dubai Aquarium & Underwater Zoo",
+      "area": "downtown",
+      "location": {
+        "lat": 25.1975,
+        "lon": 55.279
+      },
+      "description": "Large aquarium tank and walk-through tunnel.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "family",
+        "indoor"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "entertainment",
+      "indoor": true,
+      "typical_duration_min": 120,
+      "price": {
+        "min_aed": 150,
+        "max_aed": 300,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_dubai_opera",
+      "name": "Dubai Opera (performance)",
+      "area": "downtown",
+      "location": {
+        "lat": 25.1944,
+        "lon": 55.2717
+      },
+      "description": "Dhow-shaped opera house hosting concerts and shows.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "performing arts"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "culture",
+      "indoor": true,
+      "typical_duration_min": 150,
+      "price": {
+        "min_aed": 150,
+        "max_aed": 1000,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": true,
+      "day_trip": false
+    },
+    {
+      "id": "att_souk_al_bahar",
+      "name": "Souk Al Bahar",
+      "area": "downtown",
+      "location": {
+        "lat": 25.194,
+        "lon": 55.277
+      },
+      "description": "Arabesque mall with fountain-view terraces.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "souk-style mall"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "shopping",
+      "indoor": true,
+      "typical_duration_min": 60,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_museum_of_the_future",
+      "name": "Museum of the Future",
+      "area": "difc",
+      "location": {
+        "lat": 25.2192,
+        "lon": 55.2816
+      },
+      "description": "Futuristic exhibitions in a torus building.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "architecture",
+        "technology"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "museum",
+      "indoor": true,
+      "typical_duration_min": 120,
+      "price": {
+        "min_aed": 149,
+        "max_aed": 169,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": true,
+      "day_trip": false,
+      "opening_hours": {
+        "open": "10:00",
+        "close": "21:30"
+      }
+    },
+    {
+      "id": "att_dubai_frame",
+      "name": "Dubai Frame",
+      "area": "karama",
+      "location": {
+        "lat": 25.2354,
+        "lon": 55.3004
+      },
+      "description": "150 m picture-frame tower in Zabeel Park, old vs new Dubai views.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "views",
+        "history"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "landmark",
+      "indoor": true,
+      "typical_duration_min": 60,
+      "price": {
+        "min_aed": 50,
+        "max_aed": 60,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false,
+      "opening_hours": {
+        "open": "09:00",
+        "close": "21:00"
+      }
+    },
+    {
+      "id": "att_zabeel_park",
+      "name": "Zabeel Park",
+      "area": "karama",
+      "location": {
+        "lat": 25.234,
+        "lon": 55.299
+      },
+      "description": "Large city park with lawns, playgrounds and a lake.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "park",
+        "family"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "park",
+      "indoor": false,
+      "typical_duration_min": 90,
+      "price": {
+        "min_aed": 5,
+        "max_aed": 5,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_al_fahidi",
+      "name": "Al Fahidi Historical Neighbourhood",
+      "area": "bur_dubai",
+      "location": {
+        "lat": 25.2635,
+        "lon": 55.299
+      },
+      "description": "Restored wind-tower houses, galleries and lanes.",
+      "family_friendly": true,
+      "wheelchair_accessible": null,
+      "tags": [
+        "heritage",
+        "walking",
+        "free"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "culture",
+      "indoor": false,
+      "typical_duration_min": 90,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_abra_creek_crossing",
+      "name": "Abra ride across Dubai Creek",
+      "area": "bur_dubai",
+      "location": {
+        "lat": 25.2636,
+        "lon": 55.297
+      },
+      "description": "Traditional wooden water-taxi between Bur Dubai and Deira.",
+      "family_friendly": true,
+      "wheelchair_accessible": null,
+      "tags": [
+        "boat",
+        "budget",
+        "heritage"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "cruise",
+      "indoor": false,
+      "typical_duration_min": 20,
+      "price": {
+        "min_aed": 1,
+        "max_aed": 2,
+        "unit": "per_trip",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_al_shindagha_museum",
+      "name": "Al Shindagha Museum",
+      "area": "bur_dubai",
+      "location": {
+        "lat": 25.2685,
+        "lon": 55.2905
+      },
+      "description": "Museum of Dubai's creek heritage in the Shindagha district.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "history",
+        "heat refuge"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "museum",
+      "indoor": true,
+      "typical_duration_min": 90,
+      "price": {
+        "min_aed": 15,
+        "max_aed": 20,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_coffee_museum",
+      "name": "Coffee Museum",
+      "area": "bur_dubai",
+      "location": {
+        "lat": 25.2636,
+        "lon": 55.3005
+      },
+      "description": "Small museum on Arabic and world coffee traditions.",
+      "family_friendly": true,
+      "wheelchair_accessible": null,
+      "tags": [
+        "coffee",
+        "small"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "museum",
+      "indoor": true,
+      "typical_duration_min": 45,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 20,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_smccu_cultural_meal",
+      "name": "SMCCU cultural meal & talk",
+      "area": "bur_dubai",
+      "location": {
+        "lat": 25.2638,
+        "lon": 55.2995
+      },
+      "description": "Sheikh Mohammed Centre for Cultural Understanding: Emirati meal and Q&A.",
+      "family_friendly": true,
+      "wheelchair_accessible": null,
+      "tags": [
+        "emirati culture",
+        "food"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "culture",
+      "indoor": true,
+      "typical_duration_min": 90,
+      "price": {
+        "min_aed": 90,
+        "max_aed": 150,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": true,
+      "day_trip": false
+    },
+    {
+      "id": "att_al_seef",
+      "name": "Al Seef creekside promenade",
+      "area": "bur_dubai",
+      "location": {
+        "lat": 25.262,
+        "lon": 55.303
+      },
+      "description": "Heritage-style creekside promenade with cafes and shops.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "waterfront",
+        "free"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "culture",
+      "indoor": false,
+      "typical_duration_min": 90,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_gold_souk",
+      "name": "Deira Gold Souk",
+      "area": "deira",
+      "location": {
+        "lat": 25.2697,
+        "lon": 55.2967
+      },
+      "description": "Covered market lanes with hundreds of gold retailers.",
+      "family_friendly": true,
+      "wheelchair_accessible": null,
+      "tags": [
+        "souk",
+        "free"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "market",
+      "indoor": false,
+      "typical_duration_min": 60,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false,
+      "opening_hours": {
+        "open": "10:00",
+        "close": "22:00"
+      }
+    },
+    {
+      "id": "att_spice_souk",
+      "name": "Deira Spice Souk",
+      "area": "deira",
+      "location": {
+        "lat": 25.2683,
+        "lon": 55.2972
+      },
+      "description": "Traditional spice, herb and incense stalls by the creek.",
+      "family_friendly": true,
+      "wheelchair_accessible": null,
+      "tags": [
+        "souk",
+        "free"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "market",
+      "indoor": false,
+      "typical_duration_min": 45,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_deira_waterfront_market",
+      "name": "Waterfront Market (Deira)",
+      "area": "deira",
+      "location": {
+        "lat": 25.278,
+        "lon": 55.326
+      },
+      "description": "Modern fish, meat and produce market.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "fish market",
+        "local life"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "market",
+      "indoor": true,
+      "typical_duration_min": 60,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_al_mamzar_beach",
+      "name": "Al Mamzar Beach Park",
+      "area": "deira",
+      "location": {
+        "lat": 25.306,
+        "lon": 55.348
+      },
+      "description": "Beach park with lawns and calm swimming areas.",
+      "family_friendly": true,
+      "wheelchair_accessible": null,
+      "tags": [
+        "beach",
+        "budget"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "beach",
+      "indoor": false,
+      "typical_duration_min": 180,
+      "price": {
+        "min_aed": 5,
+        "max_aed": 5,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_etihad_museum",
+      "name": "Etihad Museum",
+      "area": "jumeirah",
+      "location": {
+        "lat": 25.2387,
+        "lon": 55.2694
+      },
+      "description": "Museum on the 1971 founding of the UAE.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "history",
+        "heat refuge"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "museum",
+      "indoor": true,
+      "typical_duration_min": 90,
+      "price": {
+        "min_aed": 25,
+        "max_aed": 25,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_la_mer",
+      "name": "La Mer beachfront",
+      "area": "jumeirah",
+      "location": {
+        "lat": 25.23,
+        "lon": 55.253
+      },
+      "description": "Beachfront with cafes, street art and calm water.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "beach",
+        "free"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "beach",
+      "indoor": false,
+      "typical_duration_min": 150,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_city_walk",
+      "name": "City Walk",
+      "area": "jumeirah",
+      "location": {
+        "lat": 25.207,
+        "lon": 55.262
+      },
+      "description": "Open-air shopping and dining streets.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "outdoor mall"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "shopping",
+      "indoor": false,
+      "typical_duration_min": 90,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_green_planet",
+      "name": "The Green Planet",
+      "area": "jumeirah",
+      "location": {
+        "lat": 25.2135,
+        "lon": 55.256
+      },
+      "description": "Indoor tropical rainforest bio-dome.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "family",
+        "indoor rainforest"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "nature",
+      "indoor": true,
+      "typical_duration_min": 90,
+      "price": {
+        "min_aed": 140,
+        "max_aed": 175,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_kite_beach",
+      "name": "Kite Beach",
+      "area": "umm_suqeim",
+      "location": {
+        "lat": 25.159,
+        "lon": 55.198
+      },
+      "description": "Long public beach with food trucks and Burj Al Arab views.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "beach",
+        "free"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "beach",
+      "indoor": false,
+      "typical_duration_min": 120,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_sunset_beach",
+      "name": "Sunset Beach (Umm Suqeim)",
+      "area": "umm_suqeim",
+      "location": {
+        "lat": 25.1435,
+        "lon": 55.19
+      },
+      "description": "Public beach with classic Burj Al Arab views.",
+      "family_friendly": true,
+      "wheelchair_accessible": null,
+      "tags": [
+        "beach",
+        "photo spot"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "beach",
+      "indoor": false,
+      "typical_duration_min": 90,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_burj_al_arab_tour",
+      "name": "Inside Burj Al Arab tour",
+      "area": "umm_suqeim",
+      "location": {
+        "lat": 25.1412,
+        "lon": 55.1853
+      },
+      "description": "Guided tour of the sail-shaped hotel's interiors.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "luxury",
+        "iconic"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "landmark",
+      "indoor": true,
+      "typical_duration_min": 90,
+      "price": {
+        "min_aed": 299,
+        "max_aed": 399,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": true,
+      "day_trip": false
+    },
+    {
+      "id": "att_souk_madinat_jumeirah",
+      "name": "Souk Madinat Jumeirah",
+      "area": "umm_suqeim",
+      "location": {
+        "lat": 25.133,
+        "lon": 55.1848
+      },
+      "description": "Arabian-style souk among canals and restaurants.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "souk-style",
+        "dining"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "shopping",
+      "indoor": true,
+      "typical_duration_min": 90,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false,
+      "opening_hours": {
+        "open": "10:00",
+        "close": "23:00"
+      }
+    },
+    {
+      "id": "att_alserkal_avenue",
+      "name": "Alserkal Avenue galleries",
+      "area": "al_quoz",
+      "location": {
+        "lat": 25.143,
+        "lon": 55.225
+      },
+      "description": "Warehouse arts district with galleries and cafes.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "contemporary art",
+        "free"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "art",
+      "indoor": true,
+      "typical_duration_min": 90,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_mall_of_the_emirates",
+      "name": "Mall of the Emirates",
+      "area": "al_barsha",
+      "location": {
+        "lat": 25.1181,
+        "lon": 55.2006
+      },
+      "description": "Major mall home to Ski Dubai.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "shopping",
+        "heat refuge"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "shopping",
+      "indoor": true,
+      "typical_duration_min": 150,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "afternoon",
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false,
+      "opening_hours": {
+        "open": "10:00",
+        "close": "00:00"
+      }
+    },
+    {
+      "id": "att_ski_dubai",
+      "name": "Ski Dubai",
+      "area": "al_barsha",
+      "location": {
+        "lat": 25.1176,
+        "lon": 55.199
+      },
+      "description": "Indoor ski slope and snow park.",
+      "family_friendly": true,
+      "wheelchair_accessible": null,
+      "tags": [
+        "snow",
+        "family",
+        "heat refuge"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "adventure",
+      "indoor": true,
+      "typical_duration_min": 150,
+      "price": {
+        "min_aed": 200,
+        "max_aed": 450,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": true,
+      "day_trip": false,
+      "opening_hours": {
+        "open": "10:00",
+        "close": "23:00"
+      }
+    },
+    {
+      "id": "att_dubai_marina_walk",
+      "name": "Dubai Marina Walk",
+      "area": "dubai_marina",
+      "location": {
+        "lat": 25.08,
+        "lon": 55.14
+      },
+      "description": "Promenade around the marina lined with restaurants.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "waterfront",
+        "free"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "landmark",
+      "indoor": false,
+      "typical_duration_min": 90,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_marina_dhow_cruise",
+      "name": "Dubai Marina dhow dinner cruise",
+      "area": "dubai_marina",
+      "location": {
+        "lat": 25.077,
+        "lon": 55.139
+      },
+      "description": "Evening cruise on a traditional dhow with buffet.",
+      "family_friendly": true,
+      "wheelchair_accessible": null,
+      "tags": [
+        "cruise",
+        "dinner"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "cruise",
+      "indoor": false,
+      "typical_duration_min": 120,
+      "price": {
+        "min_aed": 150,
+        "max_aed": 300,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": true,
+      "day_trip": false
+    },
+    {
+      "id": "att_jbr_beach",
+      "name": "JBR The Beach & The Walk",
+      "area": "jbr",
+      "location": {
+        "lat": 25.078,
+        "lon": 55.134
+      },
+      "description": "Popular beach and promenade with shops and restaurants.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "beach",
+        "free"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "beach",
+      "indoor": false,
+      "typical_duration_min": 150,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_bluewaters_island",
+      "name": "Bluewaters Island",
+      "area": "jbr",
+      "location": {
+        "lat": 25.08,
+        "lon": 55.122
+      },
+      "description": "Island off JBR with promenade, shops and dining.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "waterfront",
+        "free"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "landmark",
+      "indoor": false,
+      "typical_duration_min": 60,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_skydive_dubai_palm",
+      "name": "Skydive Dubai (Palm Drop Zone)",
+      "area": "dubai_marina",
+      "location": {
+        "lat": 25.09,
+        "lon": 55.136
+      },
+      "description": "Tandem skydive over Palm Jumeirah.",
+      "family_friendly": false,
+      "wheelchair_accessible": null,
+      "tags": [
+        "adrenaline"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "adventure",
+      "indoor": false,
+      "typical_duration_min": 180,
+      "price": {
+        "min_aed": 2000,
+        "max_aed": 2300,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning"
+      ],
+      "seasonal_months": [],
+      "requires_booking": true,
+      "day_trip": false
+    },
+    {
+      "id": "att_aquaventure",
+      "name": "Aquaventure Waterpark",
+      "area": "palm_jumeirah",
+      "location": {
+        "lat": 25.1335,
+        "lon": 55.1196
+      },
+      "description": "Large waterpark at Atlantis The Palm.",
+      "family_friendly": true,
+      "wheelchair_accessible": null,
+      "tags": [
+        "water park",
+        "family"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "water_park",
+      "indoor": false,
+      "typical_duration_min": 300,
+      "price": {
+        "min_aed": 300,
+        "max_aed": 420,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_lost_chambers",
+      "name": "The Lost Chambers Aquarium",
+      "area": "palm_jumeirah",
+      "location": {
+        "lat": 25.1305,
+        "lon": 55.117
+      },
+      "description": "Atlantis-themed aquarium labyrinth.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "aquarium",
+        "family",
+        "heat refuge"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "entertainment",
+      "indoor": true,
+      "typical_duration_min": 90,
+      "price": {
+        "min_aed": 130,
+        "max_aed": 180,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_view_at_the_palm",
+      "name": "The View at The Palm",
+      "area": "palm_jumeirah",
+      "location": {
+        "lat": 25.1121,
+        "lon": 55.139
+      },
+      "description": "Observation deck on level 52 of The Palm Tower.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "views"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "landmark",
+      "indoor": true,
+      "typical_duration_min": 60,
+      "price": {
+        "min_aed": 100,
+        "max_aed": 160,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "afternoon",
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_palm_boardwalk",
+      "name": "Palm West Beach & Boardwalk",
+      "area": "palm_jumeirah",
+      "location": {
+        "lat": 25.115,
+        "lon": 55.133
+      },
+      "description": "Beachfront promenade along the Palm's crescent and trunk.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "promenade",
+        "free"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "beach",
+      "indoor": false,
+      "typical_duration_min": 60,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_global_village",
+      "name": "Global Village",
+      "area": "dubailand",
+      "location": {
+        "lat": 25.07,
+        "lon": 55.308
+      },
+      "description": "Seasonal open-air festival park with country pavilions and street food.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "family",
+        "culture",
+        "food",
+        "seasonal"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "entertainment",
+      "indoor": false,
+      "typical_duration_min": 180,
+      "price": {
+        "min_aed": 25,
+        "max_aed": 30,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "evening"
+      ],
+      "seasonal_months": [
+        10,
+        11,
+        12,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "requires_booking": false,
+      "day_trip": false,
+      "opening_hours": {
+        "open": "16:00",
+        "close": "00:00"
+      }
+    },
+    {
+      "id": "att_dubai_miracle_garden",
+      "name": "Dubai Miracle Garden",
+      "area": "dubailand",
+      "location": {
+        "lat": 25.06,
+        "lon": 55.244
+      },
+      "description": "Seasonal flower garden with large floral sculptures.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "flowers",
+        "seasonal",
+        "family"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "nature",
+      "indoor": false,
+      "typical_duration_min": 90,
+      "price": {
+        "min_aed": 95,
+        "max_aed": 110,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "evening"
+      ],
+      "seasonal_months": [
+        10,
+        11,
+        12,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "requires_booking": false,
+      "day_trip": false,
+      "opening_hours": {
+        "open": "09:00",
+        "close": "21:00"
+      }
+    },
+    {
+      "id": "att_dubai_butterfly_garden",
+      "name": "Dubai Butterfly Garden",
+      "area": "dubailand",
+      "location": {
+        "lat": 25.059,
+        "lon": 55.241
+      },
+      "description": "Climate-controlled domes with thousands of butterflies.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "family",
+        "indoor"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "nature",
+      "indoor": true,
+      "typical_duration_min": 45,
+      "price": {
+        "min_aed": 55,
+        "max_aed": 60,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_img_worlds",
+      "name": "IMG Worlds of Adventure",
+      "area": "dubailand",
+      "location": {
+        "lat": 25.082,
+        "lon": 55.318
+      },
+      "description": "Large indoor theme park.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "theme park",
+        "indoor",
+        "heat refuge"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "theme_park",
+      "indoor": true,
+      "typical_duration_min": 240,
+      "price": {
+        "min_aed": 300,
+        "max_aed": 375,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_motiongate",
+      "name": "Motiongate Dubai",
+      "area": "dubai_parks",
+      "location": {
+        "lat": 24.92,
+        "lon": 55.005
+      },
+      "description": "Hollywood-themed park at Dubai Parks and Resorts.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "theme park",
+        "family"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "theme_park",
+      "indoor": false,
+      "typical_duration_min": 360,
+      "price": {
+        "min_aed": 250,
+        "max_aed": 330,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "afternoon",
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_legoland_dubai",
+      "name": "Legoland Dubai",
+      "area": "dubai_parks",
+      "location": {
+        "lat": 24.925,
+        "lon": 55.003
+      },
+      "description": "LEGO-themed park for children aged 2-12.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "theme park",
+        "young children"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "theme_park",
+      "indoor": false,
+      "typical_duration_min": 300,
+      "price": {
+        "min_aed": 250,
+        "max_aed": 330,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_expo_city",
+      "name": "Expo City Dubai (Terra & Alif pavilions)",
+      "area": "expo_city",
+      "location": {
+        "lat": 24.963,
+        "lon": 55.15
+      },
+      "description": "Legacy Expo 2020 pavilions and public realm.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "sustainability",
+        "architecture"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "culture",
+      "indoor": true,
+      "typical_duration_min": 120,
+      "price": {
+        "min_aed": 50,
+        "max_aed": 120,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_desert_safari",
+      "name": "Evening desert safari (dune drive, camp dinner)",
+      "area": "desert",
+      "location": {
+        "lat": 24.95,
+        "lon": 55.55
+      },
+      "description": "Afternoon pickup, dune bashing, sunset, camp dinner and shows.",
+      "family_friendly": true,
+      "wheelchair_accessible": null,
+      "tags": [
+        "desert",
+        "tour pickup",
+        "dinner"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "desert",
+      "indoor": false,
+      "typical_duration_min": 360,
+      "price": {
+        "min_aed": 150,
+        "max_aed": 450,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "afternoon",
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": true,
+      "day_trip": false
+    },
+    {
+      "id": "att_hot_air_balloon",
+      "name": "Hot-air balloon flight over the desert",
+      "area": "desert",
+      "location": {
+        "lat": 24.9,
+        "lon": 55.65
+      },
+      "description": "Sunrise balloon flight; very early pickup.",
+      "family_friendly": false,
+      "wheelchair_accessible": null,
+      "tags": [
+        "sunrise",
+        "tour pickup"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "adventure",
+      "indoor": false,
+      "typical_duration_min": 240,
+      "price": {
+        "min_aed": 900,
+        "max_aed": 1300,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning"
+      ],
+      "seasonal_months": [],
+      "requires_booking": true,
+      "day_trip": false
+    },
+    {
+      "id": "att_al_qudra_lakes",
+      "name": "Al Qudra Lakes",
+      "area": "desert",
+      "location": {
+        "lat": 24.84,
+        "lon": 55.37
+      },
+      "description": "Man-made desert lakes with birdlife; needs a car.",
+      "family_friendly": true,
+      "wheelchair_accessible": null,
+      "tags": [
+        "birdlife",
+        "free",
+        "car needed"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "nature",
+      "indoor": false,
+      "typical_duration_min": 120,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_hatta_dam_kayak",
+      "name": "Hatta Dam kayaking",
+      "area": "hatta",
+      "location": {
+        "lat": 24.81,
+        "lon": 56.13
+      },
+      "description": "Kayaks and pedal boats on the turquoise dam lake.",
+      "family_friendly": true,
+      "wheelchair_accessible": null,
+      "tags": [
+        "mountains",
+        "day trip"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "adventure",
+      "indoor": false,
+      "typical_duration_min": 90,
+      "price": {
+        "min_aed": 60,
+        "max_aed": 150,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": true
+    },
+    {
+      "id": "att_hatta_heritage_village",
+      "name": "Hatta Heritage Village",
+      "area": "hatta",
+      "location": {
+        "lat": 24.802,
+        "lon": 56.113
+      },
+      "description": "Restored mountain village and fort.",
+      "family_friendly": true,
+      "wheelchair_accessible": null,
+      "tags": [
+        "heritage",
+        "day trip"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "culture",
+      "indoor": false,
+      "typical_duration_min": 60,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": true
+    },
+    {
+      "id": "att_sheikh_zayed_grand_mosque",
+      "name": "Sheikh Zayed Grand Mosque",
+      "area": "abu_dhabi",
+      "location": {
+        "lat": 24.4128,
+        "lon": 54.475
+      },
+      "description": "Landmark mosque in Abu Dhabi; free entry with booking and dress code.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "mosque",
+        "day trip",
+        "modest dress"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "religious",
+      "indoor": false,
+      "typical_duration_min": 120,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": true,
+      "day_trip": true
+    },
+    {
+      "id": "att_louvre_abu_dhabi",
+      "name": "Louvre Abu Dhabi",
+      "area": "abu_dhabi",
+      "location": {
+        "lat": 24.5337,
+        "lon": 54.3984
+      },
+      "description": "Universal museum under a latticed dome.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "art",
+        "day trip",
+        "heat refuge"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "museum",
+      "indoor": true,
+      "typical_duration_min": 150,
+      "price": {
+        "min_aed": 63,
+        "max_aed": 63,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": true
+    },
+    {
+      "id": "att_ferrari_world",
+      "name": "Ferrari World Abu Dhabi",
+      "area": "abu_dhabi",
+      "location": {
+        "lat": 24.4838,
+        "lon": 54.6073
+      },
+      "description": "Indoor theme park on Yas Island.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "theme park",
+        "day trip",
+        "indoor"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "theme_park",
+      "indoor": true,
+      "typical_duration_min": 300,
+      "price": {
+        "min_aed": 345,
+        "max_aed": 400,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": true
+    },
+    {
+      "id": "att_sharjah_islamic_museum",
+      "name": "Sharjah Museum of Islamic Civilization",
+      "area": "sharjah",
+      "location": {
+        "lat": 25.3593,
+        "lon": 55.387
+      },
+      "description": "Islamic art and science collections.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "islamic art",
+        "day trip"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "museum",
+      "indoor": true,
+      "typical_duration_min": 90,
+      "price": {
+        "min_aed": 10,
+        "max_aed": 10,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": true
+    },
+    {
+      "id": "att_heart_of_sharjah",
+      "name": "Heart of Sharjah heritage area",
+      "area": "sharjah",
+      "location": {
+        "lat": 25.357,
+        "lon": 55.388
+      },
+      "description": "Restored old town with souks and museums.",
+      "family_friendly": true,
+      "wheelchair_accessible": null,
+      "tags": [
+        "heritage",
+        "souks",
+        "day trip"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "culture",
+      "indoor": false,
+      "typical_duration_min": 90,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": true
+    },
+    {
+      "id": "att_mbr_library",
+      "name": "Mohammed Bin Rashid Library",
+      "area": "al_jaddaf",
+      "location": {
+        "lat": 25.221,
+        "lon": 55.346
+      },
+      "description": "Book-shaped public library on the Creek.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "architecture",
+        "free",
+        "heat refuge"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "culture",
+      "indoor": true,
+      "typical_duration_min": 60,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_jameel_arts_centre",
+      "name": "Jameel Arts Centre",
+      "area": "al_jaddaf",
+      "location": {
+        "lat": 25.225,
+        "lon": 55.341
+      },
+      "description": "Contemporary art museum by the Creek.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "contemporary art",
+        "free"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "art",
+      "indoor": true,
+      "typical_duration_min": 60,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning",
+        "afternoon"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_dubai_safari_park",
+      "name": "Dubai Safari Park",
+      "area": "mirdif",
+      "location": {
+        "lat": 25.177,
+        "lon": 55.458
+      },
+      "description": "Wildlife park with safari village; seasonal.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "wildlife",
+        "family",
+        "seasonal"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "nature",
+      "indoor": false,
+      "typical_duration_min": 180,
+      "price": {
+        "min_aed": 50,
+        "max_aed": 100,
+        "unit": "per_adult_ticket",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "morning"
+      ],
+      "seasonal_months": [
+        10,
+        11,
+        12,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_dubai_water_canal",
+      "name": "Dubai Water Canal boardwalk",
+      "area": "business_bay",
+      "location": {
+        "lat": 25.189,
+        "lon": 55.238
+      },
+      "description": "Boardwalk and waterfall bridge along the canal.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "waterfront",
+        "free"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "park",
+      "indoor": false,
+      "typical_duration_min": 60,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    },
+    {
+      "id": "att_festival_city_promenade",
+      "name": "Dubai Festival City promenade",
+      "area": "festival_city",
+      "location": {
+        "lat": 25.222,
+        "lon": 55.353
+      },
+      "description": "Creekside promenade; evening light shows on some nights.",
+      "family_friendly": true,
+      "wheelchair_accessible": true,
+      "tags": [
+        "waterfront",
+        "free"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "category": "entertainment",
+      "indoor": false,
+      "typical_duration_min": 60,
+      "price": {
+        "min_aed": 0,
+        "max_aed": 0,
+        "unit": "free",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated ticket-price estimate",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "best_time": [
+        "evening"
+      ],
+      "seasonal_months": [],
+      "requires_booking": false,
+      "day_trip": false
+    }
+  ]
+}

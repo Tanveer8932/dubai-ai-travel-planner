@@ -1,0 +1,2651 @@
+{
+  "meta": {
+    "description": "Curated restaurants with dietary flags and average spend per person.",
+    "source": "Public listings, Wikipedia and OpenStreetMap (curated)",
+    "as_of": "2026-11-15",
+    "notes": [
+      "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue.",
+      "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking.",
+      "Dietary flags mean the menu can cater for the need; halal status of hotel restaurants is not flagged (unknown). Confirm with the venue."
+    ]
+  },
+  "items": [
+    {
+      "id": "res_arabian_tea_house",
+      "name": "Arabian Tea House Café (Al Fahidi)",
+      "area": "bur_dubai",
+      "location": {
+        "lat": 25.2637,
+        "lon": 55.2996
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "emirati",
+        "middle_eastern"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "mid",
+      "avg_spend": {
+        "min_aed": 60,
+        "max_aed": 120,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_al_khayma_heritage",
+      "name": "Al Khayma Heritage Restaurant",
+      "area": "bur_dubai",
+      "location": {
+        "lat": 25.264,
+        "lon": 55.299
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "emirati",
+        "arabic"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "mid",
+      "avg_spend": {
+        "min_aed": 60,
+        "max_aed": 120,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_local_house",
+      "name": "Local House (Al Fahidi)",
+      "area": "bur_dubai",
+      "location": {
+        "lat": 25.2632,
+        "lon": 55.2993
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "emirati"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "mid",
+      "avg_spend": {
+        "min_aed": 50,
+        "max_aed": 100,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_xva_cafe",
+      "name": "XVA Café",
+      "area": "bur_dubai",
+      "location": {
+        "lat": 25.264,
+        "lon": 55.3
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "vegetarian",
+        "cafe"
+      ],
+      "dietary": [
+        "vegetarian"
+      ],
+      "fully_vegetarian": true,
+      "price_band": "mid",
+      "avg_spend": {
+        "min_aed": 40,
+        "max_aed": 80,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "breakfast",
+        "lunch"
+      ]
+    },
+    {
+      "id": "res_sind_punjab",
+      "name": "Sind Punjab (Meena Bazaar)",
+      "area": "bur_dubai",
+      "location": {
+        "lat": 25.26,
+        "lon": 55.295
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "north_indian",
+        "punjabi"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 25,
+        "max_aed": 60,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_bait_al_wakeel",
+      "name": "Bait Al Wakeel",
+      "area": "bur_dubai",
+      "location": {
+        "lat": 25.263,
+        "lon": 55.2965
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "arabic",
+        "seafood"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "mid",
+      "avg_spend": {
+        "min_aed": 80,
+        "max_aed": 150,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_al_ustad_special_kabab",
+      "name": "Al Ustad Special Kabab",
+      "area": "bur_dubai",
+      "location": {
+        "lat": 25.258,
+        "lon": 55.294
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "iranian",
+        "grill"
+      ],
+      "dietary": [
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 35,
+        "max_aed": 70,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_al_fanar_al_seef",
+      "name": "Al Fanar Restaurant & Café (Al Seef)",
+      "area": "bur_dubai",
+      "location": {
+        "lat": 25.2615,
+        "lon": 55.3035
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "emirati"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "mid",
+      "avg_spend": {
+        "min_aed": 70,
+        "max_aed": 130,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_saravana_bhavan_karama",
+      "name": "Saravana Bhavan (Karama)",
+      "area": "karama",
+      "location": {
+        "lat": 25.244,
+        "lon": 55.302
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "south_indian"
+      ],
+      "dietary": [
+        "vegetarian",
+        "vegan"
+      ],
+      "fully_vegetarian": true,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 20,
+        "max_aed": 45,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_erics_karama",
+      "name": "Eric's (Karama)",
+      "area": "karama",
+      "location": {
+        "lat": 25.2445,
+        "lon": 55.303
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "goan",
+        "indian"
+      ],
+      "dietary": [
+        "vegetarian"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 30,
+        "max_aed": 60,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_kailash_parbat_karama",
+      "name": "Kailash Parbat (Karama)",
+      "area": "karama",
+      "location": {
+        "lat": 25.245,
+        "lon": 55.301
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "indian",
+        "sindhi",
+        "street_food"
+      ],
+      "dietary": [
+        "vegetarian",
+        "vegan"
+      ],
+      "fully_vegetarian": true,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 25,
+        "max_aed": 50,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_calicut_paragon_karama",
+      "name": "Calicut Paragon (Karama)",
+      "area": "karama",
+      "location": {
+        "lat": 25.2435,
+        "lon": 55.3025
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "kerala",
+        "seafood"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 35,
+        "max_aed": 70,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_govindas_karama",
+      "name": "Govinda's (Karama)",
+      "area": "karama",
+      "location": {
+        "lat": 25.243,
+        "lon": 55.3
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "indian",
+        "sattvic"
+      ],
+      "dietary": [
+        "vegetarian",
+        "vegan"
+      ],
+      "fully_vegetarian": true,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 30,
+        "max_aed": 60,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_bombay_chowpatty_karama",
+      "name": "Bombay Chowpatty (Karama)",
+      "area": "karama",
+      "location": {
+        "lat": 25.2448,
+        "lon": 55.3018
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "indian_street_food"
+      ],
+      "dietary": [
+        "vegetarian"
+      ],
+      "fully_vegetarian": true,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 20,
+        "max_aed": 40,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "snack",
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_puranmal_karama",
+      "name": "Puranmal (Karama)",
+      "area": "karama",
+      "location": {
+        "lat": 25.2442,
+        "lon": 55.304
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "indian",
+        "sweets"
+      ],
+      "dietary": [
+        "vegetarian"
+      ],
+      "fully_vegetarian": true,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 20,
+        "max_aed": 40,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "snack",
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_ravi_satwa",
+      "name": "Ravi Restaurant (Satwa)",
+      "area": "satwa",
+      "location": {
+        "lat": 25.229,
+        "lon": 55.277
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "pakistani"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 20,
+        "max_aed": 45,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_al_mallah_satwa",
+      "name": "Al Mallah (Al Dhiyafah Road)",
+      "area": "satwa",
+      "location": {
+        "lat": 25.233,
+        "lon": 55.279
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "lebanese",
+        "shawarma"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 20,
+        "max_aed": 50,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner",
+        "snack"
+      ]
+    },
+    {
+      "id": "res_al_ijaza_cafeteria",
+      "name": "Al Ijaza Cafeteria",
+      "area": "jumeirah",
+      "location": {
+        "lat": 25.228,
+        "lon": 55.26
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "arabic",
+        "sandwiches"
+      ],
+      "dietary": [
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 15,
+        "max_aed": 35,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "snack",
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_al_tawasol",
+      "name": "Al Tawasol",
+      "area": "deira",
+      "location": {
+        "lat": 25.273,
+        "lon": 55.32
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "yemeni"
+      ],
+      "dietary": [
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 35,
+        "max_aed": 70,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_aroos_damascus",
+      "name": "Aroos Damascus",
+      "area": "deira",
+      "location": {
+        "lat": 25.27,
+        "lon": 55.317
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "syrian"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 30,
+        "max_aed": 70,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_ashwaq_cafeteria",
+      "name": "Ashwaq Cafeteria",
+      "area": "deira",
+      "location": {
+        "lat": 25.2685,
+        "lon": 55.2975
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "shawarma",
+        "arabic"
+      ],
+      "dietary": [
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 10,
+        "max_aed": 25,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "snack",
+        "lunch"
+      ]
+    },
+    {
+      "id": "res_al_mansour_dhow",
+      "name": "Al Mansour Dhow dinner cruise",
+      "area": "deira",
+      "location": {
+        "lat": 25.264,
+        "lon": 55.31
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "international",
+        "arabic"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "mid",
+      "avg_spend": {
+        "min_aed": 150,
+        "max_aed": 250,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_thai_kitchen_park_hyatt",
+      "name": "Thai Kitchen (Park Hyatt)",
+      "area": "al_garhoud",
+      "location": {
+        "lat": 25.243,
+        "lon": 55.333
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "thai"
+      ],
+      "dietary": [
+        "vegetarian",
+        "gluten_free"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "premium",
+      "avg_spend": {
+        "min_aed": 150,
+        "max_aed": 250,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_comptoir_102",
+      "name": "Comptoir 102",
+      "area": "jumeirah",
+      "location": {
+        "lat": 25.224,
+        "lon": 55.258
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "healthy",
+        "organic"
+      ],
+      "dietary": [
+        "vegetarian",
+        "vegan",
+        "gluten_free"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "mid",
+      "avg_spend": {
+        "min_aed": 70,
+        "max_aed": 130,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "breakfast",
+        "lunch"
+      ]
+    },
+    {
+      "id": "res_logma",
+      "name": "Logma (BoxPark)",
+      "area": "jumeirah",
+      "location": {
+        "lat": 25.197,
+        "lon": 55.251
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "emirati",
+        "khaleeji"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "mid",
+      "avg_spend": {
+        "min_aed": 60,
+        "max_aed": 110,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_mamaesh",
+      "name": "Mama'esh (Jumeirah)",
+      "area": "jumeirah",
+      "location": {
+        "lat": 25.22,
+        "lon": 55.256
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "palestinian",
+        "manakish"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 30,
+        "max_aed": 60,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_bookmunch_cafe",
+      "name": "BookMunch Café",
+      "area": "jumeirah",
+      "location": {
+        "lat": 25.206,
+        "lon": 55.249
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "cafe",
+        "international"
+      ],
+      "dietary": [
+        "vegetarian"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "mid",
+      "avg_spend": {
+        "min_aed": 50,
+        "max_aed": 100,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "breakfast",
+        "lunch"
+      ]
+    },
+    {
+      "id": "res_coya_dubai",
+      "name": "Coya Dubai",
+      "area": "jumeirah",
+      "location": {
+        "lat": 25.203,
+        "lon": 55.244
+      },
+      "family_friendly": false,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "peruvian"
+      ],
+      "dietary": [
+        "vegetarian",
+        "gluten_free"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "luxury",
+      "avg_spend": {
+        "min_aed": 350,
+        "max_aed": 600,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_masti_la_mer",
+      "name": "Masti (La Mer)",
+      "area": "jumeirah",
+      "location": {
+        "lat": 25.231,
+        "lon": 55.254
+      },
+      "family_friendly": false,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "indian_fusion"
+      ],
+      "dietary": [
+        "vegetarian"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "premium",
+      "avg_spend": {
+        "min_aed": 150,
+        "max_aed": 300,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_bu_qtair",
+      "name": "Bu Qtair",
+      "area": "umm_suqeim",
+      "location": {
+        "lat": 25.16,
+        "lon": 55.2
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "seafood",
+        "indian"
+      ],
+      "dietary": [
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 40,
+        "max_aed": 80,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_salt_kite_beach",
+      "name": "SALT (Kite Beach)",
+      "area": "umm_suqeim",
+      "location": {
+        "lat": 25.158,
+        "lon": 55.197
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "burgers"
+      ],
+      "dietary": [
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 45,
+        "max_aed": 80,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_pierchic",
+      "name": "Pierchic",
+      "area": "umm_suqeim",
+      "location": {
+        "lat": 25.13,
+        "lon": 55.182
+      },
+      "family_friendly": false,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "seafood",
+        "fine_dining"
+      ],
+      "dietary": [
+        "gluten_free"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "luxury",
+      "avg_spend": {
+        "min_aed": 450,
+        "max_aed": 800,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_al_mahara",
+      "name": "Al Mahara (Burj Al Arab)",
+      "area": "umm_suqeim",
+      "location": {
+        "lat": 25.1412,
+        "lon": 55.1853
+      },
+      "family_friendly": false,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "seafood",
+        "fine_dining"
+      ],
+      "dietary": [
+        "gluten_free"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "luxury",
+      "avg_spend": {
+        "min_aed": 800,
+        "max_aed": 1500,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_al_muntaha",
+      "name": "Al Muntaha (Burj Al Arab)",
+      "area": "umm_suqeim",
+      "location": {
+        "lat": 25.1412,
+        "lon": 55.1853
+      },
+      "family_friendly": false,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "french",
+        "fine_dining"
+      ],
+      "dietary": [
+        "vegetarian"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "luxury",
+      "avg_spend": {
+        "min_aed": 700,
+        "max_aed": 1300,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_shimmers",
+      "name": "Shimmers (Mina A'Salam beach)",
+      "area": "umm_suqeim",
+      "location": {
+        "lat": 25.1335,
+        "lon": 55.189
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "greek",
+        "mediterranean"
+      ],
+      "dietary": [
+        "vegetarian",
+        "gluten_free"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "premium",
+      "avg_spend": {
+        "min_aed": 250,
+        "max_aed": 450,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_rockfish",
+      "name": "Rockfish (Jumeirah Al Naseem)",
+      "area": "umm_suqeim",
+      "location": {
+        "lat": 25.137,
+        "lon": 55.186
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "seafood",
+        "italian"
+      ],
+      "dietary": [
+        "gluten_free"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "premium",
+      "avg_spend": {
+        "min_aed": 250,
+        "max_aed": 400,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_wild_and_the_moon_alserkal",
+      "name": "Wild & The Moon (Alserkal)",
+      "area": "al_quoz",
+      "location": {
+        "lat": 25.143,
+        "lon": 55.225
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "vegan",
+        "cafe"
+      ],
+      "dietary": [
+        "vegetarian",
+        "vegan",
+        "gluten_free"
+      ],
+      "fully_vegetarian": true,
+      "price_band": "mid",
+      "avg_spend": {
+        "min_aed": 60,
+        "max_aed": 110,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "breakfast",
+        "lunch"
+      ]
+    },
+    {
+      "id": "res_tom_and_serg",
+      "name": "Tom&Serg",
+      "area": "al_quoz",
+      "location": {
+        "lat": 25.14,
+        "lon": 55.228
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "cafe",
+        "brunch"
+      ],
+      "dietary": [
+        "vegetarian",
+        "gluten_free"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "mid",
+      "avg_spend": {
+        "min_aed": 70,
+        "max_aed": 130,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "breakfast",
+        "lunch"
+      ]
+    },
+    {
+      "id": "res_atmosphere",
+      "name": "At.mosphere (Burj Khalifa)",
+      "area": "downtown",
+      "location": {
+        "lat": 25.1972,
+        "lon": 55.2744
+      },
+      "family_friendly": false,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "international",
+        "fine_dining"
+      ],
+      "dietary": [
+        "vegetarian",
+        "gluten_free"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "luxury",
+      "avg_spend": {
+        "min_aed": 500,
+        "max_aed": 1200,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_shake_shack_dubai_mall",
+      "name": "Shake Shack (The Dubai Mall)",
+      "area": "downtown",
+      "location": {
+        "lat": 25.1985,
+        "lon": 55.2796
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "burgers"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 45,
+        "max_aed": 80,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner",
+        "snack"
+      ]
+    },
+    {
+      "id": "res_cheesecake_factory_dubai_mall",
+      "name": "The Cheesecake Factory (The Dubai Mall)",
+      "area": "downtown",
+      "location": {
+        "lat": 25.1985,
+        "lon": 55.2796
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "american"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal",
+        "gluten_free"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "mid",
+      "avg_spend": {
+        "min_aed": 90,
+        "max_aed": 160,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_din_tai_fung_dubai_mall",
+      "name": "Din Tai Fung (The Dubai Mall)",
+      "area": "downtown",
+      "location": {
+        "lat": 25.1985,
+        "lon": 55.2796
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "taiwanese",
+        "dumplings"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "mid",
+      "avg_spend": {
+        "min_aed": 80,
+        "max_aed": 150,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_eataly_dubai_mall",
+      "name": "Eataly (The Dubai Mall)",
+      "area": "downtown",
+      "location": {
+        "lat": 25.1985,
+        "lon": 55.2796
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "italian"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "mid",
+      "avg_spend": {
+        "min_aed": 80,
+        "max_aed": 150,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_kaak_al_manara_dubai_mall",
+      "name": "Ka'ak Al Manara (The Dubai Mall)",
+      "area": "downtown",
+      "location": {
+        "lat": 25.1985,
+        "lon": 55.2796
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "lebanese_bakery"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 15,
+        "max_aed": 40,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "breakfast",
+        "snack",
+        "lunch"
+      ]
+    },
+    {
+      "id": "res_karma_kafe",
+      "name": "Karma Kafé (Souk Al Bahar)",
+      "area": "downtown",
+      "location": {
+        "lat": 25.194,
+        "lon": 55.277
+      },
+      "family_friendly": false,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "asian",
+        "sushi"
+      ],
+      "dietary": [
+        "vegetarian",
+        "gluten_free"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "premium",
+      "avg_spend": {
+        "min_aed": 200,
+        "max_aed": 350,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_baker_and_spice",
+      "name": "Baker & Spice (Souk Al Bahar)",
+      "area": "downtown",
+      "location": {
+        "lat": 25.194,
+        "lon": 55.277
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "cafe",
+        "mediterranean"
+      ],
+      "dietary": [
+        "vegetarian",
+        "vegan",
+        "gluten_free"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "mid",
+      "avg_spend": {
+        "min_aed": 70,
+        "max_aed": 130,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_thiptara",
+      "name": "Thiptara (Palace Downtown)",
+      "area": "downtown",
+      "location": {
+        "lat": 25.195,
+        "lon": 55.277
+      },
+      "family_friendly": false,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "thai"
+      ],
+      "dietary": [
+        "vegetarian",
+        "gluten_free"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "premium",
+      "avg_spend": {
+        "min_aed": 300,
+        "max_aed": 500,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_asado",
+      "name": "Asado (Palace Downtown)",
+      "area": "downtown",
+      "location": {
+        "lat": 25.195,
+        "lon": 55.277
+      },
+      "family_friendly": false,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "argentinian",
+        "steak"
+      ],
+      "dietary": [
+        "gluten_free"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "premium",
+      "avg_spend": {
+        "min_aed": 350,
+        "max_aed": 600,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_zuma_dubai",
+      "name": "Zuma Dubai (DIFC)",
+      "area": "difc",
+      "location": {
+        "lat": 25.213,
+        "lon": 55.281
+      },
+      "family_friendly": false,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "japanese"
+      ],
+      "dietary": [
+        "vegetarian",
+        "gluten_free"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "luxury",
+      "avg_spend": {
+        "min_aed": 400,
+        "max_aed": 700,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_la_petite_maison",
+      "name": "La Petite Maison (DIFC)",
+      "area": "difc",
+      "location": {
+        "lat": 25.212,
+        "lon": 55.28
+      },
+      "family_friendly": false,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "french",
+        "mediterranean"
+      ],
+      "dietary": [
+        "vegetarian",
+        "gluten_free"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "luxury",
+      "avg_spend": {
+        "min_aed": 400,
+        "max_aed": 700,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_al_nafoorah",
+      "name": "Al Nafoorah (Jumeirah Emirates Towers)",
+      "area": "difc",
+      "location": {
+        "lat": 25.2175,
+        "lon": 55.2826
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "lebanese"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "premium",
+      "avg_spend": {
+        "min_aed": 180,
+        "max_aed": 300,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_al_safadi_szr",
+      "name": "Al Safadi (Sheikh Zayed Road)",
+      "area": "difc",
+      "location": {
+        "lat": 25.223,
+        "lon": 55.283
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "lebanese"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "mid",
+      "avg_spend": {
+        "min_aed": 50,
+        "max_aed": 100,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_ossiano",
+      "name": "Ossiano (Atlantis The Palm)",
+      "area": "palm_jumeirah",
+      "location": {
+        "lat": 25.1304,
+        "lon": 55.1171
+      },
+      "family_friendly": false,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "seafood",
+        "fine_dining"
+      ],
+      "dietary": [
+        "gluten_free"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "luxury",
+      "avg_spend": {
+        "min_aed": 800,
+        "max_aed": 1500,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_nobu_dubai",
+      "name": "Nobu Dubai (Atlantis The Palm)",
+      "area": "palm_jumeirah",
+      "location": {
+        "lat": 25.1304,
+        "lon": 55.1171
+      },
+      "family_friendly": false,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "japanese",
+        "peruvian"
+      ],
+      "dietary": [
+        "vegetarian",
+        "gluten_free"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "luxury",
+      "avg_spend": {
+        "min_aed": 400,
+        "max_aed": 800,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_bread_street_kitchen",
+      "name": "Bread Street Kitchen (Atlantis The Palm)",
+      "area": "palm_jumeirah",
+      "location": {
+        "lat": 25.1304,
+        "lon": 55.1171
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "british"
+      ],
+      "dietary": [
+        "vegetarian"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "premium",
+      "avg_spend": {
+        "min_aed": 200,
+        "max_aed": 350,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_saffron_atlantis",
+      "name": "Saffron (Atlantis The Palm)",
+      "area": "palm_jumeirah",
+      "location": {
+        "lat": 25.1304,
+        "lon": 55.1171
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "international",
+        "buffet"
+      ],
+      "dietary": [
+        "vegetarian"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "premium",
+      "avg_spend": {
+        "min_aed": 250,
+        "max_aed": 450,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_101_dining_lounge",
+      "name": "101 Dining Lounge (One&Only The Palm)",
+      "area": "palm_jumeirah",
+      "location": {
+        "lat": 25.104,
+        "lon": 55.155
+      },
+      "family_friendly": false,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "mediterranean",
+        "seafood"
+      ],
+      "dietary": [
+        "vegetarian",
+        "gluten_free"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "luxury",
+      "avg_spend": {
+        "min_aed": 400,
+        "max_aed": 700,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_operation_falafel_jbr",
+      "name": "Operation: Falafel (The Beach JBR)",
+      "area": "jbr",
+      "location": {
+        "lat": 25.078,
+        "lon": 55.1335
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "lebanese",
+        "falafel"
+      ],
+      "dietary": [
+        "vegetarian",
+        "vegan",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 25,
+        "max_aed": 50,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_seven_sands_jbr",
+      "name": "Seven Sands (The Beach JBR)",
+      "area": "jbr",
+      "location": {
+        "lat": 25.0775,
+        "lon": 55.133
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "emirati"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "premium",
+      "avg_spend": {
+        "min_aed": 150,
+        "max_aed": 250,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_bait_maryam_jlt",
+      "name": "Bait Maryam (JLT)",
+      "area": "jlt",
+      "location": {
+        "lat": 25.07,
+        "lon": 55.142
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "levantine",
+        "home_style"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "mid",
+      "avg_spend": {
+        "min_aed": 70,
+        "max_aed": 130,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_allo_beirut_jlt",
+      "name": "Allo Beirut (JLT)",
+      "area": "jlt",
+      "location": {
+        "lat": 25.071,
+        "lon": 55.141
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "lebanese"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "budget",
+      "avg_spend": {
+        "min_aed": 40,
+        "max_aed": 80,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "lunch",
+        "dinner",
+        "snack"
+      ]
+    },
+    {
+      "id": "res_asia_asia_pier7",
+      "name": "Asia Asia (Pier 7, Dubai Marina)",
+      "area": "dubai_marina",
+      "location": {
+        "lat": 25.077,
+        "lon": 55.139
+      },
+      "family_friendly": false,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "pan_asian"
+      ],
+      "dietary": [
+        "vegetarian",
+        "gluten_free"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "premium",
+      "avg_spend": {
+        "min_aed": 200,
+        "max_aed": 350,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_tagine_royal_mirage",
+      "name": "Tagine (One&Only Royal Mirage)",
+      "area": "dubai_marina",
+      "location": {
+        "lat": 25.096,
+        "lon": 55.15
+      },
+      "family_friendly": false,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "moroccan"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "premium",
+      "avg_spend": {
+        "min_aed": 250,
+        "max_aed": 400,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_al_hadheerah",
+      "name": "Al Hadheerah (Bab Al Shams)",
+      "area": "desert",
+      "location": {
+        "lat": 24.815,
+        "lon": 55.238
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "emirati",
+        "arabic",
+        "buffet"
+      ],
+      "dietary": [
+        "vegetarian",
+        "halal"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "luxury",
+      "avg_spend": {
+        "min_aed": 450,
+        "max_aed": 700,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "dinner"
+      ]
+    },
+    {
+      "id": "res_the_farm_al_barari",
+      "name": "The Farm (Al Barari)",
+      "area": "al_barari",
+      "location": {
+        "lat": 25.1,
+        "lon": 55.32
+      },
+      "family_friendly": true,
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      },
+      "cuisines": [
+        "international",
+        "farm_to_table"
+      ],
+      "dietary": [
+        "vegetarian",
+        "vegan",
+        "gluten_free"
+      ],
+      "fully_vegetarian": false,
+      "price_band": "mid",
+      "avg_spend": {
+        "min_aed": 100,
+        "max_aed": 180,
+        "unit": "per_person",
+        "provenance": {
+          "kind": "estimated",
+          "source": "Curated average spend per person (food only)",
+          "as_of": "2026-11-15",
+          "note": "Typical publicly listed price range up to 2025-26; NOT live-verified. Check the operator before booking."
+        }
+      },
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ]
+    }
+  ]
+}

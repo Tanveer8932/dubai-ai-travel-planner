@@ -1,0 +1,54 @@
+{
+  "meta": {
+    "description": "Offline FX fallback: units per 1 USD. AED uses the fixed USD peg.",
+    "source": "Frankfurter API snapshot (ECB reference rates) + UAE central-bank peg",
+    "as_of": "2026-11-15",
+    "notes": [
+      "Snapshot of https://api.frankfurter.dev/v1/latest?base=USD for ECB date 2026-11-13; used only when the live API is unreachable and will go stale.",
+      "AED is pegged at 3.6725 per USD (CBUAE)."
+    ]
+  },
+  "data": {
+    "base": "USD",
+    "rates": {
+      "AUD": 1.4738,
+      "BRL": 5.6637,
+      "CAD": 1.4258,
+      "CHF": 0.8384,
+      "CNY": 6.6719,
+      "CZK": 22.099,
+      "DKK": 6.764,
+      "EUR": 0.90481,
+      "GBP": 0.75605,
+      "HKD": 7.846,
+      "HUF": 330.8,
+      "IDR": 18245,
+      "ILS": 3.2107,
+      "INR": 94.25,
+      "ISK": 123.6,
+      "JPY": 160.0,
+      "KRW": 1337.13,
+      "MXN": 18.593,
+      "MYR": 4.0875,
+      "NOK": 9.5634,
+      "NZD": 1.8076,
+      "PHP": 63.813,
+      "PLN": 3.9914,
+      "RON": 4.8402,
+      "SEK": 10.0502,
+      "SGD": 1.2881,
+      "THB": 33.915,
+      "TRY": 50.368,
+      "ZAR": 16.9635,
+      "USD": 1,
+      "AED": "3.6725"
+    },
+    "provenance": {
+      "kind": "api",
+      "source": "Frankfurter (ECB reference rates) snapshot",
+      "source_url": "https://api.frankfurter.dev/v1/latest?base=USD",
+      "as_of": "2026-11-13",
+      "note": "Stored snapshot for offline fallback; stale over time."
+    }
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "description": "UAE public holidays: fixed-date and Hijri-calendar based.",
+    "source": "UAE government public-holiday announcements (curated)",
+    "as_of": "2026-11-15",
+    "notes": [
+      "Islamic holidays are computed with hijridate (Umm al-Qura); actual dates depend on moon sighting and may shift by +/-1-2 days. Official dates are announced late.",
+      "Nager.Date does not cover the UAE (HTTP 204 for AE; checked 2026-11-15), so holidays come from this file."
+    ]
+  },
+  "data": {
+    "fixed": [
+      {
+        "id": "hol_new_year",
+        "name": "New Year's Day",
+        "month": 1,
+        "day": 1,
+        "provenance": {
+          "kind": "curated",
+          "source": "UAE public holidays (curated)",
+          "as_of": "2026-11-15",
+          "note": null
+        }
+      },
+      {
+        "id": "hol_commemoration_day",
+        "name": "Commemoration Day",
+        "month": 12,
+        "day": 1,
+        "provenance": {
+          "kind": "curated",
+          "source": "UAE public holidays (curated)",
+          "as_of": "2026-11-15",
+          "note": null
+        }
+      },
+      {
+        "id": "hol_national_day",
+        "name": "UAE National Day",
+        "month": 12,
+        "day": 2,
+        "provenance": {
+          "kind": "curated",
+          "source": "UAE public holidays (curated)",
+          "as_of": "2026-11-15",
+          "note": null
+        }
+      },
+      {
+        "id": "hol_national_day_2",
+        "name": "UAE National Day (holiday)",
+        "month": 12,
+        "day": 3,
+        "provenance": {
+          "kind": "curated",
+          "source": "UAE public holidays (curated)",
+          "as_of": "2026-11-15",
+          "note": null
+        }
+      }
+    ],
+    "hijri": [
+      {
+        "id": "hol_islamic_new_year",
+        "name": "Islamic New Year",
+        "hijri_month": 1,
+        "hijri_day": 1,
+        "duration_days": 1,
+        "provenance": {
+          "kind": "estimated",
+          "source": "hijridate conversion",
+          "as_of": "2026-11-15",
+          "note": "Islamic holidays are computed with hijridate (Umm al-Qura); actual dates depend on moon sighting and may shift by +/-1-2 days. Official dates are announced late."
+        }
+      },
+      {
+        "id": "hol_prophets_birthday",
+        "name": "Prophet Muhammad's Birthday",
+        "hijri_month": 3,
+        "hijri_day": 12,
+        "duration_days": 1,
+        "provenance": {
+          "kind": "estimated",
+          "source": "hijridate conversion",
+          "as_of": "2026-11-15",
+          "note": "Islamic holidays are computed with hijridate (Umm al-Qura); actual dates depend on moon sighting and may shift by +/-1-2 days. Official dates are announced late."
+        }
+      },
+      {
+        "id": "hol_eid_al_fitr",
+        "name": "Eid al-Fitr",
+        "hijri_month": 10,
+        "hijri_day": 1,
+        "duration_days": 3,
+        "provenance": {
+          "kind": "estimated",
+          "source": "hijridate conversion",
+          "as_of": "2026-11-15",
+          "note": "Islamic holidays are computed with hijridate (Umm al-Qura); actual dates depend on moon sighting and may shift by +/-1-2 days. Official dates are announced late."
+        }
+      },
+      {
+        "id": "hol_arafat_day",
+        "name": "Arafat Day",
+        "hijri_month": 12,
+        "hijri_day": 9,
+        "duration_days": 1,
+        "provenance": {
+          "kind": "estimated",
+          "source": "hijridate conversion",
+          "as_of": "2026-11-15",
+          "note": "Islamic holidays are computed with hijridate (Umm al-Qura); actual dates depend on moon sighting and may shift by +/-1-2 days. Official dates are announced late."
+        }
+      },
+      {
+        "id": "hol_eid_al_adha",
+        "name": "Eid al-Adha",
+        "hijri_month": 12,
+        "hijri_day": 10,
+        "duration_days": 3,
+        "provenance": {
+          "kind": "estimated",
+          "source": "hijridate conversion",
+          "as_of": "2026-11-15",
+          "note": "Islamic holidays are computed with hijridate (Umm al-Qura); actual dates depend on moon sighting and may shift by +/-1-2 days. Official dates are announced late."
+        }
+      }
+    ]
+  }
+}

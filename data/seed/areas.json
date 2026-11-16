@@ -1,0 +1,621 @@
+{
+  "meta": {
+    "description": "Neighbourhoods and day-trip destinations with approximate centroids.",
+    "source": "Curated from Wikipedia / OpenStreetMap",
+    "as_of": "2026-11-15",
+    "notes": [
+      "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+    ]
+  },
+  "items": [
+    {
+      "id": "downtown",
+      "name": "Downtown Dubai",
+      "centroid": {
+        "lat": 25.1972,
+        "lon": 55.2744
+      },
+      "description": "Burj Khalifa, The Dubai Mall, Dubai Fountain and Dubai Opera.",
+      "nearest_metro": [
+        "Burj Khalifa/Dubai Mall"
+      ],
+      "day_trip": false,
+      "tags": [
+        "landmarks",
+        "shopping"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "business_bay",
+      "name": "Business Bay",
+      "centroid": {
+        "lat": 25.186,
+        "lon": 55.265
+      },
+      "description": "Business district beside Downtown along the Dubai Water Canal.",
+      "nearest_metro": [
+        "Business Bay"
+      ],
+      "day_trip": false,
+      "tags": [
+        "hotels"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "difc",
+      "name": "DIFC & Sheikh Zayed Road",
+      "centroid": {
+        "lat": 25.213,
+        "lon": 55.28
+      },
+      "description": "Financial district with galleries and restaurants; Museum of the Future nearby.",
+      "nearest_metro": [
+        "Financial Centre",
+        "Emirates Towers",
+        "World Trade Centre"
+      ],
+      "day_trip": false,
+      "tags": [
+        "dining",
+        "art",
+        "business"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "bur_dubai",
+      "name": "Bur Dubai & Al Fahidi",
+      "centroid": {
+        "lat": 25.26,
+        "lon": 55.298
+      },
+      "description": "Old Dubai: Al Fahidi Historical Neighbourhood, Al Seef, abra station and Meena Bazaar.",
+      "nearest_metro": [
+        "Sharaf DG (Al Fahidi)",
+        "Al Ghubaiba",
+        "BurJuman"
+      ],
+      "day_trip": false,
+      "tags": [
+        "heritage",
+        "culture",
+        "budget"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "deira",
+      "name": "Deira",
+      "centroid": {
+        "lat": 25.271,
+        "lon": 55.307
+      },
+      "description": "Gold and Spice Souks, Deira Creek dhow wharves.",
+      "nearest_metro": [
+        "Union",
+        "Baniyas Square",
+        "Gold Souk",
+        "Al Ras"
+      ],
+      "day_trip": false,
+      "tags": [
+        "souks",
+        "heritage",
+        "budget"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "karama",
+      "name": "Karama & Zabeel",
+      "centroid": {
+        "lat": 25.242,
+        "lon": 55.302
+      },
+      "description": "Budget eateries in Karama; Zabeel Park and Dubai Frame.",
+      "nearest_metro": [
+        "ADCB",
+        "BurJuman"
+      ],
+      "day_trip": false,
+      "tags": [
+        "budget",
+        "indian food"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "satwa",
+      "name": "Satwa",
+      "centroid": {
+        "lat": 25.23,
+        "lon": 55.278
+      },
+      "description": "Old residential quarter known for casual eateries.",
+      "nearest_metro": [
+        "Max",
+        "World Trade Centre"
+      ],
+      "day_trip": false,
+      "tags": [
+        "street food",
+        "budget"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "jumeirah",
+      "name": "Jumeirah & City Walk",
+      "centroid": {
+        "lat": 25.215,
+        "lon": 55.255
+      },
+      "description": "Beachside villas, La Mer, City Walk and Etihad Museum.",
+      "nearest_metro": [],
+      "day_trip": false,
+      "tags": [
+        "beach",
+        "cafes"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "umm_suqeim",
+      "name": "Umm Suqeim & Madinat Jumeirah",
+      "centroid": {
+        "lat": 25.145,
+        "lon": 55.195
+      },
+      "description": "Burj Al Arab, Madinat Jumeirah, Kite Beach and Sunset Beach.",
+      "nearest_metro": [],
+      "day_trip": false,
+      "tags": [
+        "beach",
+        "luxury"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "al_quoz",
+      "name": "Al Quoz",
+      "centroid": {
+        "lat": 25.143,
+        "lon": 55.226
+      },
+      "description": "Industrial district home to Alserkal Avenue galleries and speciality cafes.",
+      "nearest_metro": [
+        "Onpassive"
+      ],
+      "day_trip": false,
+      "tags": [
+        "art",
+        "cafes"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "al_barsha",
+      "name": "Al Barsha",
+      "centroid": {
+        "lat": 25.115,
+        "lon": 55.2
+      },
+      "description": "Mall of the Emirates and Ski Dubai.",
+      "nearest_metro": [
+        "Mall of the Emirates"
+      ],
+      "day_trip": false,
+      "tags": [
+        "shopping",
+        "mid-range hotels"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "dubai_marina",
+      "name": "Dubai Marina",
+      "centroid": {
+        "lat": 25.08,
+        "lon": 55.142
+      },
+      "description": "Marina Walk, dhow cruises and towers around the marina.",
+      "nearest_metro": [
+        "Sobha Realty",
+        "DMCC"
+      ],
+      "day_trip": false,
+      "tags": [
+        "waterfront",
+        "nightlife"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "jbr",
+      "name": "JBR & Bluewaters",
+      "centroid": {
+        "lat": 25.078,
+        "lon": 55.133
+      },
+      "description": "Jumeirah Beach Residence: The Walk, The Beach and Bluewaters Island.",
+      "nearest_metro": [
+        "Sobha Realty"
+      ],
+      "day_trip": false,
+      "tags": [
+        "beach",
+        "family"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "jlt",
+      "name": "Jumeirah Lakes Towers",
+      "centroid": {
+        "lat": 25.07,
+        "lon": 55.143
+      },
+      "description": "Residential towers around lakes with many casual restaurants.",
+      "nearest_metro": [
+        "DMCC",
+        "Jumeirah Lakes Towers"
+      ],
+      "day_trip": false,
+      "tags": [
+        "dining",
+        "budget"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "palm_jumeirah",
+      "name": "Palm Jumeirah",
+      "centroid": {
+        "lat": 25.1124,
+        "lon": 55.139
+      },
+      "description": "Man-made island: Atlantis, Aquaventure, The View at The Palm and beach resorts.",
+      "nearest_metro": [],
+      "day_trip": false,
+      "tags": [
+        "resorts",
+        "luxury"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "al_garhoud",
+      "name": "Al Garhoud & Airport",
+      "centroid": {
+        "lat": 25.244,
+        "lon": 55.34
+      },
+      "description": "Next to Dubai International Airport and Dubai Creek Golf Club.",
+      "nearest_metro": [
+        "GGICO",
+        "Airport Terminal 1"
+      ],
+      "day_trip": false,
+      "tags": [
+        "airport"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "festival_city",
+      "name": "Dubai Festival City",
+      "centroid": {
+        "lat": 25.222,
+        "lon": 55.352
+      },
+      "description": "Waterfront mall district on the Creek's east bank.",
+      "nearest_metro": [],
+      "day_trip": false,
+      "tags": [
+        "shopping"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "al_jaddaf",
+      "name": "Al Jaddaf & Culture Village",
+      "centroid": {
+        "lat": 25.222,
+        "lon": 55.339
+      },
+      "description": "Jameel Arts Centre and Mohammed Bin Rashid Library on the Creek.",
+      "nearest_metro": [
+        "Al Jadaf",
+        "Creek"
+      ],
+      "day_trip": false,
+      "tags": [
+        "art",
+        "culture"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "dubailand",
+      "name": "Dubailand",
+      "centroid": {
+        "lat": 25.07,
+        "lon": 55.28
+      },
+      "description": "Global Village, Dubai Miracle Garden, Butterfly Garden and IMG Worlds.",
+      "nearest_metro": [],
+      "day_trip": false,
+      "tags": [
+        "family",
+        "theme parks"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "dubai_parks",
+      "name": "Dubai Parks and Resorts",
+      "centroid": {
+        "lat": 24.92,
+        "lon": 55.005
+      },
+      "description": "Theme-park complex near Jebel Ali (Motiongate, Legoland).",
+      "nearest_metro": [],
+      "day_trip": false,
+      "tags": [
+        "theme parks",
+        "family"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "expo_city",
+      "name": "Expo City Dubai",
+      "centroid": {
+        "lat": 24.963,
+        "lon": 55.15
+      },
+      "description": "Former Expo 2020 site with Terra and Alif pavilions.",
+      "nearest_metro": [
+        "Expo 2020"
+      ],
+      "day_trip": false,
+      "tags": [
+        "culture"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "mirdif",
+      "name": "Mirdif & Al Warqa",
+      "centroid": {
+        "lat": 25.22,
+        "lon": 55.42
+      },
+      "description": "Eastern suburbs; Dubai Safari Park is in nearby Al Warqa.",
+      "nearest_metro": [
+        "Centrepoint"
+      ],
+      "day_trip": false,
+      "tags": [
+        "family"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "al_barari",
+      "name": "Al Barari",
+      "centroid": {
+        "lat": 25.1,
+        "lon": 55.32
+      },
+      "description": "Green residential enclave with garden restaurants.",
+      "nearest_metro": [],
+      "day_trip": false,
+      "tags": [
+        "nature"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "desert",
+      "name": "Dubai Desert (Lahbab / Al Qudra / Margham)",
+      "centroid": {
+        "lat": 24.95,
+        "lon": 55.55
+      },
+      "description": "Dunes outside the city; safaris and balloon flights include hotel pickup.",
+      "nearest_metro": [],
+      "day_trip": false,
+      "tags": [
+        "desert",
+        "tour pickup"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "hatta",
+      "name": "Hatta",
+      "centroid": {
+        "lat": 24.8,
+        "lon": 56.12
+      },
+      "description": "Mountain exclave ~1.5 h from Dubai: dam kayaking and heritage village.",
+      "nearest_metro": [],
+      "day_trip": true,
+      "tags": [
+        "mountains",
+        "day trip"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "abu_dhabi",
+      "name": "Abu Dhabi",
+      "centroid": {
+        "lat": 24.4539,
+        "lon": 54.3773
+      },
+      "description": "UAE capital ~1.5 h away: Sheikh Zayed Grand Mosque, Louvre, Yas Island.",
+      "nearest_metro": [],
+      "day_trip": true,
+      "tags": [
+        "day trip",
+        "culture"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    },
+    {
+      "id": "sharjah",
+      "name": "Sharjah",
+      "centroid": {
+        "lat": 25.3463,
+        "lon": 55.4209
+      },
+      "description": "Neighbouring emirate known for museums and heritage areas (~30-60 min).",
+      "nearest_metro": [],
+      "day_trip": true,
+      "tags": [
+        "day trip",
+        "museums"
+      ],
+      "provenance": {
+        "kind": "curated",
+        "source": "Curated seed (public information)",
+        "as_of": "2026-11-15",
+        "note": "Compiled from public information (Visit Dubai, Wikipedia, OpenStreetMap) and not re-checked live; coordinates approximate (refine with scripts/refresh_seed.py). Confirm details with the venue."
+      }
+    }
+  ]
+}

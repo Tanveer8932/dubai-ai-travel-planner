@@ -1,0 +1,100 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dubai-planner"
+version = "0.1.0"
+description = "Multi-agent, budget-aware Dubai itinerary planner (LangGraph vs CrewAI) — academic project"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+license = { text = "MIT" }
+# Core runtime deps. Framework versions are pinned in the extras below
+# (LangGraph/CrewAI APIs change often — see CLAUDE.md).
+dependencies = [
+    "pydantic>=2.7,<3",
+    "pydantic-settings>=2.3,<3",
+    "httpx>=0.27,<1",
+    "python-dotenv>=1.0",
+    "tenacity>=8.2",
+    "hijridate>=2.5",
+]
+
+[project.optional-dependencies]
+langgraph = [
+    "langgraph==1.2.22",
+    "langgraph-checkpoint-sqlite==3.1.3",
+    "langchain-core==1.8.1",
+]
+crewai = [
+    "crewai==1.15.41",
+]
+providers = [
+    "langchain-ollama",
+    "langchain-groq",
+    "langchain-google-genai",
+    "langchain-openai",
+    "langchain-anthropic",
+]
+ui = [
+    "streamlit==1.67.0",
+    "plotly>=5.20",
+    "pandas>=2.1",
+    "pydeck>=0.9",
+]
+dev = [
+    "pytest>=8",
+    "pytest-asyncio>=0.23",
+    "pytest-cov>=5",
+    "ruff>=0.5",
+    "mypy>=1.10",
+    "respx>=0.21",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+dubai_planner = ["**/*.md", "**/*.yaml", "**/*.sql", "**/*.json"]
+
+# ---------------------------------------------------------------- pytest
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["tests"]  # lets tests `import factories`
+addopts = "-ra --strict-markers"
+markers = [
+    "llm: needs a real LLM provider (deselect offline with -m 'not llm')",
+    "network: performs real network calls",
+]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+filterwarnings = ["ignore::DeprecationWarning:pydantic.*"]
+
+# ---------------------------------------------------------------- ruff
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = [".venv", "data", "eval/reports"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF", "S"]
+ignore = ["RUF001", "RUF002", "RUF003"]  # allow unicode (°, —) in docs/strings
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101"]  # assert is fine in tests
+
+[tool.ruff.lint.isort]
+known-first-party = ["dubai_planner"]
+
+# ---------------------------------------------------------------- mypy
+[tool.mypy]
+python_version = "3.12"
+strict = true
+mypy_path = "src"
+packages = ["dubai_planner"]
+plugins = ["pydantic.mypy"]
+
+# ---------------------------------------------------------------- coverage
+[tool.coverage.run]
+source = ["src/dubai_planner"]
+branch = true
