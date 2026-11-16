@@ -95,6 +95,7 @@ class MockLLM:
         self._scripts: dict[str, deque[str]] = defaultdict(deque)
         self._lock = threading.Lock()
         self.calls: list[MockRequest] = []
+        self.react_calls: list[str] = []
 
     @property
     def name(self) -> str:
@@ -110,6 +111,17 @@ class MockLLM:
     def pending(self, agent: str) -> int:
         with self._lock:
             return len(self._scripts[agent])
+
+    def take_script(self, key: str) -> str | None:
+        """Pop the next scripted reply for ``key`` (used by the CrewAI ReAct mock)."""
+        with self._lock:
+            queue = self._scripts.get(key)
+            return queue.popleft() if queue else None
+
+    def log_react(self, role: str) -> None:
+        """Record one CrewAI agent reasoning call (tests count orchestration calls)."""
+        with self._lock:
+            self.react_calls.append(role)
 
     def _fixture(self, req: MockRequest) -> str | None:
         if self.fixtures_dir is None:

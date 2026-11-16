@@ -161,6 +161,13 @@ def _crewai_llm(spec: ProviderSpec) -> Any:
         raise ProviderNotInstalledError(p.value, "crewai", "crewai") from exc
     common: dict[str, Any] = {"temperature": spec.temperature, "timeout": spec.timeout_s,
                               "max_retries": spec.max_retries}
+    if p is not LLMProvider.OLLAMA:  # CrewAI's Ollama route is unverified for these
+        if spec.max_tokens:
+            common["max_tokens"] = spec.max_tokens
+        if spec.reasoning_effort and p in (LLMProvider.GROQ, LLMProvider.OPENAI):
+            # CrewAI's OpenAI-compatible client sends it to non-OpenAI hosts (Groq) and
+            # retries without it if a server rejects the parameter.
+            common["reasoning_effort"] = spec.reasoning_effort
     try:
         if p is LLMProvider.OLLAMA:
             return LLM(model=f"ollama/{spec.model}", base_url=spec.base_url, **common)

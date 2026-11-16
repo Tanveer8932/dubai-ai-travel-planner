@@ -44,3 +44,19 @@ class StructuredOutputError(LLMError):
 
 class MockLLMError(LLMError):
     """The mock provider has no scripted response, fixture or generator for a request."""
+
+
+_TRANSIENT_MARKERS = ("429", "rate limit", "ratelimit", "rate_limit", "timeout", "timed out",
+                      "502", "503", "504", "overloaded", "temporarily unavailable",
+                      "connection")
+
+
+def is_transient(exc: BaseException) -> bool:
+    """Provider hiccups worth retrying (rate limits, timeouts, 5xx); never bad output.
+
+    Shared by both orchestration modes (LangGraph node ``RetryPolicy``, CrewAI tools).
+    """
+    if not isinstance(exc, LLMCallError):
+        return False
+    text = str(exc).lower()
+    return any(marker in text for marker in _TRANSIENT_MARKERS)

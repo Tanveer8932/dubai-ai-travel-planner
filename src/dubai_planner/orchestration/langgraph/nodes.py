@@ -18,7 +18,6 @@ from __future__ import annotations
 from collections.abc import Callable, Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass, field
-from functools import partial
 from typing import Any
 
 from langgraph.errors import GraphBubbleUp
@@ -36,10 +35,10 @@ from dubai_planner.agents import (
     weather_events,
 )
 from dubai_planner.agents.revision import plan_revision
+from dubai_planner.agents.suite import AgentSuite
 from dubai_planner.llm import get_chat_llm
 from dubai_planner.models import (
     Attempt,
-    AttemptSummary,
     ChatMessage,
     ChatRole,
     Itinerary,
@@ -48,6 +47,12 @@ from dubai_planner.models import (
     Severity,
     TraceEventType,
 )
+from dubai_planner.orchestration.common import (
+    DEFAULT_QUESTION,
+    attempt_summary,
+    better,
+    summary_text,
+)
 from dubai_planner.orchestration.langgraph.state import PlannerState
 from dubai_planner.storage import Repository
 from dubai_planner.tools.toolbox import Toolbox
@@ -55,7 +60,6 @@ from dubai_planner.tracing import agent_span, emit, run_context
 from dubai_planner.validation.rules import validate_itinerary
 
 MODE = PlannerMode.LANGGRAPH
-DEFAULT_QUESTION = "Could you tell me your travel dates and total budget?"
 
 # Node names (also used by the graph builder, streaming and the UI).
 PARSE = "parse_request"
@@ -74,35 +78,6 @@ VALIDATE = "validate"
 REVIEW = "review"
 REFINE = "refine_itinerary"
 FINALIZE = "finalize"
-
-Agent = Callable[..., Any]
-
-
-@dataclass(frozen=True)
-class AgentSuite:
-    """The agent core functions the nodes call: ``(input, llm, tools) -> output``."""
-
-    requirements: Agent = requirements.run
-    attractions: Agent = attractions.run
-    accommodation: Agent = accommodation.run
-    dining: Agent = dining.run
-    transport: Agent = transport.run
-    weather_events: Agent = weather_events.run
-    budget: Agent = budget.run
-    composer: Agent = composer.run
-    reviewer: Agent = reviewer.run
-
-    @classmethod
-    def default(cls, *, fallback: bool = False) -> AgentSuite:
-        """Real agents. ``fallback=True`` opts into the deterministic baselines (Phase 2)."""
-        if not fallback:
-            return cls()
-        return cls(attractions=partial(attractions.run, fallback=True),
-                   accommodation=partial(accommodation.run, fallback=True),
-                   dining=partial(dining.run, fallback=True),
-                   composer=partial(composer.run, fallback=True),
-                   reviewer=partial(reviewer.run, fallback=True))
-
 
 def _llm_from_factory() -> Callable[[str], Any]:
     cache: dict[str, Any] = {}
@@ -151,23 +126,6 @@ def node_span(name: str, state: PlannerState) -> Iterator[dict[str, Any]]:
 
 def _message(role: ChatRole, text: str, **meta: Any) -> ChatMessage:
     return ChatMessage(role=role, content=text[:20_000], metadata=meta)
-
-
-def summary_text(status: PlanStatus, attempt: Attempt | None, question: str | None,
-                 iterations: int) -> str:
-    """Assistant reply stored in the conversation when a run ends."""
-    if status is PlanStatus.NEEDS_CLARIFICATION:
-        return question or DEFAULT_QUESTION
-    if attempt is None:
-        return "I could not produce an itinerary."
-    it = attempt.itinerary
-    head = (f"{it.title or 'Your Dubai itinerary'}: {len(it.days)} day(s), estimated total "
-            f"AED {it.cost.total} (budget AED {it.cost.budget_aed}).")
-    if status is PlanStatus.APPROVED:
-        return f"{head} Approved after {iterations} revision(s)."
-    blocking = [i.message for i in attempt.review.blocking_issues][:3]
-    return (f"{head} Not approved after {iterations} revision(s); unresolved: "
-            + "; ".join(blocking))
 
 
 class PlannerNodes:
@@ -311,16 +269,8 @@ class PlannerNodes:
                 self.deps.llm_for(reviewer.AGENT), self.deps.tools)
             attempt = Attempt(iteration=iteration, itinerary=itinerary, review=report,
                               violations=violations)
-            previous_best = state.get("best")
-            best = attempt if previous_best is None or attempt.rank() > previous_best.rank() \
-                else previous_best
-            errors = [v for v in violations if v.severity is Severity.ERROR]
-            summary = AttemptSummary(
-                iteration=iteration, approved=attempt.approved, score=report.score,
-                total_aed=itinerary.cost.total, errors=attempt.errors,
-                warnings=sum(v.severity is Severity.WARNING for v in violations),
-                blocking_rules=sorted({v.rule_id for v in errors}),
-                locked_days=list(state.get("locked_days", [])))
+            best = better(attempt, state.get("best"))
+            summary = attempt_summary(attempt, list(state.get("locked_days", [])))
             span.update(approved=attempt.approved, score=report.score, errors=attempt.errors)
             return {"review": report, "best": best,
                     "attempts": [*state.get("attempts", []), summary]}

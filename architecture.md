@@ -191,6 +191,35 @@ flowchart LR
 - **Review loop**: the Itinerary Architect task gets a **task guardrail** that runs deterministic validators plus the Reviewer. A failure returns feedback and CrewAI retries the task (`guardrail_max_retries`). An outer loop in the adapter re-kicks off the compose/review tasks if needed. Both modes share `MAX_REVIEW_ITERATIONS`.
 - **Observability**: `step_callback` / `task_callback` plus CrewAI's event listener map to the same `TraceEvent` schema.
 
+*As built (Phase 4).* `orchestration/crewai/` (CrewAI 1.15.41). Roles and task texts are in `config/agents.yaml` / `config/tasks.yaml`; `crew.CrewFactory.describe()` gives the static role/task/dependency graph for Phase 6.
+
+```mermaid
+flowchart LR
+    U["user message"] --> RQ["requirements crew<br/>parse_request · Requirements Analyst"]
+    RQ -- "incomplete" --> Q["needs_clarification<br/>draft + question in SQLite"]
+    RQ -- "complete" --> P
+    subgraph P["planning crew"]
+        direction LR
+        A1["research_attractions"] & A2["research_accommodation"] & A3["research_dining"] & A4["research_transport"] & A5["research_weather_events"] --> B["allocate_budget<br/>context = research"]
+        B --> C["compose_itinerary<br/>guardrail: rules"]
+        C -- "rule error: feedback, CrewAI retries" --> C
+        C --> R["review_itinerary<br/>guardrail: attempt"]
+    end
+    R -- "not approved, iterations left" --> V["revision crew<br/>compose → review"]
+    V --> R2{"approved or cap?"}
+    R -- "approved or cap" --> F["best attempt → PlanResult, saved version"]
+    R2 --> F
+```
+
+- **How the work is done:** each specialist `Agent` (YAML role/goal/backstory, its own LLM from `get_crewai_llm(<agent>)`) owns one `StageTool` that runs its shared agent (`agents.<x>.run`) via `stages.StageRunner`. The tool puts the typed output on the run's `CrewRunBoard` and returns a short text brief with `result_as_answer=True`, so the brief is the agent's answer and the downstream `context`. Grounded data is never retyped by an LLM, and prompts stay small. The Transport and Budget roles also get shared `TOOL_SPECS` functions (`metro_fare`, `estimate_travel`, `convert_currency`) as `ToolboxTool`s.
+- **Guardrails (every task):** `StageGuardrail` accepts only the output the role's tool produced in this attempt and attaches it as `TaskOutput.pydantic` (the same Phase 1 models as LangGraph mode). An agent that answered without its tool is rejected with feedback and retried (hard rule 5). `ItineraryGuardrail` runs the deterministic validators: an error-severity violation is rejected with `plan_revision` feedback (days without errors locked), CrewAI re-runs the task, and that counts as one refinement. `ReviewGuardrail` records the attempt; approved ⇔ the reviewer approved **and** no error-severity rule fails.
+- **Review loop termination:** guardrail retries (rule errors) and the outer loop (a reviewer rejection → compose → review **revision crew**) share one budget, `MAX_REVIEW_ITERATIONS`. At the cap the compose guardrail accepts the attempt *unapproved*, so the loop always ends. `guardrail_max_retries` (cap + 2) and `CREWAI_AGENT_MAX_ITER` (default 4 LLM calls per agent per attempt) are independent stops. The best attempt is returned (`needs_revision` when unapproved).
+- **Processes:** `CREWAI_PROCESS=sequential` (default; the five research tasks have `async_execution=True` and overlap) or `hierarchical` (a Trip Manager `manager_agent` runs every task and delegates it with CrewAI's delegation tool to the role named on the task's "Responsible specialist" line). In hierarchical mode research is not async (one manager executor is not thread-safe), and tasks declare no `output_pydantic` (CrewAI would add a manager call per task to re-type specialist output); the guardrail attaches the typed model instead.
+- **Failures:** CrewAI swallows tool exceptions and retries the tool, so stage tools use `tool_failure_policy="raise"`, record the first failure on the board and short-circuit CrewAI's re-tries (the agent's LLM work runs once). Transient provider errors get bounded backoff (`orchestration/common.call_with_retry`, same schedule as LangGraph's `RetryPolicy`). Any other error ends the run `failed` with a short, secret-free message.
+- **Service:** `CrewAIPlanner` (`runner.py`) has the same API as `LangGraphPlanner` (`stream`/`run`/`resume`/`pending_question`) and returns the same `PlanResult`/`PlannerUpdate`. Crews run in a worker thread; a `task_callback` streams one update per finished task. Session context is SQLite only (messages with the request draft in their metadata, run records, itinerary versions). There is no checkpointer: `resume()` re-runs the unfinished request from the start. `services/planner.py` defines the `Planner` protocol and `open_planner(mode)` for all three modes.
+- **Observability:** `listener.CrewTraceListener` (a CrewAI `BaseEventListener`) maps CrewAI's task, tool, delegation and agent-LLM events of registered crews to `TraceEvent`s (run id and role looked up by task/agent id, because CrewAI calls handlers on a thread pool), flushed before a run is finalised. The stage tools and guardrails emit `stage` spans and `guardrail` events directly.
+- **CrewAI settings:** `tracing=False` and `CREWAI_TRACING_ENABLED=false` (otherwise a 20 s console prompt per kickoff), `cache=False`, `memory=False`, telemetry off, and no replay log (`PlanningCrew` replaces CrewAI's app-data replay store, whose JSON encoder cannot serialise `datetime.time`).
+
 ## 5. Agent catalogue
 
 | Agent | Input | Output model | Tools | LLM? |
@@ -438,7 +467,7 @@ GROQ_API_KEY= / GEMINI_API_KEY= / OPENAI_API_KEY= / ANTHROPIC_API_KEY=
 - **Neutral chat interface.** Agents call `llm.base.ChatLLM` (`complete(messages) -> Completion`). `as_chat_llm()` wraps a LangChain chat model (`LangChainChatLLM`) or a CrewAI `BaseLLM` (`CrewAIChatLLM`), so `get_chat_model()` and `get_crewai_llm()` objects go straight into any agent's `run()`.
 - **Factory** (`llm/factory.py`): `resolve_spec()` validates config without importing an SDK (a missing key raises `LLMConfigError` naming the env var; a missing package raises `ProviderNotInstalledError` naming it). `LLM_MODEL` empty = per-provider default; `LLM_MODEL__<AGENT>` overrides per agent. Bounded `LLM_TIMEOUT_S` / `LLM_MAX_RETRIES` go to every SDK. CrewAI 1.15 routes Ollama and OpenAI natively. Groq and Gemini go through their **OpenAI-compatible endpoints** (no LiteLLM or extra CrewAI extras needed); Anthropic needs `crewai[anthropic]`.
 - **Structured output** (`llm/structured.py`): provider-native `with_structured_output` on the first attempt for real LangChain providers (Groq with `method="json_schema"`; a provider rejection such as Groq's 400 `tool_use_failed` keeps the model's `failed_generation` text and validates it like any other reply); otherwise JSON prompt → fence/prose stripping → `model_validate_json` → agent `postprocess` (semantic checks) → **one** repair turn with the errors → `StructuredOutputError`. Transport errors (`LLMCallError`) are never "repaired". Every call publishes an `llm_call` `TraceEvent` with tokens and latency.
-- **Output limits** (Phase 3): `LLM_MAX_TOKENS` and `LLM_REASONING_EFFORT` go to the LangChain providers (as `num_predict` for Ollama, `max_output_tokens` for Gemini). Groq defaults to 4096 tokens and `low` effort for `openai/gpt-oss-*`, because Groq's own 2048-token cap truncated the composer's JSON (AC3.6 finding). Wiring these into CrewAI's `LLM` is **[verify]** in Phase 4.
+- **Output limits** (Phase 3): `LLM_MAX_TOKENS` and `LLM_REASONING_EFFORT` go to the LangChain providers (as `num_predict` for Ollama, `max_output_tokens` for Gemini). Groq defaults to 4096 tokens and `low` effort for `openai/gpt-oss-*`, because Groq's own 2048-token cap truncated the composer's JSON (AC3.6 finding). Phase 4 passes them to CrewAI's `LLM` too (OpenAI-compatible client, verified on Groq; not for Ollama, whose CrewAI route is unverified). `CrewAIChatLLM` reports the provider's token usage. Groq rejects function schemas without `properties` or with lookaround regex `pattern`s (pydantic `Decimal`); CrewAI tool schemas are made provider-safe.
 - **Mock** (`llm/mock.py`): one deterministic engine, exposed as a LangChain chat model (`langchain_mock.MockChatModel`) and as a CrewAI `BaseLLM` (`crewai_mock.MockCrewAILLM`; no LiteLLM). It reads `AGENT:`/`SCHEMA:` markers and the prompt's `<context>` JSON; resolution order is scripted replies (tests) → fixture files → per-schema generators registered by each agent (deterministic baselines such as "top-ranked candidates" or the composer's scheduler).
 - **Tracing** (`tracing/bus.py`): a minimal in-process bus with a `ContextVar` run context (`run_id`, `mode`, `iteration`), `agent_span()` (start/end/error) and `capture()` for tests. Phase 6 adds the SQLite and Streamlit subscribers.
 
@@ -464,8 +493,9 @@ dubai-ai-travel-planner/
 │   ├── validation/                # deterministic rules
 │   ├── orchestration/
 │   │   ├── langgraph/             # state, nodes, graph builder
-│   │   └── crewai/                # agents.yaml, tasks.yaml, crew builder, guardrails
-│   ├── services/                  # planner, session, refinement
+│   │   ├── common.py              # helpers shared by both planners (Phase 4)
+│   │   └── crewai/                # config/*.yaml, board, stages, tools, guardrails, listener, crew, runner
+│   ├── services/                  # planner contract (Phase 4); session, refinement (Phase 5)
 │   ├── storage/                   # sqlite repo + schema.sql
 │   ├── tracing/                   # TraceEvent bus, adapters for both frameworks
 │   └── evaluation/                # metrics, judge, runner, report

@@ -22,13 +22,13 @@ from __future__ import annotations
 import uuid
 from collections.abc import Iterator
 from contextlib import contextmanager
-from dataclasses import dataclass, field
 from datetime import date
 from pathlib import Path
 from typing import Any, Literal, overload
 
 from langgraph.types import Command, Durability, RetryPolicy
 
+from dubai_planner.agents.suite import AgentSuite
 from dubai_planner.config import Settings, get_settings
 from dubai_planner.models import (
     ChatMessage,
@@ -37,9 +37,15 @@ from dubai_planner.models import (
     PlannerUpdate,
     PlanResult,
     PlanStatus,
-    RunStatus,
-    TraceEvent,
-    TraceEventType,
+)
+from dubai_planner.orchestration.common import (
+    DEFAULT_QUESTION,
+    END_NODE,
+    RUN_STATUS,
+    RunStats,
+    check_message,
+    safe_error,
+    summarize_value,
 )
 from dubai_planner.orchestration.langgraph import nodes as n
 from dubai_planner.orchestration.langgraph.checkpoint import open_checkpointer
@@ -49,41 +55,10 @@ from dubai_planner.storage import Repository
 from dubai_planner.tools.toolbox import Toolbox
 from dubai_planner.tracing import bus
 
-MAX_MESSAGE_CHARS = 4000
 #: Persist every super-step before the next one starts. LangGraph's default ("async")
 #: writes checkpoints in the background, so a killed process can lose the last step(s);
 #: "sync" makes resume-after-crash exact (AC3.5) at a small latency cost.
 DURABILITY: Durability = "sync"
-END_NODE = "__end__"
-
-_RUN_STATUS = {
-    PlanStatus.APPROVED: RunStatus.SUCCEEDED,
-    PlanStatus.NEEDS_REVISION: RunStatus.SUCCEEDED,
-    PlanStatus.NEEDS_CLARIFICATION: RunStatus.INTERRUPTED,
-    PlanStatus.FAILED: RunStatus.FAILED,
-    PlanStatus.CANCELLED: RunStatus.INTERRUPTED,
-}
-
-
-def safe_error(exc: BaseException) -> str:
-    """Short error for users/run records. Our errors never contain secret values."""
-    return f"{type(exc).__name__}: {str(exc).strip()[:300]}"
-
-
-@dataclass
-class _RunStats:
-    run_id: str
-    llm_calls: int = 0
-    tokens: int = 0
-    events: list[TraceEvent] = field(default_factory=list)
-
-    def __call__(self, event: TraceEvent) -> None:
-        if event.run_id != self.run_id:
-            return
-        self.events.append(event)
-        if event.event is TraceEventType.LLM_CALL:
-            self.llm_calls += 1
-            self.tokens += event.tokens_in + event.tokens_out
 
 
 def _summarize(update: Any) -> dict[str, Any]:
@@ -97,16 +72,8 @@ def _summarize(update: Any) -> dict[str, Any]:
         if key == "research" and isinstance(value, dict):
             out |= {f"research.{k}": len(v) if isinstance(v, list) else bool(v)
                     for k, v in value.items()}
-        elif isinstance(value, list):
-            out[key] = len(value)
-        elif isinstance(value, str | int | float | bool) or value is None:
-            out[key] = value
-        elif hasattr(value, "cost"):  # Itinerary
-            out[key] = f"{len(value.days)} days, AED {value.cost.total}"
-        elif hasattr(value, "approved") and hasattr(value, "score"):  # ReviewReport
-            out[key] = {"approved": value.approved, "score": value.score}
         else:
-            out[key] = type(value).__name__
+            out[key] = summarize_value(value)
     return out
 
 
@@ -114,13 +81,13 @@ class LangGraphPlanner:
     """LangGraph-mode planning service for any number of sessions (threads)."""
 
     def __init__(self, *, checkpointer: Any, tools: Toolbox | None = None, llm: Any = None,
-                 repo: Repository | None = None, agents: n.AgentSuite | None = None,
+                 repo: Repository | None = None, agents: AgentSuite | None = None,
                  settings: Settings | None = None, retry: RetryPolicy | None = None,
                  max_review_iterations: int | None = None, persist: bool = True) -> None:
         self.settings = settings or get_settings()
         self.repo = (repo or Repository(settings=self.settings)) if persist else None
         self.deps = n.PlannerDeps(
-            tools=tools or Toolbox.default(), llm=llm, agents=agents or n.AgentSuite(),
+            tools=tools or Toolbox.default(), llm=llm, agents=agents or AgentSuite(),
             repo=self.repo,
             max_review_iterations=(self.settings.max_review_iterations
                                    if max_review_iterations is None else max_review_iterations))
@@ -148,7 +115,7 @@ class LangGraphPlanner:
         for intr in self.snapshot(session_id).interrupts:
             value = intr.value
             if isinstance(value, dict):
-                return str(value.get("question") or n.DEFAULT_QUESTION)
+                return str(value.get("question") or DEFAULT_QUESTION)
         return None
 
     def result(self, session_id: str, *, error: str | None = None) -> PlanResult | None:
@@ -206,9 +173,7 @@ class LangGraphPlanner:
                 raise ValueError(f"session {session_id!r} has no unfinished run to resume")
             graph_input, run_id = None, values.get("run_id") or uuid.uuid4().hex
         else:
-            text = message.strip()
-            if not text or len(text) > MAX_MESSAGE_CHARS:
-                raise ValueError(f"message must be 1-{MAX_MESSAGE_CHARS} characters")
+            text = check_message(message)
             if snap.interrupts:
                 graph_input, run_id = Command(resume=text), values["run_id"]
             else:
@@ -218,7 +183,7 @@ class LangGraphPlanner:
                     today=today or date.today(),
                     user_message=ChatMessage(role=ChatRole.USER, content=text))
         self._record_start(session_id, run_id, message)
-        stats = _RunStats(run_id)
+        stats = RunStats(run_id)
         unsubscribe = bus.subscribe(stats)
         iteration = int(values.get("iteration", 0)) if graph_input is None or isinstance(
             graph_input, Command) else 0
@@ -279,13 +244,13 @@ class LangGraphPlanner:
             self.repo.start_run(PlannerMode.LANGGRAPH, session_id=session_id, run_id=run_id)
 
     def _record_end(self, session_id: str, run_id: str, result: PlanResult | None,
-                    stats: _RunStats) -> None:
+                    stats: RunStats) -> None:
         if self.repo is None or result is None:
             return
         prior = self.repo.get_run(run_id)
         calls = stats.llm_calls + (prior.llm_calls if prior else 0)
         tokens = stats.tokens + (prior.tokens if prior else 0)
-        self.repo.finish_run(run_id, _RUN_STATUS[result.status], llm_calls=calls,
+        self.repo.finish_run(run_id, RUN_STATUS[result.status], llm_calls=calls,
                              tokens=tokens, error=result.error)
         reply = self._reply(session_id, result)
         if reply:

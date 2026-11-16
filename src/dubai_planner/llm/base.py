@@ -13,6 +13,7 @@ Agents never import LangChain or CrewAI. They call a :class:`ChatLLM`, which is 
 from __future__ import annotations
 
 import importlib
+import threading
 from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Any, Literal, Protocol, runtime_checkable
@@ -182,26 +183,49 @@ class LangChainChatLLM:
 
 
 class CrewAIChatLLM:
-    """Adapter: CrewAI ``BaseLLM`` → :class:`ChatLLM`."""
+    """Adapter: CrewAI ``BaseLLM`` → :class:`ChatLLM`.
+
+    Token counts come from the client's own usage tally (the difference across the
+    call) when it keeps one, else they are estimated. Calls on one adapter are
+    serialised so that difference belongs to this call alone; each agent gets its own
+    client, so parallel agents are not serialised against each other.
+    """
 
     def __init__(self, llm: Any) -> None:
         self.llm = llm
+        self._lock = threading.Lock()
 
     @property
     def name(self) -> str:
         return str(getattr(self.llm, "model", None) or type(self.llm).__name__)
 
+    def _usage(self) -> tuple[int, int]:
+        summary = getattr(self.llm, "get_token_usage_summary", None)
+        if summary is None:
+            return 0, 0
+        try:
+            usage = summary()
+        except Exception:  # a usage tally must never break a call
+            return 0, 0
+        return (int(getattr(usage, "prompt_tokens", 0) or 0),
+                int(getattr(usage, "completion_tokens", 0) or 0))
+
     def complete(self, messages: Sequence[LLMMessage]) -> Completion:
         payload = [{"role": m.role, "content": m.content} for m in messages]
-        try:
-            text = self.llm.call(payload)
-        except Exception as exc:
-            raise LLMCallError(f"{self.name}: {type(exc).__name__}: {exc}"[:500]) from exc
+        with self._lock:
+            before = self._usage()
+            try:
+                text = self.llm.call(payload)
+            except Exception as exc:
+                raise LLMCallError(f"{self.name}: {type(exc).__name__}: {exc}"[:500]) from exc
+            after = self._usage()
         text = _content_to_text(text)
+        tokens_in, tokens_out = after[0] - before[0], after[1] - before[1]
         return Completion(
             text=text,
-            tokens_in=estimate_tokens("".join(m.content for m in messages)),
-            tokens_out=estimate_tokens(text),
+            tokens_in=tokens_in if tokens_in > 0 else estimate_tokens(
+                "".join(m.content for m in messages)),
+            tokens_out=tokens_out if tokens_out > 0 else estimate_tokens(text),
             model=self.name,
         )
 

@@ -44,6 +44,7 @@ DEFAULT_MODELS: dict[LLMProvider, str] = {
 
 
 ReasoningEffort = Literal["low", "medium", "high"]
+CrewProcess = Literal["sequential", "hierarchical"]
 
 #: Output-token cap when ``LLM_MAX_TOKENS`` is empty (absent = the provider's own default).
 #: Groq's own default (2048) truncates reasoning models such as gpt-oss, whose hidden
@@ -116,8 +117,16 @@ class Settings(BaseSettings):
     max_review_iterations: int = Field(default=2, ge=0, le=10)
     budget_tolerance: Decimal = Field(default=Decimal("0.05"), ge=0, le=1)
 
+    # --- CrewAI mode ---------------------------------------------------------
+    #: Crew process used by CrewAI mode (``run_crewai(process=...)`` overrides it).
+    crewai_process: CrewProcess = "sequential"
+    #: Cap on each CrewAI agent's reasoning loop (LLM calls per task attempt).
+    crewai_agent_max_iter: int = Field(default=4, ge=1, le=15)
+
     # --- Telemetry / logging -----------------------------------------------
     crewai_disable_telemetry: bool = True
+    #: CrewAI's own execution-trace upload/prompt (off: no upload, no 20 s console prompt).
+    crewai_tracing_enabled: bool = False
     otel_sdk_disabled: bool = True
     log_level: str = "INFO"
 
@@ -166,6 +175,7 @@ class Settings(BaseSettings):
         ``os.environ`` by default, hence this explicit step. Secrets are never exported.
         """
         os.environ["CREWAI_DISABLE_TELEMETRY"] = str(self.crewai_disable_telemetry).lower()
+        os.environ["CREWAI_TRACING_ENABLED"] = str(self.crewai_tracing_enabled).lower()
         os.environ["OTEL_SDK_DISABLED"] = str(self.otel_sdk_disabled).lower()
 
 

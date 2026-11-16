@@ -28,7 +28,7 @@ from typing import Any
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import RetryPolicy
 
-from dubai_planner.llm.errors import LLMCallError
+from dubai_planner.llm.errors import is_transient
 from dubai_planner.models import Severity
 from dubai_planner.orchestration.langgraph import nodes as n
 from dubai_planner.orchestration.langgraph.state import PlannerState
@@ -38,19 +38,6 @@ from dubai_planner.orchestration.langgraph.state import PlannerState
 _BASE_STEPS = 12
 _STEPS_PER_REVISION = 4  # refine, compose, validate, review
 _STEPS_PER_CLARIFICATION = 2  # ask_clarification, parse_request
-
-_TRANSIENT_MARKERS = ("429", "rate limit", "ratelimit", "rate_limit", "timeout", "timed out",
-                      "502", "503", "504", "overloaded", "temporarily unavailable",
-                      "connection")
-
-
-def is_transient(exc: BaseException) -> bool:
-    """Provider hiccups worth retrying (rate limits, timeouts, 5xx); never bad output."""
-    if not isinstance(exc, LLMCallError):
-        return False
-    text = str(exc).lower()
-    return any(marker in text for marker in _TRANSIENT_MARKERS)
-
 
 def default_retry_policy(max_attempts: int = 4, initial_interval: float = 8.0) -> RetryPolicy:
     """Bounded node-level retry for transient LLM errors (on top of the SDK's own).

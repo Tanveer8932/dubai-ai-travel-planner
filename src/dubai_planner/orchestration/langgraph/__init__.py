@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from dubai_planner.agents.suite import AgentSuite
+from dubai_planner.llm.errors import is_transient
 from dubai_planner.orchestration.langgraph.checkpoint import (
     model_allowlist,
     open_checkpointer,
@@ -11,12 +13,11 @@ from dubai_planner.orchestration.langgraph.graph import (
     build_graph,
     draw_mermaid,
     export_mermaid,
-    is_transient,
     recursion_limit,
     route_after_parse,
     route_after_review,
 )
-from dubai_planner.orchestration.langgraph.nodes import AgentSuite, PlannerDeps
+from dubai_planner.orchestration.langgraph.nodes import PlannerDeps
 from dubai_planner.orchestration.langgraph.runner import LangGraphPlanner, run_langgraph
 from dubai_planner.orchestration.langgraph.state import PlannerState, merge_research
 

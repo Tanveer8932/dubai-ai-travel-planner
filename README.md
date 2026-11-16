@@ -62,6 +62,8 @@ offline tests and the mock provider need none of them.
 | `HTTP_TIMEOUT_S`, `HTTP_OFFLINE` | request timeout; `true` = never use the network (cache, then seed) |
 | `MAX_REVIEW_ITERATIONS`, `BUDGET_TOLERANCE` | planner behaviour |
 | `CREWAI_DISABLE_TELEMETRY`, `OTEL_SDK_DISABLED` | telemetry opt-out (keep `true`) |
+| `CREWAI_TRACING_ENABLED` | CrewAI trace upload/prompt (keep `false`) |
+| `CREWAI_PROCESS` | CrewAI mode: `sequential` (default) or `hierarchical` |
 | `LOG_LEVEL` | logging verbosity |
 
 ## Task runner (`scripts/tasks.ps1`)

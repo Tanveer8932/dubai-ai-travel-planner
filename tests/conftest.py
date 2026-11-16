@@ -16,6 +16,7 @@ os.environ["DUBAI_TEST_CALLER_LLM_PROVIDER"] = os.environ.get("LLM_PROVIDER", ""
 os.environ["LLM_PROVIDER"] = "mock"
 os.environ["CREWAI_DISABLE_TELEMETRY"] = "true"
 os.environ["OTEL_SDK_DISABLED"] = "true"
+os.environ["CREWAI_TRACING_ENABLED"] = "false"
 
 from dubai_planner.config import Settings, get_settings
 from dubai_planner.data import http as http_module
@@ -51,16 +52,30 @@ def _no_real_network(monkeypatch: pytest.MonkeyPatch, request: pytest.FixtureReq
     """Block real sockets so no test can silently reach the internet.
 
     ``respx`` intercepts httpx before any socket is opened, so mocked HTTP still works.
-    Tests marked ``network`` or ``llm`` are exempt.
+    Tests marked ``network`` or ``llm`` are exempt. Loopback connects stay allowed: on
+    Windows every asyncio event loop (CrewAI's event bus starts one) builds its internal
+    self-pipe from a 127.0.0.1 socket pair, which never leaves the machine.
     """
     if request.node.get_closest_marker("network") or request.node.get_closest_marker("llm"):
         return
+    real_connect = socket.socket.connect
 
     def guard(*_args: Any, **_kwargs: Any) -> Any:
         raise OSError("network access is disabled in offline tests")
 
-    monkeypatch.setattr(socket.socket, "connect", guard)
+    def guarded_connect(sock: socket.socket, address: Any, *args: Any, **kwargs: Any) -> Any:
+        if is_loopback(address):
+            return real_connect(sock, address, *args, **kwargs)
+        return guard()
+
+    monkeypatch.setattr(socket.socket, "connect", guarded_connect)
     monkeypatch.setattr(socket, "create_connection", guard)
+
+
+def is_loopback(address: Any) -> bool:
+    """True for a 127.x.x.x / ::1 socket address (local-only, not network access)."""
+    host = address[0] if isinstance(address, tuple) and address else None
+    return isinstance(host, str) and (host.startswith("127.") or host == "::1")
 
 
 @pytest.fixture(autouse=True)

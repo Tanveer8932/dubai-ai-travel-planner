@@ -16,12 +16,12 @@
 ### 1.2 CrewAI
 - **Model:** `Agent(role, goal, backstory, tools, llm, allow_delegation)`, `Task(description, expected_output, agent, context, output_pydantic, async_execution, guardrail)`, `Crew(agents, tasks, process)`.
 - **Processes:** `Process.sequential` (tasks in order, earlier outputs passed as context) and `Process.hierarchical` (a manager LLM/agent plans and delegates). Hierarchical mode costs more LLM calls and is less predictable.
-- **Parallelism:** tasks with `async_execution=True` run concurrently. A later task that lists them in `context` waits for them. **[verify]** current constraints on consecutive async tasks.
+- **Parallelism:** tasks with `async_execution=True` run concurrently. A later task that lists them in `context` waits for them. *Verified (1.15.41):* a crew may end with at most one async task, and an async task may not list an immediately preceding async task in its `context`; async tasks run in threads with `contextvars.copy_context()`. In hierarchical mode one manager executor runs every task, so concurrent tasks are not safe there.
 - **Structured output:** `output_pydantic=Model` → `task.output.pydantic`. Local models sometimes produce invalid JSON, so we add a repair/validate-retry wrapper.
-- **Review loops:** task **guardrails** (function returning `(ok, result_or_feedback)`) with retry. CrewAI **Flows** (`@start`, `@listen`, `@router`) are an option for an explicit outer loop. **[verify]** naming of `guardrail_max_retries` / `max_retries` in the installed version.
+- **Review loops:** task **guardrails** (function returning `(ok, result_or_feedback)`) with retry. CrewAI **Flows** (`@start`, `@listen`, `@router`) are an option for an explicit outer loop. *Verified (1.15.41):* `guardrail_max_retries` (`max_retries` is deprecated). A guardrail must be a function or bound method returning `(bool, Any)`; a success value may be a whole `TaskOutput`.
 - **LLM:** `crewai.LLM(model="provider/model", base_url=..., api_key=...)` via LiteLLM. Supports `ollama/…`, `groq/…`, `gemini/…`, `openai/…`, `anthropic/…`.
-- **Observability:** `step_callback`, `task_callback`, and the event bus (`crewai.utilities.events` / `crewai.events` **[verify]** module path) for `TaskStartedEvent`, `AgentExecutionCompletedEvent`, `ToolUsageFinishedEvent`, etc.
-- **Telemetry:** CrewAI sends anonymous telemetry by default. Set `CREWAI_DISABLE_TELEMETRY=true` (and `OTEL_SDK_DISABLED=true`) in `.env.example` for privacy and offline runs.
+- **Observability:** `step_callback`, `task_callback`, and the event bus (*verified:* `crewai.events`, handlers run on a thread pool, `crewai_event_bus.flush()` waits for them) for `TaskStartedEvent`, `AgentExecutionCompletedEvent`, `ToolUsageFinishedEvent`, etc.
+- **Telemetry:** CrewAI sends anonymous telemetry by default. Set `CREWAI_DISABLE_TELEMETRY=true` (and `OTEL_SDK_DISABLED=true`) in `.env.example` for privacy and offline runs. *Phase 4:* also `CREWAI_TRACING_ENABLED=false`, else a first-run trace prompt blocks each kickoff for 20 s.
 - **Fit:** fast to describe collaborating "personas"; less explicit control flow. Best for showing role-based collaboration and delegation.
 
 ### 1.3 Comparison hypotheses (to test in Phase 7)
