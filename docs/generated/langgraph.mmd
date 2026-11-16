@@ -1,0 +1,47 @@
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	parse_request(parse_request)
+	research_attractions(research_attractions)
+	research_accommodation(research_accommodation)
+	research_dining(research_dining)
+	allocate_budget(allocate_budget)
+	compose_itinerary(compose_itinerary)
+	review(review)
+	ask_clarification(ask_clarification)
+	research_transport(research_transport)
+	research_weather_events(research_weather_events)
+	merge_research(merge_research)
+	validate(validate)
+	refine_itinerary(refine_itinerary)
+	finalize(finalize)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> parse_request;
+	allocate_budget --> compose_itinerary;
+	ask_clarification --> parse_request;
+	compose_itinerary --> validate;
+	merge_research --> allocate_budget;
+	parse_request -.-> ask_clarification;
+	parse_request -.-> finalize;
+	parse_request -.-> research_accommodation;
+	parse_request -.-> research_attractions;
+	parse_request -.-> research_dining;
+	parse_request -.-> research_transport;
+	parse_request -.-> research_weather_events;
+	refine_itinerary --> compose_itinerary;
+	research_accommodation --> merge_research;
+	research_attractions --> merge_research;
+	research_dining --> merge_research;
+	research_transport --> merge_research;
+	research_weather_events --> merge_research;
+	review -.-> finalize;
+	review -.-> refine_itinerary;
+	validate --> review;
+	finalize --> __end__;
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc

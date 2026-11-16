@@ -180,3 +180,43 @@ def test_crewai_anthropic_without_extra_is_a_clear_error(monkeypatch: pytest.Mon
             get_crewai_llm(settings=s)
     else:  # pragma: no cover - extra installed on this machine
         pytest.skip("anthropic SDK installed; nothing to check")
+
+
+# ------------------------------------------------------------------ output limits (Phase 3)
+
+
+def _built(monkeypatch: pytest.MonkeyPatch, provider: str, **env: str) -> Any:
+    from dubai_planner.llm.factory import get_chat_model
+
+    for name in ("LLM_MAX_TOKENS", "LLM_REASONING_EFFORT"):
+        monkeypatch.delenv(name, raising=False)
+    return get_chat_model(settings=_settings(monkeypatch, provider, **env))
+
+
+def test_groq_gpt_oss_defaults_avoid_truncated_reasoning(
+        monkeypatch: pytest.MonkeyPatch, fake_langchain_providers: dict[str, type]) -> None:
+    """Groq's own 2048-token default truncated gpt-oss JSON in the AC3.6 smoke run."""
+    model = _built(monkeypatch, "groq", GROQ_API_KEY=FAKE_KEY)
+    assert model.kwargs["max_tokens"] == 4096 and model.kwargs["reasoning_effort"] == "low"
+
+
+def test_output_limits_follow_env_and_provider_names(
+        monkeypatch: pytest.MonkeyPatch, fake_langchain_providers: dict[str, type]) -> None:
+    groq = _built(monkeypatch, "groq", GROQ_API_KEY=FAKE_KEY, LLM_MAX_TOKENS="2000",
+                  LLM_REASONING_EFFORT="high")
+    assert groq.kwargs["max_tokens"] == 2000 and groq.kwargs["reasoning_effort"] == "high"
+    llama = _built(monkeypatch, "groq", GROQ_API_KEY=FAKE_KEY, LLM_MODEL="llama-x")
+    assert "reasoning_effort" not in llama.kwargs  # not a known reasoning model
+    ollama = _built(monkeypatch, "ollama", LLM_MAX_TOKENS="1024")
+    assert ollama.kwargs["num_predict"] == 1024 and "max_tokens" not in ollama.kwargs
+    gemini = _built(monkeypatch, "gemini", GEMINI_API_KEY=FAKE_KEY, LLM_MAX_TOKENS="1024")
+    assert gemini.kwargs["max_output_tokens"] == 1024
+    plain = _built(monkeypatch, "anthropic", ANTHROPIC_API_KEY=FAKE_KEY)
+    assert "max_tokens" not in plain.kwargs and "reasoning_effort" not in plain.kwargs
+
+
+def test_invalid_reasoning_effort_is_rejected(monkeypatch: pytest.MonkeyPatch) -> None:
+    from pydantic import ValidationError
+
+    with pytest.raises(ValidationError):
+        _settings(monkeypatch, "groq", LLM_REASONING_EFFORT="extreme")

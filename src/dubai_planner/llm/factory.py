@@ -51,6 +51,8 @@ class ProviderSpec:
     max_retries: int
     base_url: str | None = None
     api_key: SecretStr | None = None
+    max_tokens: int | None = None
+    reasoning_effort: str | None = None
 
     def secret(self) -> str:
         return self.api_key.get_secret_value() if self.api_key is not None else ""
@@ -77,14 +79,17 @@ def resolve_spec(agent_name: str | None = None, settings: Settings | None = None
         base_url = OPENAI_COMPATIBLE_URLS.get(provider)
     if base_url is not None and not base_url.startswith(("http://", "https://")):
         raise LLMConfigError(f"LLM_BASE_URL must start with http:// or https:// (got {base_url!r})")
+    model = s.model_for(agent_name)
     return ProviderSpec(
         provider=provider,
-        model=s.model_for(agent_name),
+        model=model,
         temperature=s.llm_temperature,
         timeout_s=s.llm_timeout_s,
         max_retries=s.llm_max_retries,
         base_url=base_url,
         api_key=api_key,
+        max_tokens=s.max_tokens_for(),
+        reasoning_effort=s.reasoning_effort_for(model),
     )
 
 
@@ -94,6 +99,12 @@ def resolve_spec(agent_name: str | None = None, settings: Settings | None = None
 def _langchain_model(spec: ProviderSpec) -> Any:
     p = spec.provider
     common: dict[str, Any] = {"model": spec.model, "temperature": spec.temperature}
+    limits: dict[str, Any] = {}  # only what is set, so provider defaults stay in charge
+    if spec.reasoning_effort and p in (LLMProvider.GROQ, LLMProvider.OPENAI):
+        limits["reasoning_effort"] = spec.reasoning_effort
+    if spec.max_tokens:
+        limits[{LLMProvider.OLLAMA: "num_predict",
+                LLMProvider.GEMINI: "max_output_tokens"}.get(p, "max_tokens")] = spec.max_tokens
     try:
         if p is LLMProvider.MOCK:
             from dubai_planner.llm.langchain_mock import MockChatModel
@@ -102,27 +113,27 @@ def _langchain_model(spec: ProviderSpec) -> Any:
         if p is LLMProvider.OLLAMA:
             from langchain_ollama import ChatOllama
 
-            return ChatOllama(**common, base_url=spec.base_url,
+            return ChatOllama(**common, **limits, base_url=spec.base_url,
                               client_kwargs={"timeout": spec.timeout_s})
         if p is LLMProvider.GROQ:
             from langchain_groq import ChatGroq
 
-            return ChatGroq(**common, api_key=spec.api_key, timeout=spec.timeout_s,
+            return ChatGroq(**common, **limits, api_key=spec.api_key, timeout=spec.timeout_s,
                             max_retries=spec.max_retries)
         if p is LLMProvider.GEMINI:
             from langchain_google_genai import ChatGoogleGenerativeAI
 
-            return ChatGoogleGenerativeAI(**common, google_api_key=spec.api_key,
+            return ChatGoogleGenerativeAI(**common, **limits, google_api_key=spec.api_key,
                                           timeout=spec.timeout_s, max_retries=spec.max_retries)
         if p is LLMProvider.OPENAI:
             from langchain_openai import ChatOpenAI
 
-            return ChatOpenAI(**common, api_key=spec.api_key, base_url=spec.base_url,
+            return ChatOpenAI(**common, **limits, api_key=spec.api_key, base_url=spec.base_url,
                               timeout=spec.timeout_s, max_retries=spec.max_retries)
         if p is LLMProvider.ANTHROPIC:
             from langchain_anthropic import ChatAnthropic
 
-            return ChatAnthropic(**common, api_key=spec.api_key, timeout=spec.timeout_s,
+            return ChatAnthropic(**common, **limits, api_key=spec.api_key, timeout=spec.timeout_s,
                                  max_retries=spec.max_retries)
     except ImportError as exc:
         package = f"langchain-{p.value.replace('gemini', 'google-genai')}"

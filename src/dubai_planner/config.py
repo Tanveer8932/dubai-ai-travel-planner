@@ -11,6 +11,7 @@ from decimal import Decimal
 from enum import StrEnum
 from functools import lru_cache
 from pathlib import Path
+from typing import Literal
 
 from dotenv import dotenv_values
 from pydantic import Field, SecretStr, field_validator
@@ -39,6 +40,20 @@ DEFAULT_MODELS: dict[LLMProvider, str] = {
     LLMProvider.OPENAI: "gpt-4o-mini",
     LLMProvider.ANTHROPIC: "claude-haiku-5-5",
     LLMProvider.MOCK: "mock",
+}
+
+
+ReasoningEffort = Literal["low", "medium", "high"]
+
+#: Output-token cap when ``LLM_MAX_TOKENS`` is empty (absent = the provider's own default).
+#: Groq's own default (2048) truncates reasoning models such as gpt-oss, whose hidden
+#: reasoning counts as output; Groq also counts the cap against its per-minute token
+#: limit, so it must stay well below the free tier's 8 000 TPM.
+DEFAULT_MAX_TOKENS: dict[LLMProvider, int] = {LLMProvider.GROQ: 4096}
+#: Model-id prefixes of reasoning models that get ``low`` effort when
+#: ``LLM_REASONING_EFFORT`` is empty (structured extraction needs little reasoning).
+LOW_EFFORT_MODEL_PREFIXES: dict[LLMProvider, tuple[str, ...]] = {
+    LLMProvider.GROQ: ("openai/gpt-oss",),
 }
 
 
@@ -74,6 +89,10 @@ class Settings(BaseSettings):
     llm_max_retries: int = Field(default=2, ge=0, le=5)
     #: Repair attempts after an LLM output fails schema validation (hard rule 6: one).
     llm_repair_attempts: int = Field(default=1, ge=0, le=3)
+    #: Max output tokens per call (empty = provider default, see ``DEFAULT_MAX_TOKENS``).
+    llm_max_tokens: int | None = Field(default=None, ge=256, le=32_768)
+    #: Reasoning effort for reasoning models (empty = see ``LOW_EFFORT_MODEL_PREFIXES``).
+    llm_reasoning_effort: ReasoningEffort | None = None
 
     groq_api_key: SecretStr | None = None
     gemini_api_key: SecretStr | None = None
@@ -128,6 +147,16 @@ class Settings(BaseSettings):
             if override:
                 return override
         return self.llm_model or DEFAULT_MODELS[self.llm_provider]
+
+    def max_tokens_for(self) -> int | None:
+        return self.llm_max_tokens or DEFAULT_MAX_TOKENS.get(self.llm_provider)
+
+    def reasoning_effort_for(self, model: str) -> ReasoningEffort | None:
+        """Explicit ``LLM_REASONING_EFFORT``, else ``low`` for known reasoning models."""
+        if self.llm_reasoning_effort is not None:
+            return self.llm_reasoning_effort
+        prefixes = LOW_EFFORT_MODEL_PREFIXES.get(self.llm_provider, ())
+        return "low" if model.startswith(prefixes) else None
 
     def apply_runtime_env(self) -> None:
         """Export telemetry opt-outs to ``os.environ``.

@@ -53,6 +53,13 @@ from dubai_planner.models.options import (
     TimeOfDay,
     Weekday,
 )
+from dubai_planner.models.planning import (
+    Attempt,
+    AttemptSummary,
+    PlannerUpdate,
+    PlanResult,
+    PlanStatus,
+)
 from dubai_planner.models.records import (
     EvalResult,
     EvalRun,
@@ -98,6 +105,8 @@ __all__ = [
     "Activity",
     "ActivityKind",
     "Area",
+    "Attempt",
+    "AttemptSummary",
     "AttractionCategory",
     "AttractionOption",
     "BudgetCategory",
@@ -129,7 +138,10 @@ __all__ = [
     "OpeningHours",
     "OsmPoi",
     "Pace",
+    "PlanResult",
+    "PlanStatus",
     "PlannerMode",
+    "PlannerUpdate",
     "PriceBand",
     "PriceRange",
     "PriceUnit",
