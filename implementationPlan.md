@@ -44,7 +44,7 @@ Each phase ends with a **demoable increment** and a set of **acceptance criteria
 - [x] AC0.6 `git grep -iE "(api[_-]?key|secret|token)\s*=\s*['\"][A-Za-z0-9]"` finds no hardcoded secrets.
 - [x] AC0.7 All five docs exist; Mermaid diagrams render in VS Code preview / GitHub.
   - *Status note (2026-11-15):* existence and Mermaid syntax (closed fences, valid diagram types) are checked by `tests/unit/test_smoke.py`; visual rendering in VS Code/GitHub still needs a one-off manual look.
-- *Task 9 (Ollama, optional):* not installed yet. Not needed for Phase 0–1 (tests use `LLM_PROVIDER=mock`); required before AC2.3 / AC3.6.
+- *Task 9 (Ollama, optional):* not installed. Not needed for Phase 0–1 (tests use `LLM_PROVIDER=mock`). AC2.3 was met with Groq's free tier instead; AC3.6 accepts Ollama or Groq.
 
 ---
 
@@ -93,12 +93,30 @@ Each phase ends with a **demoable increment** and a set of **acceptance criteria
 7. `agents/budget.py`: deterministic allocation (accommodation from nights × nightly rate, food per person per day by band, activities sum, transport estimate, contingency %), plus an LLM-written rationale.
 
 **Acceptance criteria**
-- [ ] AC2.1 Switching `LLM_PROVIDER` between `mock`, `ollama`, `groq`, `gemini` needs **no code change**. A missing key gives a clear error naming the env var.
-- [ ] AC2.2 Each agent has a unit test with the mock LLM producing a valid output model.
-- [ ] AC2.3 `RequirementsAgent` extracts correct `TripRequest` fields for ≥ 8/10 fixture prompts (dates, travellers, budget, interests, dietary) with a real local model (manual/integration test, marked `@pytest.mark.llm`).
-- [ ] AC2.4 Budget calculator unit tests: exact arithmetic with `Decimal`; categories sum to total; over-budget flagged.
-- [ ] AC2.5 Each validator rule has a positive and a negative test case.
-- [ ] AC2.6 Grounding: research agent outputs contain only IDs present in tool results (test with mock that tries to inject an unknown ID → rejected).
+- [x] AC2.1 Switching `LLM_PROVIDER` between `mock`, `ollama`, `groq`, `gemini` needs **no code change**. A missing key gives a clear error naming the env var.
+  - *Evidence:* `tests/unit/test_llm_factory.py`. All five LangChain providers are built from env alone (with the provider packages stubbed, since the optional `providers` extra is not installed); real CrewAI clients are constructed for ollama/groq/gemini/openai with no network; a missing or blank key raises `LLMConfigError` naming `GROQ_API_KEY` etc.; a missing package raises `ProviderNotInstalledError` naming it; keys never appear in `repr`.
+- [x] AC2.2 Each agent has a unit test with the mock LLM producing a valid output model.
+  - *Evidence:* `tests/unit/test_agents.py` (all 9 agents, JSON round-trip of each output; the same pipeline through `MockChatModel` (LangChain) and `MockCrewAILLM` (CrewAI) yields identical itineraries); `tests/unit/test_composer_reviewer.py`; `tests/integration/test_agent_chain.py` (6 scenarios end to end, offline).
+- [x] AC2.3 `RequirementsAgent` extracts correct `TripRequest` fields for ≥ 8/10 fixture prompts (dates, travellers, budget, interests, dietary) with a real local model (manual/integration test, marked `@pytest.mark.llm`).
+  - *Evidence (2026-11-16):* met with a **hosted free-tier model, not a local one**: Groq `openai/gpt-oss-20b` via `langchain-groq` 1.2.0 (Ollama was not installed, by decision). `pytest -m llm` → `test_ac23_real_model_extracts_fixture_cases` **PASSED** in two separate runs (≥ 8/10 asserted). Per-case runs with the same config scored **9/10 twice**: every completed extraction was correct on the first LLM call, and in each run exactly one case (`friends_nights` in one, `family_kids_count` in the other) failed with HTTP 429 (free-tier limit of 8 000 tokens/min) after the SDK's retries, not with a wrong extraction. Every one of the 10 cases was extracted correctly in at least one run.
+  - *Fixes needed to get there:* (1) Groq's default `llama-3.1-8b-instant` is not served to this account; the Groq default is now `openai/gpt-oss-20b`. (2) First attempt scored **3/10**: LangChain's default forced tool call made Groq reject 7 replies with HTTP 400 `tool_use_failed`, although the rejected `failed_generation` was already correct JSON. Groq now uses `with_structured_output(method="json_schema")`, and a provider rejection of a native reply (`tool_use_failed` / `json_validate_failed`) is validated through the normal Pydantic → postprocess → one repair path instead of aborting as a transport error (`llm/base.py`, `llm/structured.py`). No prompt, model or domain change was needed. (3) `tests/conftest.py` forced `LLM_PROVIDER=mock` for every test, so `pytest -m llm` always skipped; `llm`-marked tests now use the caller's provider (shell env, else `.env`).
+  - *Not covered:* a local Ollama model was not tested; the offline rule-based mock still passes the same cases (`test_heuristic_baseline_on_fixture_cases`) as a baseline.
+- [x] AC2.4 Budget calculator unit tests: exact arithmetic with `Decimal`; categories sum to total; over-budget flagged.
+  - *Evidence:* `tests/unit/test_budget_agent.py` (fils-exact amounts, contingency = 10 % of subtotal, categories sum to the allocated total, tolerance boundary, per-person/per-day scopes, infeasible plan flagged with a reason, LLM cannot change numbers); `tests/unit/test_tools.py::test_calculate_costs_is_exact_and_consistent`.
+- [x] AC2.5 Each validator rule has a positive and a negative test case.
+  - *Evidence:* `tests/unit/test_rules.py`, covering all 11 rules from architecture §7 (plus severity escalation for heat in May–Sep, seasonal closures, and grounding against the research bundle).
+- [x] AC2.6 Grounding: research agent outputs contain only IDs present in tool results (test with mock that tries to inject an unknown ID → rejected).
+  - *Evidence:* `tests/unit/test_grounding.py`. Injected ids are dropped, listed in `rejected_ids` and traced as a guardrail event; an all-unknown answer gets one repair, then `StructuredOutputError`; the composer rejects unknown venue ids through the repair loop.
+
+*Status notes (2026-11-16):*
+- **Phase 2 is complete:** all six ACs pass (AC2.3 with Groq `openai/gpt-oss-20b`, see above). Phase 3 can start.
+- **Free-tier rate limit:** Groq's on-demand tier allows 8 000 tokens/min for `gpt-oss-20b`; one requirements call uses ~3 000. Back-to-back runs (AC2.3, later AC3.6/AC7.2 evals) can hit HTTP 429, which is a transport error and is not "repaired". Pace eval runs or raise `LLM_MAX_RETRIES` (max 5).
+- **As built:** see `architecture.md` §5, §7 and §10 "As built (Phase 2)". Key choices: a framework-neutral `ChatLLM` interface with LangChain/CrewAI adapters; Groq and Gemini reach CrewAI through their OpenAI-compatible endpoints (CrewAI 1.15 has no native Groq client and LiteLLM is not installed); transport and weather/events agents are deterministic (no LLM call); the budget LLM writes only the rationale; the composer LLM drafts by id and Python grounds and prices the itinerary.
+- **Fallbacks:** research, composer and reviewer agents fail loudly by default (`StructuredOutputError`, hard rule 6) and accept an opt-in `fallback=True` that uses deterministic baselines (tool ranking, baseline scheduler, rule-only review). The budget rationale always falls back, because it is not critical.
+- **Not used to add venues:** Overpass POIs and Wikivoyage summaries are available as tools, but OSM venues carry no price or dietary data, so they cannot be grounded or costed. Agents select only curated seed venues.
+- **Tracing:** a minimal `tracing/bus.py` (publish/subscribe, run context, `agent_span`) was added because task 3 requires token usage on the trace. Phase 6 adds the SQLite and Streamlit subscribers.
+- Added settings: `LLM_TIMEOUT_S`, `LLM_MAX_RETRIES`, `LLM_REPAIR_ATTEMPTS`, `LLM_MODEL__<AGENT>`. `LLM_MODEL`/`LLM_BASE_URL` are now optional (empty = provider default), documented in `.env.example`.
+- 408 offline tests pass (`pytest -m "not llm"`, including 6 new structured-output tests for the Groq fix), 97 % line+branch coverage on `src/`; `ruff check .` and `mypy src` (strict) are clean. `pytest -m llm` (1 test) passes against Groq.
 
 ---
 

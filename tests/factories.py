@@ -123,3 +123,34 @@ def itinerary(session_id: str = "s1", *, days: int = 2, total: str | None = None
         cost=cost,
         created_at=datetime(2026, 11, 15, 12, 0, tzinfo=UTC),
     )
+
+
+# --------------------------------------------------------------------------- Phase 2 helpers
+
+
+def research_bundle(request: TripRequest, llm: Any, tools: Any) -> Any:
+    """Run the five research agents (mock LLM) and bundle their outputs."""
+    from dubai_planner.agents import accommodation, attractions, dining, transport, weather_events
+    from dubai_planner.models import ResearchBundle
+
+    att = attractions.run(attractions.AttractionsInput(request=request), llm, tools)
+    hotels = accommodation.run(accommodation.AccommodationInput(request=request), llm, tools)
+    dine = dining.run(dining.DiningInput(request=request), llm, tools)
+    trans = transport.run(transport.TransportInput(request=request), None, tools)
+    wx = weather_events.run(weather_events.WeatherEventsInput(
+        start_date=request.start_date, end_date=request.end_date), None, tools)
+    return ResearchBundle(attractions=att.options, hotels=hotels.options, dining=dine.options,
+                          transport=trans, weather=wx.weather, events=wx.events)
+
+
+def compose(request: TripRequest, llm: Any, tools: Any, *, session_id: str = "s1",
+            research: Any = None, **kwargs: Any) -> tuple[Any, Any, Itinerary]:
+    """research → budget → composer. Returns (research, budget_plan, itinerary)."""
+    from dubai_planner.agents import budget, composer
+
+    bundle = research if research is not None else research_bundle(request, llm, tools)
+    plan = budget.run(budget.BudgetInput(request=request, research=bundle), llm, tools)
+    itin = composer.run(composer.ComposerInput(
+        session_id=session_id, mode=PlannerMode.LANGGRAPH, request=request, research=bundle,
+        budget=plan, **kwargs), llm, tools)
+    return bundle, plan, itin

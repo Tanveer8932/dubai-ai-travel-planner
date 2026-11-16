@@ -31,7 +31,7 @@ crewai = [
 ]
 providers = [
     "langchain-ollama",
-    "langchain-groq",
+    "langchain-groq==1.2.0",  # verified with Groq openai/gpt-oss-20b (AC2.3)
     "langchain-google-genai",
     "langchain-openai",
     "langchain-anthropic",
@@ -68,7 +68,10 @@ markers = [
 ]
 asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "function"
-filterwarnings = ["ignore::DeprecationWarning:pydantic.*"]
+filterwarnings = [
+    "ignore::DeprecationWarning:pydantic.*",
+    "ignore::DeprecationWarning:crewai.*",  # CrewAI internals, not our code
+]
 
 # ---------------------------------------------------------------- ruff
 [tool.ruff]
@@ -93,6 +96,18 @@ strict = true
 mypy_path = "src"
 packages = ["dubai_planner"]
 plugins = ["pydantic.mypy"]
+
+# Optional provider integrations (the `providers` extra) are imported lazily and may
+# not be installed; the factory raises ProviderNotInstalledError at runtime instead.
+[[tool.mypy.overrides]]
+module = [
+    "langchain_ollama",
+    "langchain_groq",
+    "langchain_google_genai",
+    "langchain_openai",
+    "langchain_anthropic",
+]
+ignore_missing_imports = true
 
 # ---------------------------------------------------------------- coverage
 [tool.coverage.run]

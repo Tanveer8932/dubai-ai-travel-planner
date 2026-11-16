@@ -192,6 +192,15 @@ flowchart LR
 | Itinerary Composer | everything above | `Itinerary` (days → time slots) | travel-time estimator | yes |
 | Reviewer | `Itinerary`, `TripRequest`, violations | `ReviewReport` (approved, issues[], severity, suggested fixes) | validators | yes |
 
+*As built (Phase 2).* Each agent module exposes `AGENT`, Pydantic I/O models and `run(input, llm, tools)`, where `tools` is a `tools.toolbox.Toolbox` (injectable data sources; `TOOL_SPECS` gives Pydantic argument schemas for Phase 4's CrewAI tool wrappers). Differences from the table above:
+
+- **Requirements** returns `RequirementsResult` (draft, strict request when complete, missing fields, a clarification question, assumptions). The LLM fills a flat `RequirementsExtraction` (`duration_days`, `month`, `budget_amount` + `budget_currency`); Python resolves dates, converts currency via the USD peg, normalises vocabulary and merges with the previous draft. The user's text is wrapped in `<user_request>` and treated as data.
+- **Attractions / Accommodation / Dining** share `agents/selection.py`: the search tool filters hard constraints and pre-ranks; the LLM returns `Selection{picks[id, score, rationale]}`. Ids not in the candidate list are **rejected** (dropped, listed in `rejected_ids`, traced as a guardrail event); if none is valid the output is repaired once, then fails loudly. Short lists are topped up from the tool ranking. `fallback=True` (opt-in) uses the tool ranking when the model fails.
+- **Transport** and **Weather & Events** are fully deterministic (no LLM call). The Overpass/Wikivoyage clients are available as tools but are not used to *add* venues, because OSM POIs carry no price or dietary data and could not be grounded or costed.
+- **Budget**: allocation is deterministic (priority: accommodation, transport, food band, then activities capped to what is left; contingency 10 %). The plan is `feasible=false` with a reason only when even that does not fit `budget × (1 + tolerance)`. The LLM writes only the rationale; on failure a deterministic rationale is used.
+- **Composer**: the LLM returns a small `DraftItinerary` (day → slots by id and time). `assemble()` grounds ids, fills venue facts, estimates every leg, prices every slot for the party and builds the cost breakdown; any problem is sent back as the repair message. `locked_days` + `previous` support partial re-planning (Phase 5). `baseline_draft()` is a deterministic heat-, pace-, budget- and opening-hours-aware scheduler (mock reply and opt-in fallback).
+- **Reviewer**: rule violations always become issues; `approved` ⇔ no error-severity issue from either rules or LLM; score = min(LLM score, rule ceiling).
+
 ## 6. Core domain models (Pydantic v2)
 
 ```mermaid
@@ -292,6 +301,8 @@ Seed prices are always `estimated` (enforced by `tests/unit/test_seed.py`), and 
 | `constraints.accessibility` | warning | wheelchair-flagged activities only when required |
 | `culture.ramadan` | info | daytime eating/drinking etiquette notes when dates overlap Ramadan |
 | `grounding.known_entities` | warning | every venue resolves to seed data or a cited source (anti-hallucination) |
+
+*As built (Phase 2):* `validation/rules.py` (`validate_itinerary`, `RULES`, `has_errors`); shared limits live in `validation/thresholds.py` so planner and checker agree. Interpretations: `pace.density` counts sightseeing slots (attractions + events), not meals; `budget.arithmetic` checks category sum = total, item sum = total, each `day_cost_aed` = slot costs + inbound leg costs, and Σ day costs = activities + food + transport; `heat.midday_outdoor` uses the researched weather (forecast/historical) and falls back to seed climatology; `constraints.accessibility` is a warning for venues recorded as inaccessible and info for unknown access; `grounding.known_entities` checks against the research bundle when given (else the seed catalogue). Rules also re-check invariants the models enforce (e.g. overlaps), so itineraries loaded with `model_construct` are still reported on.
 
 ## 8. Persistence
 
@@ -408,6 +419,14 @@ GROQ_API_KEY= / GEMINI_API_KEY= / OPENAI_API_KEY= / ANTHROPIC_API_KEY=
 ```
 
 `LLMFactory` returns (a) a LangChain `BaseChatModel` for LangGraph nodes and (b) a CrewAI `LLM` (LiteLLM string) for crews, both from the same settings. Per-agent overrides are possible (e.g. a smaller model for extraction). `MockLLM` returns fixture-based structured outputs so tests and CI are deterministic and free.
+
+*As built (Phase 2):*
+
+- **Neutral chat interface.** Agents call `llm.base.ChatLLM` (`complete(messages) -> Completion`). `as_chat_llm()` wraps a LangChain chat model (`LangChainChatLLM`) or a CrewAI `BaseLLM` (`CrewAIChatLLM`), so `get_chat_model()` and `get_crewai_llm()` objects go straight into any agent's `run()`.
+- **Factory** (`llm/factory.py`): `resolve_spec()` validates config without importing an SDK (a missing key raises `LLMConfigError` naming the env var; a missing package raises `ProviderNotInstalledError` naming it). `LLM_MODEL` empty = per-provider default; `LLM_MODEL__<AGENT>` overrides per agent. Bounded `LLM_TIMEOUT_S` / `LLM_MAX_RETRIES` go to every SDK. CrewAI 1.15 routes Ollama and OpenAI natively. Groq and Gemini go through their **OpenAI-compatible endpoints** (no LiteLLM or extra CrewAI extras needed); Anthropic needs `crewai[anthropic]`.
+- **Structured output** (`llm/structured.py`): provider-native `with_structured_output` on the first attempt for real LangChain providers (Groq with `method="json_schema"`; a provider rejection such as Groq's 400 `tool_use_failed` keeps the model's `failed_generation` text and validates it like any other reply); otherwise JSON prompt → fence/prose stripping → `model_validate_json` → agent `postprocess` (semantic checks) → **one** repair turn with the errors → `StructuredOutputError`. Transport errors (`LLMCallError`) are never "repaired". Every call publishes an `llm_call` `TraceEvent` with tokens and latency.
+- **Mock** (`llm/mock.py`): one deterministic engine, exposed as a LangChain chat model (`langchain_mock.MockChatModel`) and as a CrewAI `BaseLLM` (`crewai_mock.MockCrewAILLM`; no LiteLLM). It reads `AGENT:`/`SCHEMA:` markers and the prompt's `<context>` JSON; resolution order is scripted replies (tests) → fixture files → per-schema generators registered by each agent (deterministic baselines such as "top-ranked candidates" or the composer's scheduler).
+- **Tracing** (`tracing/bus.py`): a minimal in-process bus with a `ContextVar` run context (`run_id`, `mode`, `iteration`), `agent_span()` (start/end/error) and `capture()` for tests. Phase 6 adds the SQLite and Streamlit subscribers.
 
 ## 11. Repository layout
 

@@ -11,6 +11,8 @@ from typing import Any
 import pytest
 
 # Must be set before any test imports CrewAI / OpenTelemetry.
+# The caller's provider is remembered so ``@pytest.mark.llm`` tests can use it.
+os.environ["DUBAI_TEST_CALLER_LLM_PROVIDER"] = os.environ.get("LLM_PROVIDER", "")
 os.environ["LLM_PROVIDER"] = "mock"
 os.environ["CREWAI_DISABLE_TELEMETRY"] = "true"
 os.environ["OTEL_SDK_DISABLED"] = "true"
@@ -18,6 +20,8 @@ os.environ["OTEL_SDK_DISABLED"] = "true"
 from dubai_planner.config import Settings, get_settings
 from dubai_planner.data import http as http_module
 from dubai_planner.data.http import HttpClient
+from dubai_planner.llm.mock import MockLLM
+from dubai_planner.tools.toolbox import Toolbox
 
 
 @pytest.fixture(autouse=True)
@@ -25,6 +29,20 @@ def _fresh_settings() -> Iterator[None]:
     """Make sure each test sees settings built from its own (monkeypatched) env."""
     get_settings.cache_clear()
     yield
+    get_settings.cache_clear()
+
+
+@pytest.fixture(autouse=True)
+def _real_provider_for_llm_tests(monkeypatch: pytest.MonkeyPatch,
+                                 request: pytest.FixtureRequest) -> None:
+    """``llm``-marked tests use the caller's provider (shell env, else `.env`), not mock."""
+    if not request.node.get_closest_marker("llm"):
+        return
+    caller = os.environ.get("DUBAI_TEST_CALLER_LLM_PROVIDER", "")
+    if caller:
+        monkeypatch.setenv("LLM_PROVIDER", caller)
+    else:
+        monkeypatch.delenv("LLM_PROVIDER", raising=False)  # fall through to `.env`
     get_settings.cache_clear()
 
 
@@ -57,6 +75,20 @@ def _isolated_storage(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
 @pytest.fixture
 def settings() -> Settings:
     return get_settings()
+
+
+@pytest.fixture
+def toolbox(monkeypatch: pytest.MonkeyPatch) -> Toolbox:
+    """Toolbox whose public-data clients never touch the network (cache → seed)."""
+    monkeypatch.setenv("HTTP_OFFLINE", "true")
+    get_settings.cache_clear()
+    return Toolbox.default()
+
+
+@pytest.fixture
+def mock_llm() -> MockLLM:
+    """A fresh mock engine (scripts/calls are not shared with other tests)."""
+    return MockLLM()
 
 
 @pytest.fixture

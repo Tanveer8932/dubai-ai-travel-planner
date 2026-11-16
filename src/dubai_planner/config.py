@@ -12,6 +12,7 @@ from enum import StrEnum
 from functools import lru_cache
 from pathlib import Path
 
+from dotenv import dotenv_values
 from pydantic import Field, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -30,6 +31,25 @@ class LLMProvider(StrEnum):
     MOCK = "mock"
 
 
+#: Model used when ``LLM_MODEL`` is empty. Hosted model ids change often **[verify]**.
+DEFAULT_MODELS: dict[LLMProvider, str] = {
+    LLMProvider.OLLAMA: "qwen2.5:7b",
+    LLMProvider.GROQ: "openai/gpt-oss-20b",
+    LLMProvider.GEMINI: "gemini-2.5-flash",
+    LLMProvider.OPENAI: "gpt-4o-mini",
+    LLMProvider.ANTHROPIC: "claude-haiku-5-5",
+    LLMProvider.MOCK: "mock",
+}
+
+
+def _dotenv_values(settings: BaseSettings) -> dict[str, str]:
+    """Raw ``KEY=value`` pairs from the configured `.env` file (empty if absent)."""
+    env_file = settings.model_config.get("env_file")
+    if not isinstance(env_file, str | Path) or not Path(env_file).is_file():
+        return {}
+    return {k.upper(): v for k, v in dotenv_values(env_file).items() if v}
+
+
 class Settings(BaseSettings):
     """Typed, validated runtime configuration (see `.env.example` for documentation)."""
 
@@ -43,9 +63,17 @@ class Settings(BaseSettings):
 
     # --- LLM provider ------------------------------------------------------
     llm_provider: LLMProvider = LLMProvider.OLLAMA
-    llm_model: str = "qwen2.5:7b"
+    #: Empty = the provider's default model (see ``DEFAULT_MODELS``).
+    llm_model: str | None = None
     llm_temperature: float = Field(default=0.2, ge=0.0, le=2.0)
-    llm_base_url: str = "http://localhost:11434"
+    #: Empty = the provider's default endpoint (Ollama: http://localhost:11434).
+    llm_base_url: str | None = None
+    #: Per-request timeout for LLM calls (seconds).
+    llm_timeout_s: float = Field(default=120.0, gt=0, le=900)
+    #: Transport-level retries inside the provider SDK (rate limits, 5xx). Bounded.
+    llm_max_retries: int = Field(default=2, ge=0, le=5)
+    #: Repair attempts after an LLM output fails schema validation (hard rule 6: one).
+    llm_repair_attempts: int = Field(default=1, ge=0, le=3)
 
     groq_api_key: SecretStr | None = None
     gemini_api_key: SecretStr | None = None
@@ -87,6 +115,19 @@ class Settings(BaseSettings):
         if level not in {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"}:
             raise ValueError(f"invalid LOG_LEVEL {value!r}")
         return level
+
+    def model_for(self, agent_name: str | None = None) -> str:
+        """Model name for ``agent_name``: ``LLM_MODEL__<AGENT>`` → ``LLM_MODEL`` → default.
+
+        Per-agent overrides are read from the process environment first, then `.env`
+        (e.g. ``LLM_MODEL__REQUIREMENTS=qwen2.5:3b`` for a smaller extraction model).
+        """
+        if agent_name:
+            key = f"LLM_MODEL__{agent_name.upper()}"
+            override = os.environ.get(key) or _dotenv_values(self).get(key)
+            if override:
+                return override
+        return self.llm_model or DEFAULT_MODELS[self.llm_provider]
 
     def apply_runtime_env(self) -> None:
         """Export telemetry opt-outs to ``os.environ``.

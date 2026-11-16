@@ -49,8 +49,14 @@ the default provider is local Ollama and tests use `LLM_PROVIDER=mock`.
 | Variable | Purpose |
 |----------|---------|
 | `LLM_PROVIDER` | `ollama` \| `groq` \| `gemini` \| `openai` \| `anthropic` \| `mock` |
-| `LLM_MODEL`, `LLM_TEMPERATURE`, `LLM_BASE_URL` | model selection |
-| `*_API_KEY` | only for the hosted provider you choose |
+| `LLM_MODEL`, `LLM_TEMPERATURE`, `LLM_BASE_URL` | model selection (empty model/URL = provider default) |
+| `LLM_MODEL__<AGENT>` | optional per-agent model, e.g. `LLM_MODEL__REQUIREMENTS=qwen2.5:3b` |
+| `LLM_TIMEOUT_S`, `LLM_MAX_RETRIES`, `LLM_REPAIR_ATTEMPTS` | per-call timeout, bounded SDK retries, schema-repair retries (default 1) |
+| `*_API_KEY` | only for the hosted provider you choose (a missing key gives an error naming the variable) |
+
+Hosted providers need their LangChain integration (`pip install -e ".[providers]"`, or just the
+one you use, e.g. `pip install langchain-groq`). Ollama (`langchain-ollama`) is optional; the
+offline tests and the mock provider need none of them.
 | `DB_PATH`, `CHECKPOINT_DB_PATH`, `CACHE_DIR`, `CACHE_TTL_HOURS`, `SEED_DIR` | storage |
 | `HTTP_USER_AGENT` | required by OSM and Wikimedia — put a **real** contact email/URL here (Wikivoyage returns 403 without one; Overpass returns 406 for `example.com`) |
 | `HTTP_TIMEOUT_S`, `HTTP_OFFLINE` | request timeout; `true` = never use the network (cache, then seed) |
