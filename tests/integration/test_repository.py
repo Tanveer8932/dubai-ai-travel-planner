@@ -33,10 +33,10 @@ def repo(tmp_path: Path) -> Repository:
 
 
 def test_migration_sets_user_version_and_is_idempotent(repo: Repository) -> None:
-    assert repo.schema_version() == SCHEMA_VERSION == 2  # v2: Phase 6 run aggregates
-    assert repo.migrate() == 2
+    assert repo.schema_version() == SCHEMA_VERSION == 3  # v3: session owners
+    assert repo.migrate() == 3
     again = Repository(repo.db_path)  # re-opening an existing DB does not re-apply
-    assert again.schema_version() == 2
+    assert again.schema_version() == 3
 
 
 def test_v1_database_is_upgraded_in_place_without_losing_runs(tmp_path: Path) -> None:
@@ -53,7 +53,7 @@ def test_v1_database_is_upgraded_in_place_without_losing_runs(tmp_path: Path) ->
                      "VALUES ('old', 'langgraph', 'succeeded', '2026-11-01T10:00:00+00:00', "
                      "5, 900)")
     repo = Repository(path)
-    assert repo.schema_version() == 2
+    assert repo.schema_version() == SCHEMA_VERSION  # v1 → latest
     run = repo.get_run("old")
     assert run is not None and (run.llm_calls, run.tokens) == (5, 900)
     assert (run.tokens_in, run.tokens_out, run.iterations, run.context) == (0, 0, None, {})

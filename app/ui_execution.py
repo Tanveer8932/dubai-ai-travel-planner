@@ -8,7 +8,6 @@ LangGraph's compiled ``get_graph()`` and CrewAI's ``CrewFactory.describe()``.
 
 from __future__ import annotations
 
-import json
 from datetime import UTC, datetime
 from typing import Any
 
@@ -345,9 +344,5 @@ def render_comparison(svc: Services, a: ob.RunTrace, b: ob.RunTrace) -> None:
 
 
 def export_trace(trace: ob.RunTrace) -> str:
-    """The run's record and events as JSON (secrets redacted by ``inspect_event``)."""
-    from dubai_planner.redaction import redact
-
-    data = {"run": trace.run.model_dump(mode="json"),
-            "events": [json.loads(e.model_dump_json()) for e in trace.events]}
-    return redact(json.dumps(data, indent=1, default=str))
+    """The run's record and events as JSON (secrets redacted)."""
+    return ob.export_trace(trace)

@@ -18,7 +18,9 @@ from ui_shared import (
     Services,
     current_mode,
     current_session_id,
+    deployment_notices,
     nav_link,
+    rejected_link_notice,
     select_session,
     services,
     sidebar,
@@ -27,6 +29,7 @@ from ui_shared import (
 from dubai_planner.models import ChatRole, PlanStatus
 from dubai_planner.services import observability as ob
 from dubai_planner.services import presentation as view
+from dubai_planner.services.ownership import SessionNotFound
 from dubai_planner.services.runs import RunHandle, RunInProgress
 
 NODE_LABELS = {
@@ -107,8 +110,8 @@ def outcome(handle: RunHandle) -> None:
 
 def recorded_review(svc: Services, session_id: str) -> None:
     """After a restart the run handle is gone: show the last run's attempts from SQLite."""
-    runs = ob.list_run_traces(svc.sessions.repo, session_id)
-    trace = ob.load_trace(svc.sessions.repo, runs[0].id, active=False) if runs else None
+    runs = svc.sessions.run_records(session_id)
+    trace = svc.sessions.trace(runs[0].id, active=False) if runs else None
     attempts = ob.recorded_attempts(trace) if trace is not None else []
     if not attempts:
         return
@@ -126,6 +129,8 @@ def recorded_review(svc: Services, session_id: str) -> None:
 session_id = current_session_id()
 session = svc.sessions.get(session_id) if session_id else None
 st.title("🗺️ Plan your Dubai trip")
+rejected_link_notice("session")
+deployment_notices(svc)
 if session is not None:
     st.caption(f"Session **{session.title}** · started in {session.mode.value} · next "
                f"message uses **{current_mode().value}**")
@@ -165,6 +170,10 @@ if prompt:
         svc.runs.start(session_id, current_mode(), prompt)
     except RunInProgress as exc:
         st.warning(str(exc))
+    except SessionNotFound:
+        select_session(None)
+        st.warning("This session is not available any more. Send the request again to "
+                   "start a new session.")
     except ValueError as exc:
         st.warning(str(exc))
     else:

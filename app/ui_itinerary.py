@@ -114,10 +114,12 @@ def render_itinerary(record: ItineraryRecord, svc: Services, *, key: str) -> Non
         else:
             st.caption("No locations to show.")
     with tabs[len(days) + 2]:
-        st.download_button("Download JSON", view.export_json(record),
+        st.download_button("Download JSON", svc.sessions.export_version(
+                               record.session_id, record.version, "json", svc.catalog),
                            file_name=f"dubai-itinerary-v{record.version}.json",
                            mime="application/json", key=f"{key}-json")
-        st.download_button("Download Markdown", view.export_markdown(record, svc.catalog),
+        st.download_button("Download Markdown", svc.sessions.export_version(
+                               record.session_id, record.version, "markdown", svc.catalog),
                            file_name=f"dubai-itinerary-v{record.version}.md",
                            mime="text/markdown", key=f"{key}-md")
         st.caption("Exports contain the request and itinerary only (no settings or keys).")

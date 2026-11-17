@@ -61,6 +61,19 @@ DEFAULT_MODELS: dict[LLMProvider, str] = {
 }
 
 
+class SessionScope(StrEnum):
+    """Who may see a saved session (``SESSION_SCOPE``).
+
+    ``visitor`` (default, required for any shared deployment): each browser tab gets its
+    own random owner token and sees only the sessions and runs it created.
+    ``shared``: single-user local mode; every session (including pre-v3 ones without an
+    owner) is visible and a refresh reopens the session from ``?session=<id>``.
+    """
+
+    VISITOR = "visitor"
+    SHARED = "shared"
+
+
 ReasoningEffort = Literal["low", "medium", "high"]
 CrewProcess = Literal["sequential", "hierarchical"]
 
@@ -134,6 +147,10 @@ class Settings(BaseSettings):
     # --- Planner behaviour -------------------------------------------------
     max_review_iterations: int = Field(default=2, ge=0, le=10)
     budget_tolerance: Decimal = Field(default=Decimal("0.05"), ge=0, le=1)
+
+    # --- UI / deployment -----------------------------------------------------
+    #: Session visibility in the Streamlit app (see :class:`SessionScope`).
+    session_scope: SessionScope = SessionScope.VISITOR
 
     # --- CrewAI mode ---------------------------------------------------------
     #: Crew process used by CrewAI mode (``run_crewai(process=...)`` overrides it).

@@ -17,6 +17,7 @@ short message, with any configured API key value redacted.
 
 from __future__ import annotations
 
+import copy
 import threading
 from collections.abc import Callable
 from contextlib import ExitStack
@@ -152,7 +153,13 @@ class RunHandle:
 
 
 class RunManager:
-    """Starts planner runs in background threads; at most one active run per session."""
+    """Starts planner runs in background threads; at most one active run per session.
+
+    Handles hold the visitor's message and result, so every lookup goes through the
+    manager's :class:`SessionService` and its owner: :meth:`scoped` gives a visitor a
+    view that shares the process-wide run registry but only sees (and only starts runs
+    in) that visitor's sessions.
+    """
 
     def __init__(self, hub: PlannerHub, sessions: SessionService, *,
                  today: Callable[[], date] = date.today) -> None:
@@ -160,26 +167,38 @@ class RunManager:
         self._runs: dict[str, RunHandle] = {}
         self._lock = threading.Lock()
 
+    def scoped(self, sessions: SessionService) -> RunManager:
+        """A view for ``sessions.owner`` sharing this manager's runs and lock."""
+        view = copy.copy(self)
+        view.sessions = sessions
+        return view
+
     def active(self, session_id: str) -> RunHandle | None:
-        with self._lock:
-            handle = self._runs.get(session_id)
+        handle = self.last(session_id)
         return handle if handle is not None and not handle.done else None
 
     def last(self, session_id: str) -> RunHandle | None:
+        if not self.sessions.owns(session_id):
+            return None
         with self._lock:
             return self._runs.get(session_id)
 
     def prepare(self, session_id: str, mode: PlannerMode, message: str) -> Refinement:
         """How the message will be planned (classification only, nothing is started)."""
+        self.sessions.check_writable(session_id)
         planner = self.hub.planner(mode)
         return classify(message, latest=self.sessions.latest(session_id),
                         pending_question=planner.pending_question(session_id) is not None)
 
     def start(self, session_id: str, mode: PlannerMode, message: str) -> RunHandle:
-        """Start planning ``message``; raises :class:`RunInProgress` if one is running."""
+        """Start planning ``message``; raises :class:`RunInProgress` if one is running.
+
+        Raises :class:`SessionNotFound` for another owner's session (nothing is started).
+        """
         text = message.strip()
         if not text:
             raise ValueError("Please type a request.")
+        self.sessions.check_writable(session_id)
         with self._lock:
             current = self._runs.get(session_id)
             if current is not None and not current.done:
@@ -208,5 +227,8 @@ class RunManager:
             handle.finish(error)
 
     def forget(self, session_id: str) -> None:
+        """Drop the handle of a session this owner may use (call before deleting it)."""
+        if not self.sessions.owns(session_id):
+            return
         with self._lock:
             self._runs.pop(session_id, None)

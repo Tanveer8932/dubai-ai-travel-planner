@@ -84,6 +84,7 @@ def _isolated_storage(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("CACHE_DIR", str(tmp_path / "cache"))
     monkeypatch.setenv("DB_PATH", str(tmp_path / "app.db"))
     monkeypatch.setenv("CHECKPOINT_DB_PATH", str(tmp_path / "checkpoints.db"))
+    monkeypatch.setenv("SESSION_SCOPE", "visitor")  # the secure default, whatever `.env` says
     monkeypatch.setattr(http_module, "_host_limiters", {})
 
 

@@ -116,6 +116,13 @@ def list_run_traces(repo: Repository, session_id: str | None = None) -> list[Run
     return sorted(repo.list_runs(session_id), key=lambda r: r.started_at, reverse=True)
 
 
+def export_trace(trace: RunTrace) -> str:
+    """The run's record and events as JSON, with secret values redacted."""
+    data = {"run": trace.run.model_dump(mode="json"),
+            "events": [json.loads(e.model_dump_json()) for e in trace.events]}
+    return redact(json.dumps(data, indent=1, default=str))
+
+
 def messages_by_run(repo: Repository, runs: Iterable[RunRecord]) -> dict[str, str]:
     """The user message that started each run (read once per session)."""
     out: dict[str, str] = {}

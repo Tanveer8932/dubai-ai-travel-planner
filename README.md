@@ -107,6 +107,7 @@ Streamlit Community Cloud the same names go into *Secrets* (§17).
 | `DB_PATH`, `CHECKPOINT_DB_PATH`, `CACHE_DIR`, `CACHE_TTL_HOURS`, `SEED_DIR` | storage (`data/app.db`, `data/checkpoints.db`, `data/cache`, 24 h, `data/seed`) |
 | `HTTP_USER_AGENT`, `HTTP_TIMEOUT_S`, `HTTP_OFFLINE` | public APIs: a **real contact** is required by OSM/Wikimedia; `true` = cache + seed only |
 | `MAX_REVIEW_ITERATIONS`, `BUDGET_TOLERANCE` | review-loop cap (2), budget tolerance (0.05) |
+| `SESSION_SCOPE` | `visitor` (default; required for any shared deployment): each browser tab sees only its own sessions and runs \| `shared`: single-user local mode, every session visible and reopened from `?session=<id>` after a refresh |
 | `CREWAI_PROCESS`, `CREWAI_AGENT_MAX_ITER` | `sequential` \| `hierarchical`; LLM calls per CrewAI agent per attempt (4) |
 | `CREWAI_DISABLE_TELEMETRY`, `CREWAI_TRACING_ENABLED`, `OTEL_SDK_DISABLED` | keep `true`/`false`/`true`: no telemetry, no 20 s trace prompt |
 | `LOG_LEVEL`, `DUBAI_PLANNER_ROOT` | logging; optional repo root override (deployments) |
@@ -210,8 +211,8 @@ return the same `PlanResult` / `PlannerUpdate` contract (`models/planning.py`).
 
 ## 9. Persistence and checkpointing
 
-SQLite `data/app.db` (`storage/schema.sql` + `schema_v2.sql`, migrated with `PRAGMA
-user_version`) and `data/checkpoints.db` (LangGraph `SqliteSaver`, `thread_id =
+SQLite `data/app.db` (`storage/schema.sql` + `schema_v2.sql` + `schema_v3.sql`, migrated
+with `PRAGMA user_version`) and `data/checkpoints.db` (LangGraph `SqliteSaver`, `thread_id =
 session_id`, written with `durability="sync"` so a killed process resumes from the last
 finished node).
 
@@ -390,8 +391,9 @@ re-plans every day, so the indoor-only day 2 from turn 3 is not carried forward 
 - **Prices are estimates** from curated bands, not live; venues may have changed.
 - **CrewAI** has no checkpointer (resume restarts the request) and hierarchical mode runs
   research one task at a time.
-- **Single user, no authentication:** every visitor of a shared deployment sees every
-  session in the picker, and all visitors share one provider key and its quota.
+- **No accounts:** with `SESSION_SCOPE=visitor` sessions are private to the browser tab
+  that created them (see §17), so a refresh or a new tab starts empty. All visitors
+  share one provider key and its quota, so a public demo should use the mock provider.
 - **Hosted SQLite is ephemeral** on Streamlit Community Cloud (see §17).
 
 ## 17. Deployment (Streamlit Community Cloud)
@@ -426,7 +428,8 @@ git push origin phase-2 phase-3 phase-4 phase-5 phase-6 phase-7   # optional his
    `app/streamlit_app.py`.
 3. *Advanced settings* → **Python version 3.12** → *Secrets*: paste the lines from
    [`.streamlit/secrets.toml.example`](.streamlit/secrets.toml.example). For an offline
-   demo: `LLM_PROVIDER = "mock"` and `HTTP_OFFLINE = "true"`. For a real model:
+   demo: `LLM_PROVIDER = "mock"`, `HTTP_OFFLINE = "true"` and
+   `SESSION_SCOPE = "visitor"`. For a real model:
    `LLM_PROVIDER = "groq"` and `GROQ_API_KEY = "<your key>"` (never put the key in the
    repository).
 4. *Deploy*. The first build installs about 165 packages and takes several minutes.
@@ -441,9 +444,39 @@ redeploy or sleep after inactivity. Durable hosted persistence would need an ext
 database, which is not implemented. Published evaluation results live in the repository
 (`eval/results/`), so the *Evaluation* page always works.
 
-**Privacy on a shared deployment:** there is no authentication, so all visitors share
-sessions and the provider key's quota. Prefer `LLM_PROVIDER = "mock"` for a public demo,
-or restrict viewers in the app's sharing settings.
+**Visitor isolation (`SESSION_SCOPE = "visitor"`, the default).** The app has no
+accounts. The first page a browser tab runs creates a random 256-bit *visitor token*
+on the server (`secrets.token_urlsafe(32)`) and keeps it in that tab's server-side
+`st.session_state`. The token is never sent to the browser, put in a URL, shown, logged
+or traced. Every session stores only the token's SHA-256 (`sessions.owner`, schema v3).
+Ownership is enforced in the services, not by hiding widgets:
+`SessionService.scoped(owner)` and `RunManager.scoped(...)` check every read and write
+(history, versions, version comparison, exports, rename, delete, runs, traces, starting
+a run); rename and delete repeat the owner condition in SQL. Another visitor's session or
+run behaves exactly like a missing one. `?session=` and `?run=` links to it are refused,
+and in this scope session ids are not written to the URL.
+
+What this does **not** give you:
+
+- **Persistence across refreshes.** Streamlit cannot set a cookie from Python, so the
+  identity lasts as long as the tab's Streamlit session. A refresh, a new tab or an app
+  restart is a new visitor, and the earlier sessions can no longer be opened (they stay
+  in SQLite until the container is recycled). For persistent identities, configure
+  Streamlit's OIDC login (`st.login`, an `[auth]` section in Secrets and `Authlib`).
+  When a user is logged in, the owner is derived from the identity provider's
+  `iss`/`sub` instead (`Owner.from_identity`). That path is implemented and unit-tested
+  but has not been tried against a real identity provider.
+- **Protection against the server operator** or anyone with access to the SQLite file.
+- **Rate limiting.** With a real provider key, every visitor spends its quota.
+
+Legacy sessions (created before schema v3) have no owner. They remain visible in
+`SESSION_SCOPE = "shared"` (local single-user use) and are never shown to a visitor.
+Use `SESSION_SCOPE=shared` in your local `.env` if you want the old behaviour (one
+user, refresh reopens the session).
+
+**Recommended public demo secrets:** `LLM_PROVIDER = "mock"`, `HTTP_OFFLINE = "true"`,
+`SESSION_SCOPE = "visitor"`, no API key. The app then shows a *deterministic mock
+model, not real AI inference* banner and a notice that its SQLite data is temporary.
 
 ## 18. Repository layout
 

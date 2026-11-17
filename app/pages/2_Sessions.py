@@ -82,9 +82,9 @@ with cols[2].popover("Delete", use_container_width=True):
     if busy:
         st.caption("A plan is still being made for this session; wait for it to finish.")
     if st.button("Delete permanently", type="primary", disabled=busy, key=f"del-{chosen}"):
-        svc.sessions.delete(chosen)
-        svc.hub.forget_thread(chosen)
         svc.runs.forget(chosen)
+        if svc.sessions.delete(chosen):  # ownership is checked by the service
+            svc.hub.forget_thread(chosen)
         if current == chosen:
             select_session(None)
         st.rerun()
@@ -108,9 +108,9 @@ if len(versions) >= 2:
     left, right = st.columns(2)
     old = left.selectbox("From", numbers, index=len(numbers) - 2, key=f"from-{chosen}")
     new = right.selectbox("To", numbers, index=len(numbers) - 1, key=f"to-{chosen}")
-    a, b = svc.sessions.version(chosen, old), svc.sessions.version(chosen, new)
-    if a is not None and b is not None and a.version != b.version:
-        show_diff(svc.sessions.diff(a, b), b.total_aed)
+    if old != new:
+        target = next(v for v in versions if v.version == new)
+        show_diff(svc.sessions.compare_versions(chosen, old, new), target.total_aed)
     else:
         st.caption("Pick two different versions.")
 

@@ -37,7 +37,8 @@ from dubai_planner.models.trace import ChatMessage, ChatRole, TraceEvent
 def _load_migrations() -> list[tuple[int, str]]:
     files = resources.files("dubai_planner.storage")
     return [(1, files.joinpath("schema.sql").read_text(encoding="utf-8")),
-            (2, files.joinpath("schema_v2.sql").read_text(encoding="utf-8"))]
+            (2, files.joinpath("schema_v2.sql").read_text(encoding="utf-8")),
+            (3, files.joinpath("schema_v3.sql").read_text(encoding="utf-8"))]
 
 
 MIGRATIONS: list[tuple[int, str]] = _load_migrations()
@@ -104,17 +105,21 @@ class Repository:
         mode: PlannerMode = PlannerMode.LANGGRAPH,
         *,
         session_id: str | None = None,
+        owner: str | None = None,
     ) -> Session:
+        """``owner`` is an opaque owner key (a hash, never a raw visitor token)."""
         session = Session(id=session_id or uuid.uuid4().hex, title=title, mode=mode)
         with self.connect() as conn:
             conn.execute(
-                "INSERT INTO sessions (id, title, mode, created_at, updated_at) VALUES (?,?,?,?,?)",
+                "INSERT INTO sessions (id, title, mode, created_at, updated_at, owner) "
+                "VALUES (?,?,?,?,?,?)",
                 (
                     session.id,
                     session.title,
                     session.mode.value,
                     _ts(session.created_at),
                     _ts(session.updated_at),
+                    owner,
                 ),
             )
         return session
@@ -124,23 +129,46 @@ class Repository:
             row = conn.execute("SELECT * FROM sessions WHERE id = ?", (session_id,)).fetchone()
         return self._session(row) if row else None
 
-    def list_sessions(self) -> list[Session]:
+    def list_sessions(self, *, owner: str | None = None) -> list[Session]:
+        """All sessions, or only those of ``owner`` (an owner key) when it is given."""
         with self.connect() as conn:
-            rows = conn.execute("SELECT * FROM sessions ORDER BY updated_at DESC, id").fetchall()
+            if owner is None:
+                rows = conn.execute(
+                    "SELECT * FROM sessions ORDER BY updated_at DESC, id").fetchall()
+            else:
+                rows = conn.execute(
+                    "SELECT * FROM sessions WHERE owner = ? ORDER BY updated_at DESC, id",
+                    (owner,)).fetchall()
         return [self._session(r) for r in rows]
 
-    def rename_session(self, session_id: str, title: str) -> bool:
+    def owns_session(self, session_id: str, owner: str) -> bool:
+        """True only if the session exists and belongs to ``owner`` (NULL owners never match)."""
         with self.connect() as conn:
-            cur = conn.execute(
-                "UPDATE sessions SET title = ?, updated_at = ? WHERE id = ?",
-                (title, _ts(_now()), session_id),
-            )
+            row = conn.execute("SELECT 1 FROM sessions WHERE id = ? AND owner = ?",
+                               (session_id, owner)).fetchone()
+        return row is not None
+
+    def rename_session(self, session_id: str, title: str, *, owner: str | None = None) -> bool:
+        """``owner`` given: the row is only updated if it belongs to that owner."""
+        sql = "UPDATE sessions SET title = ?, updated_at = ? WHERE id = ?"
+        params: tuple[Any, ...] = (title, _ts(_now()), session_id)
+        if owner is not None:
+            sql, params = sql + " AND owner = ?", (*params, owner)
+        with self.connect() as conn:
+            cur = conn.execute(sql, params)
         return cur.rowcount == 1
 
-    def delete_session(self, session_id: str) -> bool:
-        """Delete a session and (via ON DELETE CASCADE) its messages, runs and itineraries."""
+    def delete_session(self, session_id: str, *, owner: str | None = None) -> bool:
+        """Delete a session and (via ON DELETE CASCADE) its messages, runs and itineraries.
+
+        ``owner`` given: only a session of that owner is deleted.
+        """
+        sql = "DELETE FROM sessions WHERE id = ?"
+        params: tuple[str, ...] = (session_id,)
+        if owner is not None:
+            sql, params = sql + " AND owner = ?", (session_id, owner)
         with self.connect() as conn:
-            cur = conn.execute("DELETE FROM sessions WHERE id = ?", (session_id,))
+            cur = conn.execute(sql, params)
         return cur.rowcount == 1
 
     def _touch(self, conn: sqlite3.Connection, session_id: str) -> None:
@@ -395,6 +423,14 @@ class Repository:
                 rows = conn.execute(
                     "SELECT * FROM runs WHERE session_id = ? ORDER BY started_at", (session_id,)
                 ).fetchall()
+        return [self._run(r) for r in rows]
+
+    def list_owner_runs(self, owner: str) -> list[RunRecord]:
+        """Runs (oldest first) of every session that belongs to ``owner``."""
+        with self.connect() as conn:
+            rows = conn.execute(
+                "SELECT runs.* FROM runs JOIN sessions ON sessions.id = runs.session_id "
+                "WHERE sessions.owner = ? ORDER BY runs.started_at", (owner,)).fetchall()
         return [self._run(r) for r in rows]
 
     @staticmethod

@@ -3,6 +3,11 @@
 Each test gets its own SQLite files (``conftest._isolated_storage``); the app's cached
 services are keyed by those paths, so tests never share planners or data. Planner runs
 happen in the app's background ``RunManager`` thread, exactly as in the browser.
+
+``SESSION_SCOPE=visitor`` (the default) gives every ``AppTest`` its own visitor, like a
+separate browser tab. Pages that the *same* tab opens get its visitor token with
+``open_page(..., visitor=at)`` (switching pages keeps ``st.session_state`` in a browser).
+Assertions on stored data use the unscoped ``process_services()``.
 """
 
 from __future__ import annotations
@@ -34,7 +39,7 @@ def _offline_app(monkeypatch: pytest.MonkeyPatch) -> Iterator[None]:
     get_settings.cache_clear()
     yield
     services = _services_or_none()
-    if services is not None:
+    if services is not None:  # unscoped: every visitor's sessions
         for session in services.sessions.list_sessions():
             handle = services.runs.active(session.id)
             if handle is not None:
@@ -46,17 +51,29 @@ def _offline_app(monkeypatch: pytest.MonkeyPatch) -> Iterator[None]:
 def _services_or_none() -> Any:
     if "ui_shared" not in sys.modules:
         return None
-    return sys.modules["ui_shared"].services()
+    return sys.modules["ui_shared"].process_services()
 
 
 def services() -> Any:
+    """The app's process-wide services, *not* scoped to a visitor (test assertions)."""
     import ui_shared
 
-    return ui_shared.services()
+    return ui_shared.process_services()
 
 
-def open_page(path: str, session_id: str | None = None, mode: str | None = None) -> AppTest:
+VISITOR_KEY = "_visitor_token"
+
+
+def token_of(tab: AppTest | str) -> str:
+    return tab if isinstance(tab, str) else str(tab.session_state[VISITOR_KEY])
+
+
+def open_page(path: str, session_id: str | None = None, mode: str | None = None, *,
+              visitor: AppTest | str | None = None) -> AppTest:
+    """Run a page; ``visitor`` = the tab (or token) it belongs to (default: a new tab)."""
     at = AppTest.from_file(path, default_timeout=TIMEOUT)
+    if visitor is not None:
+        at.session_state[VISITOR_KEY] = token_of(visitor)
     if session_id is not None:
         at.session_state["session_id"] = session_id
     if mode is not None:
@@ -120,7 +137,13 @@ def test_mode_selector_drives_the_next_run() -> None:
 # ------------------------------------------------------------------ AC5.2
 
 
-def test_ac52_restart_shows_the_chat_and_latest_itinerary() -> None:
+def test_ac52_restart_shows_the_chat_and_latest_itinerary(
+        monkeypatch: pytest.MonkeyPatch) -> None:
+    """Local single-user mode (``SESSION_SCOPE=shared``): a refresh reopens the session
+    from ``?session=<id>`` and the picker lists every session. The visitor-scope
+    equivalent is ``test_visitor_session_survives_an_app_restart_in_the_same_tab``."""
+    monkeypatch.setenv("SESSION_SCOPE", "shared")
+    get_settings.cache_clear()
     at = open_page(PLANNER)
     send(at, WINTER)
     session_id = at.session_state["session_id"]
@@ -157,7 +180,7 @@ def test_ac53_ac54_refinements_and_version_diff_in_the_ui() -> None:
     assert v3.itinerary.days[0] == v2.itinerary.days[0]
     assert v3.itinerary.days[2] == v2.itinerary.days[2]
     assert v3.itinerary.days[1] != v2.itinerary.days[1]
-    sessions = open_page(SESSIONS, session_id=session_id)
+    sessions = open_page(SESSIONS, session_id=session_id, visitor=at)
     assert not sessions.exception
     versions = sessions.dataframe[1].value
     assert list(versions["Version"]) == [1, 2, 3]
@@ -266,7 +289,7 @@ def test_sessions_page_rename_and_delete() -> None:
     at = open_page(PLANNER)
     send(at, WINTER)
     session_id = at.session_state["session_id"]
-    page = open_page(SESSIONS, session_id=session_id)
+    page = open_page(SESSIONS, session_id=session_id, visitor=at)
     page.text_input(key=f"rename-{session_id}").set_value("Winter trip").run()
     page.button(key=f"save-{session_id}").click().run()
     assert services().sessions.get(session_id).title == "Winter trip"
@@ -306,7 +329,7 @@ def test_ac61_ac64_execution_page_graph_timeline_and_inspector() -> None:
     at = open_page(PLANNER)
     send(at, WINTER)
     session_id = at.session_state["session_id"]
-    page = open_page(EXECUTION, session_id=session_id)
+    page = open_page(EXECUTION, session_id=session_id, visitor=at)
     assert not page.exception, [e.value for e in page.exception]
     dot = graph_spec_text(page)
     assert "parallel research (one super-step)" in dot and "● done" in dot
@@ -348,14 +371,17 @@ def test_ac63_live_graph_highlights_the_running_step() -> None:
         release.wait(60)
         return composer.run(data, llm, tools)
 
-    open_page(HOME)
+    from dubai_planner.services.ownership import Owner
+
+    home = open_page(HOME)
     svc = services()
     svc.hub.planner_kwargs["agents"] = AgentSuite(composer=blocking)  # before any planner
-    session_id = svc.sessions.create(PlannerMode.LANGGRAPH).id
+    tab = Owner.from_token(token_of(home))
+    session_id = svc.sessions.scoped(tab).create(PlannerMode.LANGGRAPH).id
     handle = svc.runs.start(session_id, PlannerMode.LANGGRAPH, WINTER)
     try:
         assert entered.wait(60)
-        page = open_page(EXECUTION, session_id=session_id)
+        page = open_page(EXECUTION, session_id=session_id, visitor=home)
         assert not page.exception, [e.value for e in page.exception]
         dot = graph_spec_text(page)
         compose_line = next(line for line in dot.splitlines()
@@ -380,20 +406,20 @@ def test_ac65_execution_history_survives_an_app_restart() -> None:
     session_id = at.session_state["session_id"]
     services().hub.close()
     st.cache_resource.clear()  # app restart: nothing in memory, SQLite only
-    page = open_page(EXECUTION, session_id=session_id)
+    page = open_page(EXECUTION, session_id=session_id, visitor=at)
     assert not page.exception
     assert "● done" in graph_spec_text(page) and page.get("plotly_chart")
     assert {m.label: m.value for m in page.metric}["Outcome"] == "approved"
-    planner = open_page(PLANNER, session_id=session_id)  # review detail is kept too
+    planner = open_page(PLANNER, session_id=session_id, visitor=at)  # review detail kept
     assert any("from the saved trace" in e.label for e in planner.expander)
 
 
 def test_execution_page_compares_langgraph_and_crewai_on_the_same_request() -> None:
     lg = open_page(PLANNER, mode="langgraph")
     send(lg, WINTER)
-    cr = open_page(PLANNER, mode="crewai_sequential")
+    cr = open_page(PLANNER, mode="crewai_sequential", visitor=lg)  # same tab, new session
     send(cr, WINTER)
-    page = open_page(EXECUTION, session_id=cr.session_state["session_id"])
+    page = open_page(EXECUTION, session_id=cr.session_state["session_id"], visitor=lg)
     assert not page.exception
     assert any("Same message, request, seed data" in s.value for s in page.success)
     table = next(d.value for d in page.dataframe if "B − A" in d.value.columns)
@@ -410,7 +436,7 @@ def test_execution_page_never_shows_a_secret(monkeypatch: pytest.MonkeyPatch) ->
     get_settings.cache_clear()
     at = open_page(PLANNER)
     send(at, WINTER)
-    page = open_page(EXECUTION, session_id=at.session_state["session_id"])
+    page = open_page(EXECUTION, session_id=at.session_state["session_id"], visitor=at)
     assert canary not in all_text(page) and canary not in graph_spec_text(page)
     [download] = page.get("download_button")
     assert canary not in str(download.proto)
@@ -439,3 +465,121 @@ def test_evaluation_page_shows_published_results_with_mock_label() -> None:
         assert any("Real provider" in i.value for i in at.info)
     labels = [t.label for t in at.tabs]
     assert labels == ["Summary", "Distributions", "Per scenario", "Fault injection & judge"]
+
+
+# ================================================================== visitor isolation
+
+
+def sidebar_texts(at: AppTest) -> str:
+    return "\n".join(str(c.value) for c in at.sidebar.caption)
+
+
+def test_two_visitors_never_see_each_others_sessions_or_runs() -> None:
+    alice = open_page(PLANNER)
+    send(alice, WINTER)
+    a_sid = alice.session_state["session_id"]
+    bob = open_page(PLANNER)  # another browser tab: another visitor
+    assert token_of(bob) != token_of(alice)
+    assert bob.session_state["session_id"] is None
+    assert "No saved sessions yet." in sidebar_texts(bob)
+    assert any("No sessions yet" in i.value for i in open_page(SESSIONS, visitor=bob).info)
+    assert any("No runs yet" in i.value for i in open_page(EXECUTION, visitor=bob).info)
+    send(bob, "1 adult, 3-5 Mar 2027, AED 3000, beaches")
+    b_sid = bob.session_state["session_id"]
+    assert b_sid != a_sid
+    for tab, own in ((alice, a_sid), (bob, b_sid)):
+        page = open_page(SESSIONS, visitor=tab)
+        picker = page.selectbox(key="sessions_pick")
+        assert picker.value == own and len(picker.options) == 1
+        execution = open_page(EXECUTION, visitor=tab)
+        assert execution.radio(key="exec_scope").value == "All my sessions"
+        run_box = execution.selectbox(key="exec_run")
+        own_runs = services().sessions.run_records(own)
+        assert len(run_box.options) == len(own_runs) == 1
+        assert run_box.value == own_runs[0].id
+    assert {s.id for s in services().sessions.list_sessions()} == {a_sid, b_sid}
+
+
+def test_direct_links_to_another_visitors_session_or_run_are_rejected() -> None:
+    alice = open_page(PLANNER)
+    send(alice, WINTER)
+    a_sid = alice.session_state["session_id"]
+    [a_run] = [r.id for r in services().sessions.run_records(a_sid)]
+    bob = AppTest.from_file(PLANNER, default_timeout=TIMEOUT)
+    bob.query_params["session"] = a_sid  # a copied link
+    bob.run()
+    assert not bob.exception and bob.session_state["session_id"] is None
+    assert not bob.chat_message and "Overview" not in [t.label for t in bob.tabs]
+    assert any("not available here" in w.value for w in bob.warning)
+    assert "session" not in bob.query_params
+    tampered = open_page(PLANNER, session_id=a_sid)  # a forged UI state is reset as well
+    assert tampered.session_state["session_id"] is None and not tampered.chat_message
+    page = AppTest.from_file(EXECUTION, default_timeout=TIMEOUT)
+    page.query_params["run"] = a_run
+    page.run()
+    assert not page.exception
+    assert any("not available here" in w.value for w in page.warning)
+    assert any("No runs yet" in i.value for i in page.info)
+    assert WINTER not in all_text(page)
+    assert services().sessions.get(a_sid) is not None  # nothing was changed
+
+
+def test_the_visitor_token_stays_on_the_server() -> None:
+    at = open_page(PLANNER)
+    send(at, WINTER)
+    token = token_of(at)
+    assert len(token) >= 43
+    assert all(token not in str(v) for v in at.query_params.values())
+    assert "session" not in at.query_params  # visitor scope: no ids in the URL either
+    assert token not in all_text(at) and token not in sidebar_texts(at)
+    assert token.encode() not in Path(get_settings().db_path).read_bytes()
+
+
+def test_visitor_session_survives_an_app_restart_in_the_same_tab() -> None:
+    """Ownership is stored in SQLite: after the services restart, the same tab (same
+    server-side token) still sees its session; a new tab or a refresh does not."""
+    at = open_page(PLANNER)
+    send(at, WINTER)
+    session_id = at.session_state["session_id"]
+    services().hub.close()
+    st.cache_resource.clear()
+    at.run()
+    assert not at.exception
+    assert [m.avatar for m in at.chat_message] == ["user", "assistant"]
+    assert "Overview" in [t.label for t in at.tabs]
+    picker = at.sidebar.selectbox[1]
+    assert picker.value == session_id and len(picker.options) == 1
+    refreshed = AppTest.from_file(PLANNER, default_timeout=TIMEOUT)
+    refreshed.query_params["session"] = session_id
+    refreshed.run()
+    assert refreshed.session_state["session_id"] is None and not refreshed.chat_message
+
+
+def test_mock_demo_and_temporary_storage_notices() -> None:
+    for path in (HOME, PLANNER):
+        at = open_page(path)
+        assert any("deterministic mock model, not real AI inference" in i.value
+                   for i in at.info), path
+        assert any("temporary SQLite database" in c.value
+                   and "Streamlit Community Cloud" in c.value for c in at.caption), path
+    assert "survive restarts" not in texts(open_page(HOME))
+
+
+def test_logged_in_users_keep_their_sessions_across_tabs(
+        monkeypatch: pytest.MonkeyPatch) -> None:
+    """With ``st.login`` configured, the owner comes from the identity (iss, sub), so a
+    new tab of the same user sees the session and another user does not."""
+    import ui_shared
+
+    def login(subject: str) -> None:
+        monkeypatch.setattr(ui_shared, "_authenticated_identity",
+                            lambda: ("https://idp.example", subject))
+
+    login("user-1")
+    at = open_page(PLANNER)
+    send(at, WINTER)
+    session_id = at.session_state["session_id"]
+    picker = open_page(SESSIONS).selectbox(key="sessions_pick")  # a new tab, same user
+    assert picker.value == session_id and len(picker.options) == 1
+    login("user-2")
+    assert any("No sessions yet" in i.value for i in open_page(SESSIONS).info)

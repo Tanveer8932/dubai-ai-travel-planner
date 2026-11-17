@@ -11,7 +11,6 @@ from __future__ import annotations
 
 import streamlit as st
 from ui_execution import (
-    export_trace,
     render_comparison,
     render_graph,
     render_inspector,
@@ -43,12 +42,12 @@ def is_active(svc: Services, run: RunRecord) -> bool:
 
 
 def load(svc: Services, run: RunRecord) -> ob.RunTrace | None:
-    return ob.load_trace(svc.sessions.repo, run.id, active=is_active(svc, run))
+    return svc.sessions.trace(run.id, active=is_active(svc, run))
 
 
 def live_view(svc: Services, run_id: str) -> None:
     """Polled while the run executes; reruns the whole page once when it ends."""
-    run = svc.sessions.repo.get_run(run_id)
+    run = svc.sessions.get_run(run_id)
     trace = load(svc, run) if run is not None else None
     if trace is None or not trace.live:
         st.rerun()
@@ -61,15 +60,19 @@ def live_view(svc: Services, run_id: str) -> None:
 
 
 session_id = current_session_id()
-scopes = ["This session", "All sessions"]
+scopes = ["This session", "All my sessions" if svc.isolated else "All sessions"]
 linked = st.query_params.get("run")  # ?run=<id>: open that run (links, screenshots)
 if linked and RUN_KEY not in st.session_state:
-    st.session_state[RUN_KEY] = linked
-    st.session_state.setdefault(SCOPE_KEY, scopes[1])
+    if svc.sessions.get_run(linked) is not None:  # only a run the caller may see
+        st.session_state[RUN_KEY] = linked
+        st.session_state.setdefault(SCOPE_KEY, scopes[1])
+    else:
+        del st.query_params["run"]
+        st.warning("That run link is not available here. Sessions and runs are private "
+                   "to the browser tab that created them.", icon="🔒")
 scope = st.radio("Runs from", scopes, horizontal=True, key=SCOPE_KEY,
                  index=0 if session_id else 1)
-runs = ob.list_run_traces(svc.sessions.repo,
-                          session_id if scope == scopes[0] and session_id else None)
+runs = svc.sessions.run_records(session_id if scope == scopes[0] and session_id else None)
 if not runs:
     st.info("No runs yet. Plan a trip on the Planner page, then come back here to see how "
             "the agents executed.")
@@ -113,13 +116,13 @@ with inspect_tab:
     render_inspector(trace, key=f"insp-{run.id}")
 with state_tab:
     render_state(trace)
-    st.download_button("Download trace (JSON)", export_trace(trace),
+    st.download_button("Download trace (JSON)", svc.sessions.export_trace(run.id),
                        file_name=f"trace-{run.id[:12]}.json", mime="application/json")
 with compare_tab:
-    every = ob.list_run_traces(svc.sessions.repo)
+    every = svc.sessions.run_records()  # only runs this visitor may see
     labels = {r.id: run_label(r) for r in every}
     others = [r for r in every if r.id != run.id]
-    messages = ob.messages_by_run(svc.sessions.repo, every)
+    messages = svc.sessions.run_messages(every)
     same_msg = [r for r in others if r.mode is not run.mode and trace.message
                 and messages.get(r.id) == trace.message]
     default_b = (same_msg or [r for r in others if r.mode is not run.mode] or others or [run])[0]
@@ -127,6 +130,6 @@ with compare_tab:
                "mode (plan the same message in a new session with the other mode).")
     b_id = st.selectbox("Run B", list(labels), index=list(labels).index(default_b.id),
                         format_func=labels.__getitem__, key=f"cmp-b-{run.id}")
-    other = ob.load_trace(svc.sessions.repo, b_id, active=False)
+    other = svc.sessions.trace(b_id, active=False)
     if other is not None:
         render_comparison(svc, trace, other)
