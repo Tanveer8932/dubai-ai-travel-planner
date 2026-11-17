@@ -8,6 +8,7 @@ process), never in the page script, so reruns cannot cancel or duplicate them.
 
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass
 from datetime import date
 from typing import Any
@@ -54,7 +55,24 @@ def _services(db_path: str, checkpoint_path: str, provider: str) -> Services:
                     catalog=tools.catalog)
 
 
+def _secrets_to_env() -> None:
+    """Expose Streamlit secrets (Community Cloud) as env vars for ``config.Settings``.
+
+    Only top-level string/number/bool values are copied, never logged, and an existing
+    environment variable always wins. Locally there is usually no ``secrets.toml``; the
+    `.env` file is used instead.
+    """
+    try:
+        items = list(st.secrets.items())
+    except Exception:  # no secrets file: normal for local runs
+        return
+    for name, value in items:
+        if isinstance(value, str | int | float | bool) and name.upper() not in os.environ:
+            os.environ[name.upper()] = str(value)
+
+
 def services() -> Services:
+    _secrets_to_env()  # before the first Settings() is built
     settings = bootstrap()  # logging + telemetry opt-outs before any framework import
     return _services(str(settings.db_path), str(settings.checkpoint_db_path),
                      settings.llm_provider.value)

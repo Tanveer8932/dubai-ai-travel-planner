@@ -1,0 +1,25 @@
+{
+  "id": "multi_refinement",
+  "title": "Multi-turn refinement",
+  "category": "refinement",
+  "turns": [
+    "2 adults, 10-12 Feb 2027, AED 6000, history and food",
+    "reduce the budget by 20%",
+    "Replace day 2 with indoor activities"
+  ],
+  "today": "2026-11-16",
+  "expect": {
+    "days": 3,
+    "adults": 2,
+    "children": 0,
+    "budget_aed": 4800,
+    "indoor_days": [
+      2
+    ],
+    "interests": [
+      "history",
+      "food"
+    ]
+  },
+  "notes": "AC5.3 conversation: a request delta (budget) then a local edit (day 2)."
+}

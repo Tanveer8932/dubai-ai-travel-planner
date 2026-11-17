@@ -414,3 +414,28 @@ def test_execution_page_never_shows_a_secret(monkeypatch: pytest.MonkeyPatch) ->
     assert canary not in all_text(page) and canary not in graph_spec_text(page)
     [download] = page.get("download_button")
     assert canary not in str(download.proto)
+
+
+# ------------------------------------------------------------------ Phase 7
+
+
+def test_evaluation_page_shows_published_results_with_mock_label() -> None:
+    """The dashboard renders the committed benchmark (eval/results/) with no eval DB."""
+    at = open_page(str(APP / "pages" / "4_Evaluation.py"))
+    assert not at.exception, [e.value for e in at.exception]
+    assert any("LangGraph vs CrewAI" in t.value for t in at.title)
+    assert at.selectbox and at.selectbox[0].options, "no evaluation results listed"
+    options = at.selectbox[0].options
+    mock = next(o for o in options if "mock" in o.lower())
+    at.selectbox[0].set_value(mock).run()
+    assert not at.exception, [e.value for e in at.exception]
+    assert any("Mock provider" in w.value for w in at.warning)
+    assert at.dataframe, "metric table missing"
+    real = next((o for o in options if "groq" in o.lower()), None)
+    if real is not None:  # a real-provider result is labelled as such, without the banner
+        at.selectbox[0].set_value(real).run()
+        assert not at.exception, [e.value for e in at.exception]
+        assert not any("Mock provider" in w.value for w in at.warning)
+        assert any("Real provider" in i.value for i in at.info)
+    labels = [t.label for t in at.tabs]
+    assert labels == ["Summary", "Distributions", "Per scenario", "Fault injection & judge"]

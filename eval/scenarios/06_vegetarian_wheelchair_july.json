@@ -1,0 +1,23 @@
+{
+  "id": "vegetarian_wheelchair_july",
+  "title": "Vegetarian wheelchair user in July",
+  "category": "constraint-heavy",
+  "turns": [
+    "Vegetarian, wheelchair user, 3 days from 12 July 2027, AED 5000, indoor activities preferred"
+  ],
+  "today": "2026-11-16",
+  "expect": {
+    "days": 3,
+    "adults": 1,
+    "children": 0,
+    "budget_aed": 5000,
+    "dietary": [
+      "vegetarian"
+    ],
+    "accessibility": [
+      "wheelchair"
+    ],
+    "heat_safe": true
+  },
+  "notes": "problemStatement.md \u00a74 constraint-heavy request."
+}

@@ -14,6 +14,7 @@ htmlcov/
 .env
 .env.*
 !.env.example
+.streamlit/secrets.toml
 
 # Runtime data
 *.db
@@ -23,6 +24,7 @@ htmlcov/
 data/cache/*
 data/exports/*
 eval/reports/*
+data/transcripts/
 !**/.gitkeep
 
 # Editors / OS

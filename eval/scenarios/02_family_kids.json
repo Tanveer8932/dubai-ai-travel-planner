@@ -1,0 +1,21 @@
+{
+  "id": "family_kids",
+  "title": "Family with two young children",
+  "category": "family",
+  "turns": [
+    "Family of 4 with two kids aged 6 and 9, 5 days from 20 December 2026, mid-range budget AED 12000, no late nights"
+  ],
+  "today": "2026-11-16",
+  "expect": {
+    "days": 5,
+    "adults": 2,
+    "children": 2,
+    "budget_aed": 12000,
+    "family_friendly": true,
+    "latest_end": "21:30",
+    "interests": [
+      "family"
+    ]
+  },
+  "notes": "problemStatement.md \u00a74 family. 'No late nights' is checked as: no slot ends after 21:30."
+}

@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=69", "wheel"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Multi-agent, budget-aware Dubai itinerary planner (LangGraph vs CrewAI) — academic project"
 readme = "README.md"
 requires-python = ">=3.11,<3.13"
-license = { text = "MIT" }
+license = "MIT"
 # Core runtime deps. Framework versions are pinned in the extras below
 # (LangGraph/CrewAI APIs change often — see CLAUDE.md).
 dependencies = [
@@ -43,7 +43,11 @@ ui = [
     "pandas>=2.1",
     "pydeck>=0.9",
 ]
+eval = [
+    "matplotlib>=3.8",  # PNG charts in evaluation reports (scripts/run_eval.py)
+]
 dev = [
+    "matplotlib>=3.8",
     "pytest>=8",
     "pytest-asyncio>=0.23",
     "pytest-cov>=5",

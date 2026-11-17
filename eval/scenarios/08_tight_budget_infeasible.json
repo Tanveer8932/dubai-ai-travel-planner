@@ -1,0 +1,17 @@
+{
+  "id": "tight_budget_infeasible",
+  "title": "Infeasible budget",
+  "category": "tight-budget",
+  "turns": [
+    "2 adults, 3 days from 20 April 2027, AED 400, sightseeing"
+  ],
+  "today": "2026-11-16",
+  "expect": {
+    "outcome": "infeasible_explained",
+    "days": 3,
+    "adults": 2,
+    "children": 0,
+    "budget_aed": 400
+  },
+  "notes": "AED 400 cannot cover two people for three days: the planner must say so, not hide it."
+}

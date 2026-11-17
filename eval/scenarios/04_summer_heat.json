@@ -1,0 +1,21 @@
+{
+  "id": "summer_heat",
+  "title": "Summer heat (July)",
+  "category": "summer-heat",
+  "turns": [
+    "2 adults, 14-16 July 2027, AED 9000, beach and culture"
+  ],
+  "today": "2026-11-16",
+  "expect": {
+    "days": 3,
+    "adults": 2,
+    "children": 0,
+    "budget_aed": 9000,
+    "heat_safe": true,
+    "interests": [
+      "beach",
+      "culture"
+    ]
+  },
+  "notes": "Daytime highs above 40 \u00b0C: no outdoor slot between 11:00 and 16:00."
+}

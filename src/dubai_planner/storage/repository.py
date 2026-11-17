@@ -464,6 +464,25 @@ class Repository:
             )
         return run
 
+    def get_eval_run(self, eval_run_id: str) -> EvalRun | None:
+        with self.connect() as conn:
+            row = conn.execute("SELECT * FROM eval_runs WHERE id = ?",
+                               (eval_run_id,)).fetchone()
+        return self._eval_run(row) if row else None
+
+    def list_eval_runs(self) -> list[EvalRun]:
+        """Evaluation runs, newest first."""
+        with self.connect() as conn:
+            rows = conn.execute("SELECT * FROM eval_runs ORDER BY created_at DESC").fetchall()
+        return [self._eval_run(r) for r in rows]
+
+    @staticmethod
+    def _eval_run(row: sqlite3.Row) -> EvalRun:
+        created = _dt(row["created_at"])
+        assert created is not None  # noqa: S101 - NOT NULL column
+        return EvalRun(id=row["id"], created_at=created,
+                       config=json.loads(row["config_json"] or "{}"))
+
     def add_eval_result(self, result: EvalResult) -> EvalResult:
         with self.connect() as conn:
             cur = conn.execute(

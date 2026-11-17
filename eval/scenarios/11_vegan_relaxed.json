@@ -1,0 +1,24 @@
+{
+  "id": "vegan_relaxed",
+  "title": "Vegan, relaxed pace",
+  "category": "constraint-heavy",
+  "turns": [
+    "2 adults, 5 days from 8 November 2027, AED 10000, vegan, relaxed pace, art and nature"
+  ],
+  "today": "2026-11-16",
+  "expect": {
+    "days": 5,
+    "adults": 2,
+    "children": 0,
+    "budget_aed": 10000,
+    "dietary": [
+      "vegan"
+    ],
+    "pace": "relaxed",
+    "interests": [
+      "art",
+      "nature"
+    ]
+  },
+  "notes": "Dietary plus pace constraints."
+}

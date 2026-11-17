@@ -1,0 +1,9 @@
+# Deployment dependencies (Streamlit Community Cloud installs this file; it takes
+# precedence over pyproject.toml there). It installs this project (src/ layout) with the
+# runtime extras; framework versions are pinned in pyproject.toml. Choose Python 3.12
+# under "Advanced settings" when deploying: pyproject.toml declares
+# requires-python >=3.11,<3.13 and the project is tested on 3.12 only.
+.[langgraph,crewai,ui]
+# Hosted LLM provider used for real-model runs (free tier). Add another provider's
+# LangChain package here if you switch LLM_PROVIDER (see README "Configuration").
+langchain-groq==1.2.0

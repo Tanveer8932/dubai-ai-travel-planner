@@ -1,0 +1,20 @@
+{
+  "id": "budget_backpacker",
+  "title": "Budget backpacker",
+  "category": "budget",
+  "turns": [
+    "4 days in Dubai from 10 March 2027, AED 3000 total excluding flights, solo, I love street food and history"
+  ],
+  "today": "2026-11-16",
+  "expect": {
+    "days": 4,
+    "adults": 1,
+    "children": 0,
+    "budget_aed": 3000,
+    "interests": [
+      "food",
+      "history"
+    ]
+  },
+  "notes": "problemStatement.md \u00a74 budget backpacker."
+}

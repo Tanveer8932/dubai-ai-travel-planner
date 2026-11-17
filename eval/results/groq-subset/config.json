@@ -1,0 +1,27 @@
+{
+  "eval_run_id": "2bc6aee3a72e44869e4d57d7f8fcf6d5",
+  "label": "Groq gpt-oss-20b, quota-bounded subset",
+  "provider": "groq",
+  "model": "openai/gpt-oss-20b",
+  "modes": [
+    "langgraph",
+    "crewai_sequential"
+  ],
+  "scenarios": [
+    "budget_backpacker",
+    "family_kids",
+    "vegetarian_wheelchair_july"
+  ],
+  "seeds": 1,
+  "judge": true,
+  "judge_model": "openai/gpt-oss-120b",
+  "faults": false,
+  "http_offline": true,
+  "data_fingerprint": "1149205102e2",
+  "max_review_iterations": 2,
+  "budget_tolerance": "0.05",
+  "max_tokens": 140000,
+  "warmup": false,
+  "out_dir": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\dubai-ai-travel-planner\\eval\\results\\groq-subset",
+  "started_at": "2026-11-17T07:55:02.091159Z"
+}

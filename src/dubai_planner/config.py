@@ -17,8 +17,26 @@ from dotenv import dotenv_values
 from pydantic import Field, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-#: Repository root (``src/dubai_planner/config.py`` → two levels up from the package).
-PROJECT_ROOT: Path = Path(__file__).resolve().parents[2]
+
+def _project_root() -> Path:
+    """Repository root: where ``data/seed`` and ``eval/`` live.
+
+    ``DUBAI_PLANNER_ROOT`` wins; otherwise two levels above the package (an editable or
+    source checkout, ``src/dubai_planner/config.py``). If the package was installed
+    *non-editable* into ``site-packages`` (as a hosting platform may do), that guess has
+    no seed data, so the working directory (the app's checkout) is used instead.
+    """
+    explicit = os.environ.get("DUBAI_PLANNER_ROOT")
+    if explicit:
+        return Path(explicit).resolve()
+    source = Path(__file__).resolve().parents[2]
+    if (source / "data" / "seed").is_dir():
+        return source
+    return Path.cwd().resolve()
+
+
+#: Repository root (see :func:`_project_root`).
+PROJECT_ROOT: Path = _project_root()
 
 
 class LLMProvider(StrEnum):

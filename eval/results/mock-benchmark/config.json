@@ -1,0 +1,38 @@
+{
+  "eval_run_id": "bd7d7f60a617439d858b44625b01d61a",
+  "label": "Offline mock benchmark (all modes)",
+  "provider": "mock",
+  "model": "mock",
+  "modes": [
+    "langgraph",
+    "crewai_sequential",
+    "crewai_hierarchical"
+  ],
+  "scenarios": [
+    "budget_backpacker",
+    "family_kids",
+    "luxury_honeymoon",
+    "summer_heat",
+    "ramadan",
+    "vegetarian_wheelchair_july",
+    "day_trip_abu_dhabi",
+    "tight_budget_infeasible",
+    "vague_request",
+    "multi_refinement",
+    "vegan_relaxed",
+    "solo_usd_budget",
+    "friends_packed"
+  ],
+  "seeds": 3,
+  "judge": true,
+  "judge_model": "mock",
+  "faults": true,
+  "http_offline": true,
+  "data_fingerprint": "1149205102e2",
+  "max_review_iterations": 2,
+  "budget_tolerance": "0.05",
+  "max_tokens": null,
+  "warmup": true,
+  "out_dir": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\dubai-ai-travel-planner\\eval\\results\\mock-benchmark",
+  "started_at": "2026-11-17T08:19:59.552664Z"
+}

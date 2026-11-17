@@ -1,0 +1,600 @@
+{
+  "mode": "langgraph",
+  "provider": "mock",
+  "session_id": "04ab37da4bdb458689c747b26a000070",
+  "db_path": "C:\\Users\\Lenovo\\OneDrive\\Desktop\\dubai-ai-travel-planner\\data\\transcripts\\langgraph.db",
+  "generated": "2026-11-17 08:26 UTC",
+  "turns": [
+    {
+      "label": "Original request",
+      "user_input": "2 adults, 10-12 Feb 2027, AED 6000, history and food",
+      "routing": "new_request",
+      "routing_explanation": "A new trip request.",
+      "planner_message": "2 adults, 10-12 Feb 2027, AED 6000, history and food",
+      "locked_days": [],
+      "day_constraints": [],
+      "steps": [
+        "parse_request",
+        "research_transport",
+        "research_weather_events",
+        "research_attractions",
+        "research_dining",
+        "research_accommodation",
+        "merge_research",
+        "allocate_budget",
+        "compose_itinerary",
+        "validate",
+        "review",
+        "finalize"
+      ],
+      "status": "approved",
+      "iterations": 0,
+      "llm_calls": 7,
+      "tokens": 12430,
+      "duration_s": 8.47,
+      "saved_version": 1,
+      "parent_version": null,
+      "budget_aed": "6000.00",
+      "total_aed": "4258.65",
+      "dietary": [],
+      "diff": null,
+      "days": [
+        {
+          "day": 1,
+          "date": "2027-02-10",
+          "theme": "Dubailand & Downtown",
+          "slots": [
+            "12:30-13:30 dining: Bait Maryam (JLT)",
+            "17:00-20:00 attraction: Global Village (outdoor)",
+            "20:30-21:30 attraction: Souk Al Bahar",
+            "22:00-23:30 dining: Baker & Spice (Souk Al Bahar)"
+          ],
+          "day_cost_aed": "545.24"
+        },
+        {
+          "day": 2,
+          "date": "2027-02-11",
+          "theme": "Deira & Bur Dubai",
+          "slots": [
+            "10:00-11:00 attraction: Deira Gold Souk (outdoor)",
+            "11:30-13:00 attraction: SMCCU cultural meal & talk",
+            "13:30-14:30 dining: Al Khayma Heritage Restaurant",
+            "15:00-15:45 attraction: Deira Spice Souk (outdoor)",
+            "19:30-21:00 dining: Al Fanar Restaurant & Caf\u00e9 (Al Seef)"
+          ],
+          "day_cost_aed": "635.00"
+        },
+        {
+          "day": 3,
+          "date": "2027-02-12",
+          "theme": "Umm Suqeim & Jbr",
+          "slots": [
+            "09:00-09:20 attraction: Abra ride across Dubai Creek (outdoor)",
+            "12:30-13:30 dining: Arabian Tea House Caf\u00e9 (Al Fahidi)",
+            "17:00-18:30 attraction: Souk Madinat Jumeirah",
+            "19:00-20:00 attraction: Bluewaters Island (outdoor)",
+            "20:30-22:00 dining: Al Safadi (Sheikh Zayed Road)"
+          ],
+          "day_cost_aed": "491.26"
+        }
+      ],
+      "vegetarian_restaurants_only": true,
+      "error": null
+    },
+    {
+      "label": "Refinement 1: budget",
+      "user_input": "reduce the budget by 20%",
+      "routing": "request_delta",
+      "routing_explanation": "Budget AED 6000.00 \u2192 AED 4800; full re-plan.",
+      "planner_message": "reduce the budget by 20%: the new total budget is AED 4800.",
+      "locked_days": [],
+      "day_constraints": [],
+      "steps": [
+        "parse_request",
+        "research_transport",
+        "research_accommodation",
+        "research_attractions",
+        "research_dining",
+        "research_weather_events",
+        "merge_research",
+        "allocate_budget",
+        "compose_itinerary",
+        "validate",
+        "review",
+        "finalize"
+      ],
+      "status": "approved",
+      "iterations": 0,
+      "llm_calls": 7,
+      "tokens": 12501,
+      "duration_s": 0.42,
+      "saved_version": 2,
+      "parent_version": 1,
+      "budget_aed": "4800.00",
+      "total_aed": "3250.59",
+      "dietary": [],
+      "diff": {
+        "from_version": 1,
+        "to_version": 2,
+        "cost_delta_aed": {
+          "accommodation": "-300.00",
+          "activities": "0.00",
+          "food": "-600.00",
+          "transport": "-16.42",
+          "contingency": "-91.64",
+          "total": "-1008.06"
+        },
+        "budget_before": "6000.00",
+        "budget_after": "4800.00",
+        "changed_days": [
+          1,
+          2,
+          3
+        ],
+        "unchanged_days": [],
+        "slots": {
+          "1": {
+            "removed": [
+              "12:30-13:30 Bait Maryam (JLT)",
+              "22:00-23:30 Baker & Spice (Souk Al Bahar)"
+            ],
+            "added": [
+              "12:30-13:30 Al Ijaza Cafeteria",
+              "22:00-23:30 Al Mallah (Al Dhiyafah Road)"
+            ]
+          },
+          "2": {
+            "removed": [
+              "13:30-14:30 Al Khayma Heritage Restaurant",
+              "19:30-21:00 Al Fanar Restaurant & Caf\u00e9 (Al Seef)"
+            ],
+            "added": [
+              "13:30-14:30 Al Ustad Special Kabab",
+              "19:30-21:00 Al Tawasol"
+            ]
+          },
+          "3": {
+            "removed": [
+              "12:30-13:30 Arabian Tea House Caf\u00e9 (Al Fahidi)",
+              "20:30-22:00 Al Safadi (Sheikh Zayed Road)"
+            ],
+            "added": [
+              "12:30-13:30 Bombay Chowpatty (Karama)",
+              "20:30-22:00 Allo Beirut (JLT)"
+            ]
+          }
+        }
+      },
+      "days": [
+        {
+          "day": 1,
+          "date": "2027-02-10",
+          "theme": "Dubailand & Downtown",
+          "slots": [
+            "12:30-13:30 dining: Al Ijaza Cafeteria",
+            "17:00-20:00 attraction: Global Village (outdoor)",
+            "20:30-21:30 attraction: Souk Al Bahar",
+            "22:00-23:30 dining: Al Mallah (Al Dhiyafah Road)"
+          ],
+          "day_cost_aed": "288.58"
+        },
+        {
+          "day": 2,
+          "date": "2027-02-11",
+          "theme": "Deira & Bur Dubai",
+          "slots": [
+            "10:00-11:00 attraction: Deira Gold Souk (outdoor)",
+            "11:30-13:00 attraction: SMCCU cultural meal & talk",
+            "13:30-14:30 dining: Al Ustad Special Kabab",
+            "15:00-15:45 attraction: Deira Spice Souk (outdoor)",
+            "19:30-21:00 dining: Al Tawasol"
+          ],
+          "day_cost_aed": "478.00"
+        },
+        {
+          "day": 3,
+          "date": "2027-02-12",
+          "theme": "Umm Suqeim & Jbr",
+          "slots": [
+            "09:00-09:20 attraction: Abra ride across Dubai Creek (outdoor)",
+            "12:30-13:30 dining: Bombay Chowpatty (Karama)",
+            "17:00-18:30 attraction: Souk Madinat Jumeirah",
+            "19:00-20:00 attraction: Bluewaters Island (outdoor)",
+            "20:30-22:00 dining: Allo Beirut (JLT)"
+          ],
+          "day_cost_aed": "288.50"
+        }
+      ],
+      "vegetarian_restaurants_only": false,
+      "error": null
+    },
+    {
+      "label": "Refinement 2: day 2 indoors",
+      "user_input": "Replace day 2 with indoor activities",
+      "routing": "local_edit",
+      "routing_explanation": "Re-planning day(s) 2 only; the other days are kept.",
+      "planner_message": "Replace day 2 with indoor activities",
+      "locked_days": [
+        1,
+        3
+      ],
+      "day_constraints": [
+        {
+          "day_index": 1,
+          "indoor_only": true,
+          "note": "Replace day 2 with indoor activities"
+        }
+      ],
+      "steps": [
+        "parse_request",
+        "research_transport",
+        "research_accommodation",
+        "research_dining",
+        "research_attractions",
+        "research_weather_events",
+        "merge_research",
+        "allocate_budget",
+        "compose_itinerary",
+        "validate",
+        "review",
+        "finalize"
+      ],
+      "status": "approved",
+      "iterations": 0,
+      "llm_calls": 6,
+      "tokens": 10900,
+      "duration_s": 0.45,
+      "saved_version": 3,
+      "parent_version": 2,
+      "budget_aed": "4800.00",
+      "total_aed": "3254.99",
+      "dietary": [],
+      "diff": {
+        "from_version": 2,
+        "to_version": 3,
+        "cost_delta_aed": {
+          "accommodation": "0.00",
+          "activities": "35.00",
+          "food": "-45.00",
+          "transport": "14.00",
+          "contingency": "0.40",
+          "total": "4.40"
+        },
+        "budget_before": "4800.00",
+        "budget_after": "4800.00",
+        "changed_days": [
+          2
+        ],
+        "unchanged_days": [
+          1,
+          3
+        ],
+        "slots": {
+          "2": {
+            "removed": [
+              "10:00-11:00 Deira Gold Souk",
+              "11:30-13:00 SMCCU cultural meal & talk",
+              "13:30-14:30 Al Ustad Special Kabab",
+              "15:00-15:45 Deira Spice Souk",
+              "19:30-21:00 Al Tawasol"
+            ],
+            "added": [
+              "09:00-10:30 SMCCU cultural meal & talk",
+              "11:00-12:30 Al Shindagha Museum",
+              "13:00-14:00 Al Ustad Special Kabab",
+              "19:30-21:00 Bombay Chowpatty (Karama)"
+            ]
+          }
+        }
+      },
+      "days": [
+        {
+          "day": 1,
+          "date": "2027-02-10",
+          "theme": "Dubailand & Downtown",
+          "slots": [
+            "12:30-13:30 dining: Al Ijaza Cafeteria",
+            "17:00-20:00 attraction: Global Village (outdoor)",
+            "20:30-21:30 attraction: Souk Al Bahar",
+            "22:00-23:30 dining: Al Mallah (Al Dhiyafah Road)"
+          ],
+          "day_cost_aed": "288.58"
+        },
+        {
+          "day": 2,
+          "date": "2027-02-11",
+          "theme": "Bur Dubai",
+          "slots": [
+            "09:00-10:30 attraction: SMCCU cultural meal & talk",
+            "11:00-12:30 attraction: Al Shindagha Museum",
+            "13:00-14:00 dining: Al Ustad Special Kabab",
+            "19:30-21:00 dining: Bombay Chowpatty (Karama)"
+          ],
+          "day_cost_aed": "482.00"
+        },
+        {
+          "day": 3,
+          "date": "2027-02-12",
+          "theme": "Umm Suqeim & Jbr",
+          "slots": [
+            "09:00-09:20 attraction: Abra ride across Dubai Creek (outdoor)",
+            "12:30-13:30 dining: Bombay Chowpatty (Karama)",
+            "17:00-18:30 attraction: Souk Madinat Jumeirah",
+            "19:00-20:00 attraction: Bluewaters Island (outdoor)",
+            "20:30-22:00 dining: Allo Beirut (JLT)"
+          ],
+          "day_cost_aed": "288.50"
+        }
+      ],
+      "vegetarian_restaurants_only": false,
+      "error": null
+    },
+    {
+      "label": "Refinement 3: dietary preference",
+      "user_input": "We are vegetarian now, please only choose vegetarian-friendly restaurants",
+      "routing": "general_change",
+      "routing_explanation": "Re-planning the trip with your change.",
+      "planner_message": "We are vegetarian now, please only choose vegetarian-friendly restaurants",
+      "locked_days": [],
+      "day_constraints": [],
+      "steps": [
+        "parse_request",
+        "research_transport",
+        "research_accommodation",
+        "research_attractions",
+        "research_dining",
+        "research_weather_events",
+        "merge_research",
+        "allocate_budget",
+        "compose_itinerary",
+        "validate",
+        "review",
+        "finalize"
+      ],
+      "status": "approved",
+      "iterations": 0,
+      "llm_calls": 7,
+      "tokens": 12663,
+      "duration_s": 0.4,
+      "saved_version": 4,
+      "parent_version": 3,
+      "budget_aed": "4800.00",
+      "total_aed": "3254.13",
+      "dietary": [
+        "vegetarian"
+      ],
+      "diff": {
+        "from_version": 3,
+        "to_version": 4,
+        "cost_delta_aed": {
+          "accommodation": "0.00",
+          "activities": "-35.00",
+          "food": "50.00",
+          "transport": "-15.78",
+          "contingency": "-0.08",
+          "total": "-0.86"
+        },
+        "budget_before": "4800.00",
+        "budget_after": "4800.00",
+        "changed_days": [
+          1,
+          2,
+          3
+        ],
+        "unchanged_days": [],
+        "slots": {
+          "1": {
+            "removed": [
+              "12:30-13:30 Al Ijaza Cafeteria",
+              "22:00-23:30 Al Mallah (Al Dhiyafah Road)"
+            ],
+            "added": [
+              "12:30-13:30 Al Mallah (Al Dhiyafah Road)",
+              "22:00-23:30 Bombay Chowpatty (Karama)"
+            ]
+          },
+          "2": {
+            "removed": [
+              "09:00-10:30 SMCCU cultural meal & talk",
+              "11:00-12:30 Al Shindagha Museum",
+              "13:00-14:00 Al Ustad Special Kabab",
+              "19:30-21:00 Bombay Chowpatty (Karama)"
+            ],
+            "added": [
+              "10:00-11:00 Deira Gold Souk",
+              "11:30-13:00 SMCCU cultural meal & talk",
+              "13:30-14:30 Kailash Parbat (Karama)",
+              "15:00-15:45 Deira Spice Souk",
+              "19:30-21:00 Aroos Damascus"
+            ]
+          },
+          "3": {
+            "removed": [
+              "12:30-13:30 Bombay Chowpatty (Karama)"
+            ],
+            "added": [
+              "12:30-13:30 Govinda's (Karama)"
+            ]
+          }
+        }
+      },
+      "days": [
+        {
+          "day": 1,
+          "date": "2027-02-10",
+          "theme": "Dubailand & Downtown",
+          "slots": [
+            "12:30-13:30 dining: Al Mallah (Al Dhiyafah Road)",
+            "17:00-20:00 attraction: Global Village (outdoor)",
+            "20:30-21:30 attraction: Souk Al Bahar",
+            "22:00-23:30 dining: Bombay Chowpatty (Karama)"
+          ],
+          "day_cost_aed": "291.50"
+        },
+        {
+          "day": 2,
+          "date": "2027-02-11",
+          "theme": "Deira & Bur Dubai",
+          "slots": [
+            "10:00-11:00 attraction: Deira Gold Souk (outdoor)",
+            "11:30-13:00 attraction: SMCCU cultural meal & talk",
+            "13:30-14:30 dining: Kailash Parbat (Karama)",
+            "15:00-15:45 attraction: Deira Spice Souk (outdoor)",
+            "19:30-21:00 dining: Aroos Damascus"
+          ],
+          "day_cost_aed": "455.00"
+        },
+        {
+          "day": 3,
+          "date": "2027-02-12",
+          "theme": "Umm Suqeim & Jbr",
+          "slots": [
+            "09:00-09:20 attraction: Abra ride across Dubai Creek (outdoor)",
+            "12:30-13:30 dining: Govinda's (Karama)",
+            "17:00-18:30 attraction: Souk Madinat Jumeirah",
+            "19:00-20:00 attraction: Bluewaters Island (outdoor)",
+            "20:30-22:00 dining: Allo Beirut (JLT)"
+          ],
+          "day_cost_aed": "311.80"
+        }
+      ],
+      "vegetarian_restaurants_only": true,
+      "error": null
+    }
+  ],
+  "reopened_in_pid": 32364,
+  "parent_pid": 25980,
+  "checks": [
+    {
+      "name": "chat history identical",
+      "passed": true,
+      "detail": "8 messages"
+    },
+    {
+      "name": "every version still listed",
+      "passed": true,
+      "detail": "versions [1, 2, 3, 4]"
+    },
+    {
+      "name": "versions are linked parent \u2192 child",
+      "passed": true,
+      "detail": "parents [None, 1, 2, 3]"
+    },
+    {
+      "name": "latest itinerary identical",
+      "passed": true,
+      "detail": "v4, AED 3254.13"
+    },
+    {
+      "name": "run records kept",
+      "passed": true,
+      "detail": "4 runs"
+    },
+    {
+      "name": "LangGraph checkpoint thread kept",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "after_reopen": {
+    "session_id": "04ab37da4bdb458689c747b26a000070",
+    "title": "2 adults, 10-12 Feb 2027, AED 6000, history and food",
+    "messages": [
+      {
+        "role": "user",
+        "content": "2 adults, 10-12 Feb 2027, AED 6000, history and food"
+      },
+      {
+        "role": "assistant",
+        "content": "3-day Dubai itinerary: 3 day(s), estimated total AED 4258.65 (budget AED 6000.00). Approved after 0 revision(s)."
+      },
+      {
+        "role": "user",
+        "content": "reduce the budget by 20%: the new total budget is AED 4800."
+      },
+      {
+        "role": "assistant",
+        "content": "3-day Dubai itinerary: 3 day(s), estimated total AED 3250.59 (budget AED 4800.00). Approved after 0 revision(s)."
+      },
+      {
+        "role": "user",
+        "content": "Replace day 2 with indoor activities"
+      },
+      {
+        "role": "assistant",
+        "content": "3-day Dubai itinerary: 3 day(s), estimated total AED 3254.99 (budget AED 4800.00). Approved after 0 revision(s)."
+      },
+      {
+        "role": "user",
+        "content": "We are vegetarian now, please only choose vegetarian-friendly restaurants"
+      },
+      {
+        "role": "assistant",
+        "content": "3-day Dubai itinerary: 3 day(s), estimated total AED 3254.13 (budget AED 4800.00). Approved after 0 revision(s)."
+      }
+    ],
+    "versions": [
+      {
+        "version": 1,
+        "parent_version": null,
+        "mode": "langgraph",
+        "approved": true,
+        "total_aed": "4258.65",
+        "budget_aed": "6000.00"
+      },
+      {
+        "version": 2,
+        "parent_version": 1,
+        "mode": "langgraph",
+        "approved": true,
+        "total_aed": "3250.59",
+        "budget_aed": "4800.00"
+      },
+      {
+        "version": 3,
+        "parent_version": 2,
+        "mode": "langgraph",
+        "approved": true,
+        "total_aed": "3254.99",
+        "budget_aed": "4800.00"
+      },
+      {
+        "version": 4,
+        "parent_version": 3,
+        "mode": "langgraph",
+        "approved": true,
+        "total_aed": "3254.13",
+        "budget_aed": "4800.00"
+      }
+    ],
+    "latest_version": 4,
+    "latest_total_aed": "3254.13",
+    "runs": [
+      {
+        "id": "72587c5f7df8400c878d17e2e1c68309",
+        "status": "succeeded",
+        "llm_calls": 7,
+        "tokens": 12430
+      },
+      {
+        "id": "cddb3dc3426d4c6894423b23118516e6",
+        "status": "succeeded",
+        "llm_calls": 7,
+        "tokens": 12501
+      },
+      {
+        "id": "7f19d1650c234d79b9715f8c77a75ec8",
+        "status": "succeeded",
+        "llm_calls": 6,
+        "tokens": 10900
+      },
+      {
+        "id": "b949092e588749b195b83f8c6c2a127e",
+        "status": "succeeded",
+        "llm_calls": 7,
+        "tokens": 12663
+      }
+    ],
+    "checkpoint_thread": true
+  }
+}

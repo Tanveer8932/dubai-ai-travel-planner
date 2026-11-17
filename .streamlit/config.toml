@@ -1,0 +1,11 @@
+# Streamlit settings shared by local runs and Community Cloud. No secrets here.
+[browser]
+gatherUsageStats = false
+
+[server]
+headless = true
+
+[client]
+# Friendly errors are shown by the pages themselves; never print tracebacks to visitors.
+showErrorDetails = "none"
+toolbarMode = "viewer"

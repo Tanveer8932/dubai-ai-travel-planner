@@ -1,0 +1,20 @@
+{
+  "id": "solo_usd_budget",
+  "title": "Solo traveller with a USD budget",
+  "category": "currency",
+  "turns": [
+    "Solo trip, 3 days from 15 April 2027, budget USD 1500, shopping and architecture"
+  ],
+  "today": "2026-11-16",
+  "expect": {
+    "days": 3,
+    "adults": 1,
+    "children": 0,
+    "budget_aed": 5508.75,
+    "interests": [
+      "shopping",
+      "architecture"
+    ]
+  },
+  "notes": "USD converted at the fixed peg 3.6725 (USD 1500 = AED 5508.75)."
+}

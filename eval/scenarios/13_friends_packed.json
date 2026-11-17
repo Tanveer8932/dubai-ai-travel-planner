@@ -1,0 +1,21 @@
+{
+  "id": "friends_packed",
+  "title": "Group of friends, packed schedule",
+  "category": "group",
+  "turns": [
+    "4 adults, 3 days from 5 November 2027, AED 12000, packed schedule, adventure and nightlife"
+  ],
+  "today": "2026-11-16",
+  "expect": {
+    "days": 3,
+    "adults": 4,
+    "children": 0,
+    "budget_aed": 12000,
+    "pace": "packed",
+    "interests": [
+      "adventure",
+      "nightlife"
+    ]
+  },
+  "notes": "Larger party (room count, taxi capacity) and a packed pace."
+}

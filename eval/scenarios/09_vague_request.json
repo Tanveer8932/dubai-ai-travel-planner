@@ -1,0 +1,16 @@
+{
+  "id": "vague_request",
+  "title": "Vague request, then clarification",
+  "category": "vague",
+  "turns": [
+    "plan a Dubai trip",
+    "5 days in Feb, AED 8000"
+  ],
+  "today": "2026-11-16",
+  "expect": {
+    "days": 5,
+    "budget_aed": 8000,
+    "asks_clarification": true
+  },
+  "notes": "The first turn must trigger a clarification question; the answer completes the plan."
+}

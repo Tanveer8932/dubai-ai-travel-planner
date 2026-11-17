@@ -540,6 +540,26 @@ dubai-ai-travel-planner/
     ├── unit/  integration/  fixtures/
 ```
 
+## 11a. Evaluation and deployment (as built, Phase 7)
+
+```mermaid
+flowchart LR
+    SC["eval/scenarios/*.json<br/>13 conversations + expectations"] --> RN["EvalRunner<br/>scenario × mode × seed"]
+    RN -->|"RunManager → classify → planner<br/>(same path as the app)"| PL["LangGraph / CrewAI planners"]
+    PL --> DB[("eval DB<br/>runs · trace_events · eval_results")]
+    DB --> MT["metrics.score<br/>re-checks the plan against the user's words"]
+    MT --> RP["report: results.csv · cells.jsonl · PNG · report.md"]
+    RN -. optional .-> JD["judge: rubric + position-swapped pairwise"]
+    FI["faults: 8 seeded defects via AgentSuite(composer=…)"] --> PL
+    RP --> UI["pages/4_Evaluation.py"]
+```
+
+- **Package** `src/dubai_planner/evaluation/`: `scenarios.py` (Pydantic `Scenario`/`Expectations`, written from the user's words so parsing errors count), `metrics.py` (`score` → `CellMetrics`; quality from the final itinerary re-checked independently, performance only from the `runs` row and trace; `aggregate` = mean ± sample std), `judge.py` (rubric 1–5 and pairwise A/B run in both orders; mock = constant placeholder), `faults.py` (defects injected into the first composition through `AgentSuite`; detection = the rule appears in that attempt's review verdict, i.e. LangGraph `review` report or CrewAI compose-guardrail/review report), `runner.py` (`EvalRunner`, token budget, daily-quota stop, `resume`), `report.py` (CSV, JSONL, matplotlib PNG, Markdown with a mock banner), `results.py` (dashboard loader for published folders and the eval DB), `transcript.py` (session transcript, snapshot and restart verification).
+- **Fairness**: identical scenario text, `today`, seed data (fingerprint recorded), rules, review cap and tolerance for every mode; data sources offline by default; cells run scenario by scenario so an interrupted run keeps complete mode pairs; an optional unscored warm-up per mode (on for mock) removes one-off start-up cost from the first cell.
+- **Free-tier safety**: `--max-tokens` stops starting cells, a provider daily-quota error stops the evaluation, `--resume` continues the same eval run another day, `--report-only` rewrites a report from the DB. Errors stored in results are scrubbed of key values and provider account ids.
+- **Deployment**: `requirements.txt` installs the project (`.[langgraph,crewai,ui]`) + `langchain-groq` for Streamlit Community Cloud (Python 3.12). `config._project_root()` finds `data/seed` even when the package is installed non-editable (falls back to the working directory; `DUBAI_PLANNER_ROOT` overrides). `ui_shared._secrets_to_env()` exports top-level Streamlit secrets as environment variables before `Settings` is built (an existing env var wins). `.streamlit/config.toml` disables usage stats and error details; `secrets.toml` is git-ignored. Hosted SQLite is ephemeral (see README §17).
+- **Fixed by the benchmark**: the composer's deterministic scheduler checked each attraction against the spend at the start of the day, so a packed day could overshoot the activity budget (scenario `friends_packed`); it now checks cumulatively. The offline requirements heuristic read "a day trip" as a per-day budget and "aged 6 and 9, 5 days" as three children.
+
 ## 12. Key trade-offs
 
 | Decision | Chosen | Alternative | Reason |

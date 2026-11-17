@@ -251,3 +251,33 @@ def test_heuristic_does_not_read_beach_as_each(toolbox: Toolbox) -> None:
 
     assert scope("2 adults, 14-16 July 2027, AED 9000, beach and culture") is BudgetScope.TOTAL
     assert scope("2 adults, 14-16 July 2027, AED 4000 each") is BudgetScope.PER_PERSON
+
+
+def test_heuristic_day_trip_and_trip_length_are_not_misread(toolbox: Toolbox) -> None:
+    """Regressions found by the Phase 7 scenario probe (offline mock parser only).
+
+    "AED 9000, include a day trip" was read as a per-day budget (AED 36 000), and
+    "kids aged 6 and 9, 5 days" gave a third child aged 5.
+    """
+    from datetime import date
+
+    from dubai_planner.agents import requirements as req
+    from dubai_planner.llm.mock import MockLLM
+    from dubai_planner.models import BudgetScope
+
+    def parse(text: str) -> req.RequirementsResult:
+        return req.run(req.RequirementsInput(message=text, today=date(2026, 11, 16)),
+                       MockLLM(), toolbox)
+
+    trip = parse("2 adults, 4 days from 3 March 2027, AED 9000, include a day trip")
+    assert trip.request is not None
+    assert trip.request.budget_scope is BudgetScope.TOTAL
+    assert trip.request.total_budget_aed() == 9000
+    daily = parse("2 adults, 3 days from 3 March 2027, AED 900 a day")
+    assert daily.request is not None and daily.request.budget_scope is BudgetScope.PER_DAY
+    family = parse("Family of 4 with two kids aged 6 and 9, 5 days from 20 December 2026, "
+                   "AED 12000")
+    assert family.request is not None
+    assert family.request.travellers.adults == 2
+    assert family.request.travellers.children_ages == [6, 9]
+    assert family.request.num_days == 5

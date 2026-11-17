@@ -1,0 +1,21 @@
+{
+  "id": "day_trip_abu_dhabi",
+  "title": "Day trip to Abu Dhabi",
+  "category": "day-trip",
+  "turns": [
+    "2 adults, 4 days from 3 March 2027, AED 9000, culture and architecture, include a day trip to Abu Dhabi"
+  ],
+  "today": "2026-11-16",
+  "expect": {
+    "days": 4,
+    "adults": 2,
+    "children": 0,
+    "budget_aed": 9000,
+    "day_trip_area": "abu_dhabi",
+    "interests": [
+      "culture",
+      "architecture"
+    ]
+  },
+  "notes": "The plan should contain at least one Abu Dhabi attraction (a day trip)."
+}

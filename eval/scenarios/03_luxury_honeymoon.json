@@ -1,0 +1,21 @@
+{
+  "id": "luxury_honeymoon",
+  "title": "Luxury honeymoon",
+  "category": "luxury",
+  "turns": [
+    "Honeymoon, 3 nights from 14 January 2027, AED 25000, fine dining, desert safari, beach"
+  ],
+  "today": "2026-11-16",
+  "expect": {
+    "days": 4,
+    "adults": 2,
+    "children": 0,
+    "budget_aed": 25000,
+    "interests": [
+      "desert",
+      "beach",
+      "luxury"
+    ]
+  },
+  "notes": "problemStatement.md \u00a74 luxury couple. 3 nights = 4 calendar days."
+}

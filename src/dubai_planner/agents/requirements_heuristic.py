@@ -132,7 +132,7 @@ def _budget(text: str) -> tuple[Decimal | None, str, BudgetScope | None]:
         scope = None
         if re.search(r"per\s+(person|head|pax)|\beach\b|\bpp\b", tail):
             scope = BudgetScope.PER_PERSON
-        elif re.search(r"per\s+day|a day|daily|/day", tail):
+        elif re.search(r"per\s+day|\ba day\b(?!\s*trips?)|daily|/day", tail):
             scope = BudgetScope.PER_DAY
         return amount, currency, scope
     return None, "AED", None
@@ -140,7 +140,9 @@ def _budget(text: str) -> tuple[Decimal | None, str, BudgetScope | None]:
 
 def _travellers(text: str) -> tuple[int | None, int | None, list[int]]:
     ages: list[int] = []
-    for match in re.finditer(r"aged?\s+((?:\d{1,2}(?:\s*,\s*|\s+and\s+|\s*&\s*)?)+)", text):
+    for match in re.finditer(r"aged?\s+((?:\d{1,2}(?!\d|\s*(?:days?|nights?|weeks?|adults?|"
+                              r"people|k\b|aed|dhs?))(?:\s*,\s*|\s+and\s+|\s*&\s*)?)+)",
+                              text):
         ages += [int(a) for a in re.findall(r"\d{1,2}", match.group(1)) if int(a) <= 17]
     ages += [int(a) for a in re.findall(r"(\d{1,2})[\s-]*(?:year|yr)s?[\s-]*old", text)
              if int(a) <= 17]

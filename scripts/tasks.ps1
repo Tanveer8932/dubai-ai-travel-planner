@@ -29,7 +29,13 @@ switch ($Task) {
     'setup' {
         if (-not (Test-Path $Py)) {
             Write-Host 'Creating .venv with Python 3.12 ...'
-            Invoke-Checked 'py' @('-3.12', '-m', 'venv', '.venv')
+            if (Get-Command py -ErrorAction SilentlyContinue) {
+                Invoke-Checked 'py' @('-3.12', '-m', 'venv', '.venv')
+            } else {
+                $version = & python -c "import sys; print('%d.%d' % sys.version_info[:2])"
+                if ($version -ne '3.12') { throw "Python 3.12 is required (found '$version' as python)." }
+                Invoke-Checked 'python' @('-m', 'venv', '.venv')
+            }
         } else {
             Write-Host 'Reusing existing .venv'
         }

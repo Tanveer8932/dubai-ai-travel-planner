@@ -482,7 +482,19 @@ def baseline_draft(ctx: ComposerContext) -> DraftItinerary:
                 rest = sorted(local[1:], key=lambda a: (
                     round(_km((anchor.lat, anchor.lon), (a.lat, a.lon)) / 4),
                     ctx.attractions.index(a)))
-                chosen = [anchor, *rest[: ctx.target_activities_per_day - 1]]
+                # Cumulative check: each pick must fit together with the day's earlier
+                # picks (checking each against the day-start spend let a packed day of
+                # individually affordable attractions overshoot; found by the Phase 7
+                # benchmark, scenario friends_packed).
+                running = spent
+                for att in [anchor, *rest]:
+                    if len(chosen) >= ctx.target_activities_per_day:
+                        break
+                    cost = Decimal(att.cost_aed)
+                    if cost and running + cost > activity_budget:
+                        continue
+                    chosen.append(att)
+                    running += cost
         slots = _schedule_day(chosen, day, ctx, meals_used, hotel)
         for s in slots:
             if s.kind == "attraction" and s.ref_id:
