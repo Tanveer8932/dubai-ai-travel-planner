@@ -22,6 +22,8 @@ st.write(
     "sidebar.")
 st.page_link("pages/1_Planner.py", label="Plan a trip", icon="🗺️")
 st.page_link("pages/2_Sessions.py", label="Sessions & versions", icon="🗂️")
+st.page_link("pages/3_Execution.py", label="Agent execution (graph, timeline, compare)",
+             icon="🔭")
 st.markdown(
     "**Try:** *2 adults, 10-12 Feb 2027, AED 6000, history and food* — then refine it: "
     "*reduce the budget by 20%* or *replace day 2 with indoor activities*.")

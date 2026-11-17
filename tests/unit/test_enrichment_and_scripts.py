@@ -87,5 +87,5 @@ def test_init_db_script(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> N
         runpy.run_path(str(PROJECT_ROOT / "scripts/init_db.py"), run_name="__main__")
     assert exit_info.value.code == 0
     out = capsys.readouterr().out
-    assert "schema version 1" in out and "Seed data valid" in out
+    assert "schema version 2" in out and "Seed data valid" in out
     assert (tmp_path / "app.db").exists()  # DB_PATH points into tmp_path (conftest)

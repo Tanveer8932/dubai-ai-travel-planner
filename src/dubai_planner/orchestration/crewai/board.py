@@ -181,6 +181,24 @@ class CrewRunBoard:
         return (f"{party}, {req.start_date.isoformat()} to {req.end_date.isoformat()}, "
                 f"budget AED {req.total_budget_aed()}, interests: {interests}")
 
+    def trace_inputs(self) -> dict[str, Any]:
+        """What a stage can read from the board, summarised for the inspector."""
+        with self._lock:
+            out: dict[str, Any] = {"iteration": self.iteration,
+                                   "accepted": sorted(self.accepted)}
+            req = self.requirements.request if self.requirements else None
+            if req is None:
+                out["message"] = self.user_message
+            else:
+                out["request"] = {"dates": f"{req.start_date} to {req.end_date}",
+                                  "travellers": req.travellers.total,
+                                  "budget_aed": req.budget_aed, "interests": req.interests}
+            if self.feedback:
+                out["feedback"] = list(self.feedback)
+            if self.locked_days:
+                out["locked_days"] = list(self.locked_days)
+            return out
+
     # ------------------------------------------------------------------ hand-over
     def put_pending(self, stage: str, value: BaseModel) -> None:
         with self._lock:

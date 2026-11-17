@@ -64,6 +64,7 @@ from dubai_planner.orchestration.common import (
     RetrySettings,
     RunStats,
     check_message,
+    run_context_info,
     safe_error,
     summarize_value,
     summary_text,
@@ -237,7 +238,7 @@ class CrewAIPlanner:
             board.feedback = list(edit.instructions)
             board.day_constraints = list(edit.day_constraints)
         rounds = pending.rounds if pending else 0
-        stats = RunStats(run_id)
+        stats = RunStats(run_id, repo=self.repo, settings=self.settings)
         updates: queue.Queue[PlannerUpdate | BaseException | None] = queue.Queue()
         outcome: dict[str, Any] = {}
         ctx = contextvars.copy_context()
@@ -297,6 +298,9 @@ class CrewAIPlanner:
             stage = _TASK_TO_STAGE.get(str(output.name or ""), "")
             value = output.pydantic
             summary: dict[str, Any] = {stage or str(output.name): summarize_value(value)}
+            with run_context(board.run_id, mode=self.mode.value, iteration=board.iteration):
+                emit(str(output.name or stage), TraceEventType.INFO, payload={
+                    "kind": "state_update", "keys": sorted(summary), "update": summary})
             updates.put(PlannerUpdate(session_id=board.session_id, run_id=board.run_id,
                                       node=str(output.name or stage), iteration=board.iteration,
                                       summary=summary))
@@ -402,16 +406,16 @@ class CrewAIPlanner:
             self.repo.add_message(session_id, ChatMessage(role=ChatRole.USER, content=message,
                                                           metadata={"run_id": run_id}))
         if self.repo.get_run(run_id) is None:
-            self.repo.start_run(self.mode, session_id=session_id, run_id=run_id)
+            self.repo.start_run(self.mode, session_id=session_id, run_id=run_id,
+                                context=run_context_info(self.settings, process=self.process))
 
     def _finish(self, board: CrewRunBoard, result: PlanResult, stats: RunStats) -> None:
         if self.repo is None:
             return
+        stats.flush()
         prior = self.repo.get_run(board.run_id)
-        self.repo.finish_run(board.run_id, RUN_STATUS[result.status],
-                             llm_calls=stats.llm_calls + (prior.llm_calls if prior else 0),
-                             tokens=stats.tokens + (prior.tokens if prior else 0),
-                             error=result.error)
+        self.repo.finish_run(board.run_id, RUN_STATUS[result.status], error=result.error,
+                             iterations=result.iterations, **stats.finish_kwargs(prior))
         draft = result.draft.model_dump(mode="json") if result.draft else None
         meta: dict[str, Any] = {"run_id": board.run_id, "status": result.status.value,
                                 "mode": self.mode.value, "draft": draft}

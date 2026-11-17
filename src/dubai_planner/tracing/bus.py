@@ -141,7 +141,10 @@ def agent_span(agent: str, **payload: Any) -> Iterator[dict[str, Any]]:
             TraceEventType.ERROR,
             started_at=started,
             ended_at=datetime.now(UTC),
-            payload={"error": type(exc).__name__, "message": str(exc)[:500]},
+            # Same ``kind`` as the start event, so viewers can pair them (Phase 6).
+            payload={**({"kind": kind} if (kind := result.get("kind", payload.get("kind")))
+                        else {}),
+                     "error": type(exc).__name__, "message": str(exc)[:500]},
         )
         raise
     emit(agent, TraceEventType.END, started_at=started, ended_at=datetime.now(UTC),

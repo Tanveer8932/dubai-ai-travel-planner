@@ -37,6 +37,7 @@ from dubai_planner.orchestration.crewai.board import (
 from dubai_planner.orchestration.crewai.stages import StageFn
 from dubai_planner.tools.toolbox import TOOL_SPECS, Toolbox
 from dubai_planner.tracing import agent_span, run_context
+from dubai_planner.tracing.payloads import record_io
 
 
 def _to_text(value: Any) -> str:
@@ -140,7 +141,8 @@ class StageTool(BaseTool):
                                 notes=notes[:200]) as span:
                     value = call_with_retry(lambda: self._fn(board), self._retry,
                                             agent=spec.task)
-                    span.update(kind="stage", output=type(value).__name__)
+                    span["kind"] = "stage"
+                    record_io(span, inputs=board.trace_inputs(), output=value)
             except Exception as exc:
                 board.fail(spec.key, exc)
                 raise

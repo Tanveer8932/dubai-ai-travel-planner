@@ -137,8 +137,22 @@ def build_messages(
     ]
 
 
+PROMPT_PREVIEW_CHARS = 1500
+RESPONSE_PREVIEW_CHARS = 1500
+
+
+def prompt_preview(messages: Sequence[LLMMessage]) -> list[dict[str, Any]]:
+    """Each message's role, size and opening text (the inspector's "prompt" view).
+
+    Prompts hold only our instructions and the traveller's own words, never keys.
+    """
+    return [{"role": m.role, "chars": len(m.content),
+             "preview": m.content[:PROMPT_PREVIEW_CHARS]} for m in messages]
+
+
 def _trace_call(agent: str, schema: str, completion: Completion, attempt: int, started: datetime,
-                latency_s: float, ok: bool, native: bool) -> None:
+                latency_s: float, ok: bool, native: bool,
+                messages: Sequence[LLMMessage] = (), error: str | None = None) -> None:
     emit(
         agent,
         TraceEventType.LLM_CALL,
@@ -153,6 +167,9 @@ def _trace_call(agent: str, schema: str, completion: Completion, attempt: int, s
             "latency_s": round(latency_s, 3),
             "valid": ok,
             "native": native,
+            "prompt": prompt_preview(messages),
+            "response_preview": (completion.text or "")[:RESPONSE_PREVIEW_CHARS],
+            **({"validation_error": error[:500]} if error else {}),
         },
     )
 
@@ -217,7 +234,8 @@ def invoke_structured(
         tokens_in += completion.tokens_in
         tokens_out += completion.tokens_out
         _trace_call(agent, schema.__name__, completion, attempt, started,
-                    time.perf_counter() - t0, problem is None, use_native_now)
+                    time.perf_counter() - t0, problem is None, use_native_now, convo,
+                    None if problem is None else format_errors(problem))
         if problem is None:
             return StructuredResult(
                 value=cast(R, value), calls=attempt + 1, tokens_in=tokens_in,

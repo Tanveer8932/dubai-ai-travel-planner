@@ -36,6 +36,12 @@ from dubai_planner.tracing import emit, run_context
 from dubai_planner.validation.rules import validate_itinerary
 
 
+def issue_rows(report: ReviewReport, limit: int = 20) -> list[dict[str, Any]]:
+    """The review's issues as small JSON rows (kept in the trace for the UI)."""
+    return [{"severity": i.severity.value, "rule": i.rule_id, "day": i.day_index,
+             "message": i.message[:300]} for i in report.issues[:limit]]
+
+
 class StageGuardrail:
     """Accept only the output the stage's tool produced in this attempt."""
 
@@ -100,7 +106,9 @@ class ItineraryGuardrail(StageGuardrail):
                                          review=report, violations=violations))
             plan = plan_revision(report, itinerary, num_days=board.request.num_days)
             self._event(False, reason="rule_errors", rules=rules, retry=board.iteration + 1,
-                        target_days=plan.target_days, locked_days=plan.locked_days)
+                        target_days=plan.target_days, locked_days=plan.locked_days,
+                        attempt=board.attempts[-1].model_dump(mode="json"),
+                        issues=issue_rows(report))
             board.start_revision(plan)
             board.guardrail_rejections += 1
             return (False, "Rejected by the deterministic checks:\n- "
@@ -131,5 +139,7 @@ class ReviewGuardrail(StageGuardrail):
         board.record_attempt(attempt)
         self._event(True, approved=attempt.approved,
                     reviewer_approved=report.approved,
-                    errors=attempt.errors)
+                    errors=attempt.errors,
+                    attempt=board.attempts[-1].model_dump(mode="json"),
+                    issues=issue_rows(report))
         return self._accept(output, report)

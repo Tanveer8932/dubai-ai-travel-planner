@@ -75,6 +75,16 @@ offline tests and the mock provider need none of them.
 | `run` | `streamlit run app/streamlit_app.py` *(available from Phase 5)* |
 | `eval` | `python scripts/run_eval.py --provider mock` *(available from Phase 7)* |
 
+## App pages
+- **Planner**: chat, live progress, itinerary, review outcome, refinements.
+- **Sessions**: saved sessions, versions and diffs.
+- **Execution** (Phase 6): how a run executed, read from SQLite (so it works after a
+  restart): orchestration graph with step status (live while a run executes), Gantt
+  timeline (parallel research, review-iteration bands, LLM calls, guardrail retries,
+  delegations), inspector (inputs, validated outputs, prompt previews, tokens, latency),
+  state & review attempts, and a side-by-side comparison of two runs with fairness checks.
+  Deep link: `/Execution?run=<run id>&view=Timeline`.
+
 ## Data and persistence (Phase 1)
 ```powershell
 python scripts/init_db.py                       # create/migrate data/app.db, validate seed data

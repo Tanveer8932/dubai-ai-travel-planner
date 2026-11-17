@@ -139,3 +139,17 @@ def export_mermaid(graph: Any, path: Path) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(draw_mermaid(graph), encoding="utf-8")
     return path
+
+
+def describe_graph(graph: Any) -> dict[str, Any]:
+    """Nodes and edges of the compiled graph as plain data (for the Phase 6 visualiser).
+
+    Read from LangGraph's own ``get_graph()``, so the view always matches what runs.
+    """
+    g = graph.get_graph()
+    return {
+        "nodes": [str(node_id) for node_id in g.nodes],
+        "edges": [{"source": str(e.source), "target": str(e.target),
+                   "conditional": bool(e.conditional)} for e in g.edges],
+        "parallel": list(n.RESEARCH_NODES),
+    }

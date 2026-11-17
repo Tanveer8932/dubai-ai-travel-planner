@@ -12,10 +12,20 @@ from datetime import UTC, datetime
 
 import pandas as pd
 import streamlit as st
+from ui_execution import attempt_row
 from ui_itinerary import render_itinerary
-from ui_shared import Services, current_mode, current_session_id, select_session, services, sidebar
+from ui_shared import (
+    Services,
+    current_mode,
+    current_session_id,
+    nav_link,
+    select_session,
+    services,
+    sidebar,
+)
 
 from dubai_planner.models import ChatRole, PlanStatus
+from dubai_planner.services import observability as ob
 from dubai_planner.services import presentation as view
 from dubai_planner.services.runs import RunHandle, RunInProgress
 
@@ -95,6 +105,24 @@ def outcome(handle: RunHandle) -> None:
             st.caption("Assumptions: " + "; ".join(result.assumptions))
 
 
+def recorded_review(svc: Services, session_id: str) -> None:
+    """After a restart the run handle is gone: show the last run's attempts from SQLite."""
+    runs = ob.list_run_traces(svc.sessions.repo, session_id)
+    trace = ob.load_trace(svc.sessions.repo, runs[0].id, active=False) if runs else None
+    attempts = ob.recorded_attempts(trace) if trace is not None else []
+    if not attempts:
+        return
+    issues = sum(len(a["issues"]) for a in attempts)
+    with st.expander(f"Review of the last run: {len(attempts)} attempt(s), {issues} issue(s) "
+                     "(from the saved trace)"):
+        st.dataframe(pd.DataFrame([attempt_row(a) for a in attempts]), hide_index=True,
+                     width="stretch")
+        for a in attempts:
+            for i in a["issues"]:
+                icon = {"error": "🔴", "warning": "🟠"}.get(str(i.get("severity")), "🔵")
+                st.markdown(f"{icon} iteration {a['iteration']}: {i.get('message')}")
+
+
 session_id = current_session_id()
 session = svc.sessions.get(session_id) if session_id else None
 st.title("🗺️ Plan your Dubai trip")
@@ -115,6 +143,9 @@ elif session_id is not None:
     last = svc.runs.last(session_id)
     if last is not None:
         outcome(last)
+    else:
+        recorded_review(svc, session_id)
+    nav_link("pages/3_Execution.py", "See how the agents ran", "🔭")
 
 if session_id is not None and active is None:
     latest = svc.sessions.latest(session_id)

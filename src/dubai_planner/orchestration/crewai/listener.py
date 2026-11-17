@@ -63,9 +63,13 @@ class _TaskInfo:
 
 
 def _aware(ts: datetime | None) -> datetime:
+    """UTC timestamp. CrewAI 1.15 stamps base events in aware UTC but tool usage
+    (``started_at``/``finished_at``, also delegations) with naive *local* time
+    (``datetime.now()``), so a naive value is local time, not UTC (Phase 6 finding:
+    treating it as UTC shifted tool events by the machine's UTC offset)."""
     if ts is None:
         return datetime.now(UTC)
-    return ts if ts.tzinfo else ts.replace(tzinfo=UTC)
+    return ts.astimezone(UTC)  # naive → interpreted as local time
 
 
 class CrewTraceListener(BaseEventListener):

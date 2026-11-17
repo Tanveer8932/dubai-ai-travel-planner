@@ -66,6 +66,12 @@ class RunRecord(StrictModel):
     llm_calls: int = 0
     tokens: int = 0
     error: str | None = None
+    # Phase 6 (schema v2): aggregated LLM usage and what a fair comparison needs.
+    tokens_in: int = 0
+    tokens_out: int = 0
+    llm_latency_s: float = 0.0
+    iterations: int | None = None
+    context: dict[str, Any] = Field(default_factory=dict)
 
 
 class EvalRun(StrictModel):

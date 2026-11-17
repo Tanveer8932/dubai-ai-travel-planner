@@ -277,3 +277,140 @@ def test_sessions_page_rename_and_delete() -> None:
 
 
 Clicker = Callable[[AppTest], AppTest]
+
+
+# ================================================================== Phase 6: Execution page
+
+EXECUTION = str(APP / "pages" / "3_Execution.py")
+
+
+def graph_spec_text(at: AppTest) -> str:
+    charts = at.get("graphviz_chart")
+    assert charts, "no graph rendered"
+    return "\n".join(c.proto.spec for c in charts)
+
+
+def all_text(at: AppTest) -> str:
+    parts = [texts(at)] + [str(m.value) for m in at.metric] + [str(j.value) for j in at.json]
+    parts += [str(c.value) for c in at.code] + [str(d.value) for d in at.dataframe]
+    return "\n".join(parts)
+
+
+def test_execution_page_without_runs_explains_what_to_do() -> None:
+    at = open_page(EXECUTION)
+    assert not at.exception
+    assert any("No runs yet" in i.value for i in at.info)
+
+
+def test_ac61_ac64_execution_page_graph_timeline_and_inspector() -> None:
+    at = open_page(PLANNER)
+    send(at, WINTER)
+    session_id = at.session_state["session_id"]
+    page = open_page(EXECUTION, session_id=session_id)
+    assert not page.exception, [e.value for e in page.exception]
+    dot = graph_spec_text(page)
+    assert "parallel research (one super-step)" in dot and "● done" in dot
+    assert "◐ running" not in dot and "✖ failed" not in dot
+    assert len(page.get("plotly_chart")) >= 1  # the Gantt timeline (+ comparison charts)
+    metrics = {m.label: m.value for m in page.metric}
+    assert metrics["Outcome"] == "approved" and metrics["Research"].startswith("parallel ×")
+    assert "Mock provider" in texts(page)
+    # Inspector: pick the compose step's end event; its output re-validates.
+    run_id = page.session_state["exec_run"]
+    trace = ob_trace(run_id)
+    compose = next(i for i, e in enumerate(trace.events) if e.agent == "compose_itinerary"
+                   and e.event.value == "end" and "output_schema" in e.payload)
+    page.selectbox(key=f"insp-{run_id}-event").set_value(compose).run()
+    assert any(s.value == "✓ validates as `Itinerary`" for s in page.success)
+    page.radio(key=f"insp-{run_id}-filter").set_value("LLM calls").run()
+    assert not page.exception and "Prompt" in texts(page)
+
+
+def ob_trace(run_id: str) -> Any:
+    from dubai_planner.services import observability as ob
+
+    trace = ob.load_trace(services().sessions.repo, run_id)
+    assert trace is not None
+    return trace
+
+
+def test_ac63_live_graph_highlights_the_running_step() -> None:
+    import threading
+
+    from dubai_planner.agents import composer
+    from dubai_planner.agents.suite import AgentSuite
+    from dubai_planner.models import PlannerMode
+
+    entered, release = threading.Event(), threading.Event()
+
+    def blocking(data: Any, llm: Any, tools: Any) -> Any:
+        entered.set()
+        release.wait(60)
+        return composer.run(data, llm, tools)
+
+    open_page(HOME)
+    svc = services()
+    svc.hub.planner_kwargs["agents"] = AgentSuite(composer=blocking)  # before any planner
+    session_id = svc.sessions.create(PlannerMode.LANGGRAPH).id
+    handle = svc.runs.start(session_id, PlannerMode.LANGGRAPH, WINTER)
+    try:
+        assert entered.wait(60)
+        page = open_page(EXECUTION, session_id=session_id)
+        assert not page.exception, [e.value for e in page.exception]
+        dot = graph_spec_text(page)
+        compose_line = next(line for line in dot.splitlines()
+                            if line.strip().startswith('"compose_itinerary" [label='))
+        assert "◐ running" in compose_line and "penwidth=3" in compose_line
+        assert "now running: **compose_itinerary**" in texts(page)
+        assert any("refreshes every second" in c.value for c in page.caption)
+        page.run()  # a later poll: still the same state, no duplicate run started
+        assert svc.runs.active(session_id) is handle
+    finally:
+        release.set()
+    assert handle.wait(TIMEOUT)
+    page.run()
+    assert not page.exception
+    dot = graph_spec_text(page)
+    assert "◐ running" not in dot and r'"finalize" [label="finalize\n● done"' in dot
+
+
+def test_ac65_execution_history_survives_an_app_restart() -> None:
+    at = open_page(PLANNER)
+    send(at, WINTER)
+    session_id = at.session_state["session_id"]
+    services().hub.close()
+    st.cache_resource.clear()  # app restart: nothing in memory, SQLite only
+    page = open_page(EXECUTION, session_id=session_id)
+    assert not page.exception
+    assert "● done" in graph_spec_text(page) and page.get("plotly_chart")
+    assert {m.label: m.value for m in page.metric}["Outcome"] == "approved"
+    planner = open_page(PLANNER, session_id=session_id)  # review detail is kept too
+    assert any("from the saved trace" in e.label for e in planner.expander)
+
+
+def test_execution_page_compares_langgraph_and_crewai_on_the_same_request() -> None:
+    lg = open_page(PLANNER, mode="langgraph")
+    send(lg, WINTER)
+    cr = open_page(PLANNER, mode="crewai_sequential")
+    send(cr, WINTER)
+    page = open_page(EXECUTION, session_id=cr.session_state["session_id"])
+    assert not page.exception
+    assert any("Same message, request, seed data" in s.value for s in page.success)
+    table = next(d.value for d in page.dataframe if "B − A" in d.value.columns)
+    metrics = set(table["metric"])
+    assert {"Wall-clock time (s)", "LLM calls", "Total tokens", "Research execution",
+            "Review iterations (refinements)"} <= metrics
+    research = table.set_index("metric").loc["Research execution"]
+    assert research["A"].startswith("parallel") and research["B"].startswith("parallel")
+
+
+def test_execution_page_never_shows_a_secret(monkeypatch: pytest.MonkeyPatch) -> None:
+    canary = "gsk_CANARY_execution_page_never_shows_this_77"
+    monkeypatch.setenv("GROQ_API_KEY", canary)  # configured, but the mock provider runs
+    get_settings.cache_clear()
+    at = open_page(PLANNER)
+    send(at, WINTER)
+    page = open_page(EXECUTION, session_id=at.session_state["session_id"])
+    assert canary not in all_text(page) and canary not in graph_spec_text(page)
+    [download] = page.get("download_button")
+    assert canary not in str(download.proto)

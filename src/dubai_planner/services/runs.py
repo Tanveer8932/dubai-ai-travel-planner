@@ -27,27 +27,17 @@ from typing import Any
 
 from dubai_planner.config import Settings, get_settings
 from dubai_planner.models import PlannerMode, PlannerUpdate, PlanResult, PlanStatus
+from dubai_planner.redaction import SECRET_FIELDS, redact
 from dubai_planner.services.planner import Planner, open_planner
 from dubai_planner.services.refinement import Refinement, classify
 from dubai_planner.services.session import SessionService
 from dubai_planner.storage import Repository
 
-SECRET_FIELDS = ("groq_api_key", "gemini_api_key", "openai_api_key", "anthropic_api_key")
-
+__all__ = ["SECRET_FIELDS", "PlannerHub", "RunHandle", "RunInProgress", "RunManager",
+           "friendly_error", "redact"]
 
 class RunInProgress(RuntimeError):
     """The session already has a planner run in progress."""
-
-
-def redact(text: str, settings: Settings | None = None) -> str:
-    """Remove any configured API key value from ``text`` (defence in depth)."""
-    s = settings or get_settings()
-    for name in SECRET_FIELDS:
-        secret = getattr(s, name, None)
-        value = secret.get_secret_value() if secret is not None else ""
-        if len(value) >= 6:
-            text = text.replace(value, "***")
-    return text
 
 
 _FRIENDLY: list[tuple[tuple[str, ...], str]] = [

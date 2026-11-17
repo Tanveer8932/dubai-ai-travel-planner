@@ -33,10 +33,31 @@ def repo(tmp_path: Path) -> Repository:
 
 
 def test_migration_sets_user_version_and_is_idempotent(repo: Repository) -> None:
-    assert repo.schema_version() == SCHEMA_VERSION == 1
-    assert repo.migrate() == 1
+    assert repo.schema_version() == SCHEMA_VERSION == 2  # v2: Phase 6 run aggregates
+    assert repo.migrate() == 2
     again = Repository(repo.db_path)  # re-opening an existing DB does not re-apply
-    assert again.schema_version() == 1
+    assert again.schema_version() == 2
+
+
+def test_v1_database_is_upgraded_in_place_without_losing_runs(tmp_path: Path) -> None:
+    """A Phase 1-5 database (schema v1) gains the v2 columns; old rows stay readable."""
+    import sqlite3
+
+    from dubai_planner.storage.repository import MIGRATIONS
+
+    path = tmp_path / "old.db"
+    with sqlite3.connect(path) as conn:
+        conn.executescript(MIGRATIONS[0][1])
+        conn.execute("PRAGMA user_version = 1")
+        conn.execute("INSERT INTO runs (id, mode, status, started_at, llm_calls, tokens) "
+                     "VALUES ('old', 'langgraph', 'succeeded', '2026-11-01T10:00:00+00:00', "
+                     "5, 900)")
+    repo = Repository(path)
+    assert repo.schema_version() == 2
+    run = repo.get_run("old")
+    assert run is not None and (run.llm_calls, run.tokens) == (5, 900)
+    assert (run.tokens_in, run.tokens_out, run.iterations, run.context) == (0, 0, None, {})
+    assert repo.list_trace_events("old") == []
 
 
 def test_session_crud(repo: Repository) -> None:

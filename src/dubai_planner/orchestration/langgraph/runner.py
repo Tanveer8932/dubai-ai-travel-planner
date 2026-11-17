@@ -38,6 +38,7 @@ from dubai_planner.models import (
     PlannerUpdate,
     PlanResult,
     PlanStatus,
+    TraceEventType,
 )
 from dubai_planner.orchestration.common import (
     DEFAULT_QUESTION,
@@ -45,6 +46,7 @@ from dubai_planner.orchestration.common import (
     RUN_STATUS,
     RunStats,
     check_message,
+    run_context_info,
     safe_error,
     summarize_value,
 )
@@ -54,7 +56,7 @@ from dubai_planner.orchestration.langgraph.graph import build_graph, recursion_l
 from dubai_planner.orchestration.langgraph.state import new_run_input
 from dubai_planner.storage import Repository
 from dubai_planner.tools.toolbox import Toolbox
-from dubai_planner.tracing import bus
+from dubai_planner.tracing import bus, emit, run_context
 
 #: Persist every super-step before the next one starts. LangGraph's default ("async")
 #: writes checkpoints in the background, so a killed process can lose the last step(s);
@@ -186,7 +188,7 @@ class LangGraphPlanner:
                     today=today or date.today(), edit=edit,
                     user_message=ChatMessage(role=ChatRole.USER, content=text))
         self._record_start(session_id, run_id, message)
-        stats = RunStats(run_id)
+        stats = RunStats(run_id, repo=self.repo, settings=self.settings)
         unsubscribe = bus.subscribe(stats)
         iteration = int(values.get("iteration", 0)) if graph_input is None or isinstance(
             graph_input, Command) else 0
@@ -200,8 +202,13 @@ class LangGraphPlanner:
                             continue
                         if isinstance(update, dict) and "iteration" in update:
                             iteration = int(update["iteration"])
+                        summary = _summarize(update)
+                        with run_context(run_id, mode=n.MODE.value, iteration=iteration):
+                            emit(node, TraceEventType.INFO, payload={
+                                "kind": "state_update", "keys": sorted(summary),
+                                "update": summary})
                         yield PlannerUpdate(session_id=session_id, run_id=run_id, node=node,
-                                            iteration=iteration, summary=_summarize(update))
+                                            iteration=iteration, summary=summary)
                 result = self.result(session_id)
             except GeneratorExit:
                 self._record_end(session_id, run_id, self.result(session_id), stats)
@@ -244,17 +251,17 @@ class LangGraphPlanner:
             self.repo.add_message(session_id, ChatMessage(role=ChatRole.USER, content=message,
                                                           metadata={"run_id": run_id}))
         if self.repo.get_run(run_id) is None:
-            self.repo.start_run(PlannerMode.LANGGRAPH, session_id=session_id, run_id=run_id)
+            self.repo.start_run(PlannerMode.LANGGRAPH, session_id=session_id, run_id=run_id,
+                                context=run_context_info(self.settings))
 
     def _record_end(self, session_id: str, run_id: str, result: PlanResult | None,
                     stats: RunStats) -> None:
         if self.repo is None or result is None:
             return
+        stats.flush()
         prior = self.repo.get_run(run_id)
-        calls = stats.llm_calls + (prior.llm_calls if prior else 0)
-        tokens = stats.tokens + (prior.tokens if prior else 0)
-        self.repo.finish_run(run_id, RUN_STATUS[result.status], llm_calls=calls,
-                             tokens=tokens, error=result.error)
+        self.repo.finish_run(run_id, RUN_STATUS[result.status], error=result.error,
+                             iterations=result.iterations, **stats.finish_kwargs(prior))
         reply = self._reply(session_id, result)
         if reply:
             self.repo.add_message(session_id, ChatMessage(

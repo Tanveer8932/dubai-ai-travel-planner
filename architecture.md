@@ -419,6 +419,8 @@ LangGraph checkpoints go to a separate `data/checkpoints.db` (owned by `langgrap
 
 *As built (Phase 1):* `itineraries` also stores `run_id` and `created_at`, with `UNIQUE(session_id, version)`; `messages` has `metadata_json`; `runs` has `started_at`/`ended_at`/`error`; `eval_results` has `seed`. Child rows use `ON DELETE CASCADE`. The schema version lives in `PRAGMA user_version`.
 
+*As built (Phase 6, schema v2, `storage/schema_v2.sql`):* `runs` gains `tokens_in`, `tokens_out`, `llm_latency_s` (sum over LLM calls), `iterations` (review refinements) and `context_json` (provider, model, seed-data fingerprint, offline flag, loop cap, CrewAI process: what a fair comparison needs, never secrets). `tokens` keeps its v1 meaning (in + out). A v1 database is upgraded in place by `ALTER TABLE` (`test_v1_database_is_upgraded_in_place_without_losing_runs`). `trace_events.payload_json` holds the whole `TraceEvent`.
+
 **JSON**: `data/seed/*.json` (curated, versioned, cites sources; as built: `attractions`, `hotels`, `restaurants`, `areas`, `transport`, `events`, `climate`, `holidays`, `fx_rates`, each `{meta, items|data}`), `data/cache/*.json` (HTTP response cache with TTL, git-ignored), `data/exports/*.json|md` (exported itineraries), `eval/scenarios/*.json`.
 
 ## 9. Conversational refinement flow
@@ -450,6 +452,30 @@ sequenceDiagram
 
 *As built (Phase 5).* `services/refinement.classify(message, latest, pending_question)` returns a `Refinement` (kind, the message to send, a `PlanEdit`): a **clarification answer** when the planner is waiting on a question, a **new request** when the session has no itinerary yet, a **request delta** when budget/dates/travellers change (a relative budget change such as "by 20%" is resolved in Python against the saved request and stated in the message), a **local edit** when the message names days (the other days are locked and copied verbatim, the request is reused without re-parsing, and the user's words plus deterministic `DayConstraint`s such as `indoor_only` go to the composer), else a **general change** (re-plan on the saved request). Both planners accept `stream(..., edit=PlanEdit)`, so refinement does not depend on framework state and works across modes. The UI never runs a planner in the page script: `services/runs.RunManager` runs it in a background thread (one active run per session) and the page polls the progress. `SessionService.diff` gives the cost delta per category and each day's added/removed slots. Trace visualisation is Phase 6.
 
+## 9a. Observability (as built, Phase 6)
+
+```mermaid
+flowchart LR
+    subgraph RUN["planner run (LangGraph or CrewAI)"]
+        N["node / task / stage spans<br/>record_io: inputs summary + output model"]
+        L["llm_call events<br/>tokens, latency, prompt preview"]
+        G["guardrail · delegation · state_update"]
+    end
+    N & L & G --> BUS["tracing.bus"]
+    BUS --> RS["RunStats (per run)<br/>counts LLM usage, redacts secrets,<br/>writes at every step transition"]
+    RS --> TE[("trace_events")]
+    RS --> RR[("runs: tokens in/out, latency,<br/>iterations, context")]
+    TE & RR --> OB["services/observability<br/>spans · status · timeline · parallelism<br/>metrics · compare · fairness · inspector"]
+    OB --> UI["pages/3_Execution.py<br/>graph · Gantt · inspector · state & review · compare"]
+```
+
+- **One recorder for both modes.** `orchestration.common.RunStats` (already the per-run LLM counter) is the SQLite writer. It buffers the run's events and writes them, with secrets redacted (`redaction.redact`), whenever a step starts or ends (`payload.kind` is node, stage, crew_task or crew), on every guardrail verdict, every 50 events and when the run ends. A live view that polls SQLite once a second therefore sees every transition (AC6.3), and nothing depends on the process that ran the plan (AC6.5). A failing write is logged and never stops planning.
+- **What a step records** (`tracing/payloads.record_io`): LangGraph node spans and CrewAI stage-tool spans attach a compact *input summary* (request line, iteration, feedback, locked days, research counts) and the step's *validated output model* as JSON with its `output_schema` (capped at 150 000 characters; above that, only a summary). Review spans carry the `AttemptSummary`, and CrewAI guardrail events carry the attempt and its issues, so review detail survives a restart. LLM calls carry each message's role, size and first 1 500 characters, plus the opening of the response. Each LangGraph node update and CrewAI task result is also emitted as a `state_update` event (the shared-state view). `agent_span` error events now carry the span `kind`, so a failed step pairs with its start.
+- **Analysis** (`services/observability.py`, framework-free): `build_spans` pairs start/end/error by (agent, kind, started_at). An unpaired start is *running* only while the run is live in this process; otherwise it is *waiting* (interrupt) or *stopped*. `step_status` colours graph nodes. `timeline_rows`, `iteration_bands` and `markers` feed the Gantt chart: lanes are LangGraph nodes or CrewAI roles, with CrewAI task windows plus stage-tool bars, one band per review iteration, and markers for LLM calls, guardrail verdicts and delegations. `parallelism` measures research overlap from timestamps (window, sum of durations, overlapping pairs). `run_metrics`, `compare` and `fairness` drive comparison. A value that was not recorded stays `None` and is shown as "—". Fairness checks the user message, the parsed trip request, the seed-data fingerprint, the provider, model, loop cap and offline flag. `inspect_event` re-validates a recorded output against its Pydantic model (a registry of `dubai_planner.models` plus the agent result types).
+- **Graphs come from the frameworks:** `orchestration.langgraph.graph.describe_graph(compiled)` (LangGraph's own `get_graph()`) and `CrewFactory.describe()` (YAML roles, tasks, context, async flags, manager). They are rendered with `st.graphviz_chart`, which renders in the browser, works offline and needs no CDN. Each node shows its status in words as well as colour. The Mermaid source, with the same status classes, is in an expander.
+- **Execution page** (`app/pages/3_Execution.py` + `app/ui_execution.py`): a run picker (this session or all; deep links with `?run=<id>&view=Timeline`), summary tiles, tabs Graph / Timeline / Inspector / State & review / Compare runs, and a JSON trace download. While the selected run is active in this app's `RunManager`, a fragment re-reads SQLite every second, and the page reruns once when the run ends. The page never starts a run. When the in-memory run handle is gone (after a restart), the Planner shows the last run's review attempts from the trace.
+- **CrewAI timestamp finding:** CrewAI 1.15 stamps tool-usage (and delegation) events with naive *local* time, while its base events are aware UTC. The listener read naive values as UTC, so delegation markers were shifted by the machine's UTC offset (+5:30 h here). `listener._aware` now converts naive values from local time.
+
 ## 10. LLM provider configuration
 
 Selected by environment variables only (see `.env.example`):
@@ -471,7 +497,7 @@ GROQ_API_KEY= / GEMINI_API_KEY= / OPENAI_API_KEY= / ANTHROPIC_API_KEY=
 - **Structured output** (`llm/structured.py`): provider-native `with_structured_output` on the first attempt for real LangChain providers (Groq with `method="json_schema"`; a provider rejection such as Groq's 400 `tool_use_failed` keeps the model's `failed_generation` text and validates it like any other reply); otherwise JSON prompt → fence/prose stripping → `model_validate_json` → agent `postprocess` (semantic checks) → **one** repair turn with the errors → `StructuredOutputError`. Transport errors (`LLMCallError`) are never "repaired". Every call publishes an `llm_call` `TraceEvent` with tokens and latency.
 - **Output limits** (Phase 3): `LLM_MAX_TOKENS` and `LLM_REASONING_EFFORT` go to the LangChain providers (as `num_predict` for Ollama, `max_output_tokens` for Gemini). Groq defaults to 4096 tokens and `low` effort for `openai/gpt-oss-*`, because Groq's own 2048-token cap truncated the composer's JSON (AC3.6 finding). Phase 4 passes them to CrewAI's `LLM` too (OpenAI-compatible client, verified on Groq; not for Ollama, whose CrewAI route is unverified). `CrewAIChatLLM` reports the provider's token usage. Groq rejects function schemas without `properties` or with lookaround regex `pattern`s (pydantic `Decimal`); CrewAI tool schemas are made provider-safe.
 - **Mock** (`llm/mock.py`): one deterministic engine, exposed as a LangChain chat model (`langchain_mock.MockChatModel`) and as a CrewAI `BaseLLM` (`crewai_mock.MockCrewAILLM`; no LiteLLM). It reads `AGENT:`/`SCHEMA:` markers and the prompt's `<context>` JSON; resolution order is scripted replies (tests) → fixture files → per-schema generators registered by each agent (deterministic baselines such as "top-ranked candidates" or the composer's scheduler).
-- **Tracing** (`tracing/bus.py`): a minimal in-process bus with a `ContextVar` run context (`run_id`, `mode`, `iteration`), `agent_span()` (start/end/error) and `capture()` for tests. Phase 6 adds the SQLite and Streamlit subscribers.
+- **Tracing** (`tracing/bus.py`): a minimal in-process bus with a `ContextVar` run context (`run_id`, `mode`, `iteration`), `agent_span()` (start/end/error) and `capture()` for tests. Phase 6 added the per-run SQLite recorder (`RunStats`) and the Execution page, which reads SQLite (§9a). `llm_call` events also carry a prompt and response preview.
 
 ## 11. Repository layout
 
@@ -484,7 +510,8 @@ dubai-ai-travel-planner/
 ├── .gitignore
 ├── app/                           # Streamlit entry + pages
 │   ├── streamlit_app.py
-│   └── pages/                     # 1_Planner, 2_Sessions, 3_Execution, 4_Evaluation
+│   ├── ui_shared.py, ui_itinerary.py, ui_execution.py   # shared widgets (5, 6)
+│   └── pages/                     # 1_Planner, 2_Sessions, 3_Execution (6), 4_Evaluation (7)
 ├── src/dubai_planner/
 │   ├── config.py                  # pydantic-settings
 │   ├── models/                    # Pydantic domain models
@@ -497,9 +524,9 @@ dubai-ai-travel-planner/
 │   │   ├── langgraph/             # state, nodes, graph builder
 │   │   ├── common.py              # helpers shared by both planners (Phase 4)
 │   │   └── crewai/                # config/*.yaml, board, stages, tools, guardrails, listener, crew, runner
-│   ├── services/                  # planner contract (4); session, refinement, runs, presentation (5)
+│   ├── services/                  # planner contract (4); session, refinement, runs, presentation (5); observability (6)
 │   ├── storage/                   # sqlite repo + schema.sql
-│   ├── tracing/                   # TraceEvent bus, adapters for both frameworks
+│   ├── tracing/                   # TraceEvent bus, safe step payloads (record_io)
 │   └── evaluation/                # metrics, judge, runner, report
 ├── data/
 │   ├── seed/                      # curated JSON (committed)
@@ -522,4 +549,4 @@ dubai-ai-travel-planner/
 | Default LLM | Ollama local | hosted paid | free, private, reproducible; slower |
 | Hotel/restaurant prices | curated seed bands | scraping booking sites | ToS and legality; no free API |
 | Persistence | SQLite + JSON | Postgres/Redis | zero-ops, single file, enough for one user |
-| Visualisation | Mermaid from compiled graph + Plotly timeline | LangSmith | free, offline, works for both frameworks |
+| Visualisation | graph from the compiled LangGraph / crew config (Graphviz in the browser, Mermaid export) + Plotly timeline | LangSmith | free, offline, works for both frameworks |

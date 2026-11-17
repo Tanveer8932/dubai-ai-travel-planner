@@ -13,6 +13,7 @@ from datetime import date
 from typing import Any
 
 import streamlit as st
+from streamlit.errors import StreamlitAPIException
 
 from dubai_planner import bootstrap
 from dubai_planner.config import Settings, get_settings
@@ -120,3 +121,12 @@ def sidebar(svc: Services) -> None:
 
 def money(value: Any) -> str:
     return f"AED {float(value):,.2f}"
+
+
+def nav_link(page: str, label: str, icon: str) -> None:
+    """``st.page_link`` that degrades to a hint when the page is run on its own (tests,
+    ``streamlit run app/pages/…``), where sibling pages cannot be resolved."""
+    try:
+        st.page_link(page, label=label, icon=icon)
+    except StreamlitAPIException:
+        st.caption(f"{icon} {label}: open it from the sidebar.")

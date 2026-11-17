@@ -35,8 +35,9 @@ from dubai_planner.models.trace import ChatMessage, ChatRole, TraceEvent
 
 
 def _load_migrations() -> list[tuple[int, str]]:
-    schema = resources.files("dubai_planner.storage").joinpath("schema.sql")
-    return [(1, schema.read_text(encoding="utf-8"))]
+    files = resources.files("dubai_planner.storage")
+    return [(1, files.joinpath("schema.sql").read_text(encoding="utf-8")),
+            (2, files.joinpath("schema_v2.sql").read_text(encoding="utf-8"))]
 
 
 MIGRATIONS: list[tuple[int, str]] = _load_migrations()
@@ -322,13 +323,18 @@ class Repository:
 
     # ------------------------------------------------------------------ runs
     def start_run(
-        self, mode: PlannerMode, *, session_id: str | None = None, run_id: str | None = None
+        self, mode: PlannerMode, *, session_id: str | None = None, run_id: str | None = None,
+        context: dict[str, Any] | None = None,
     ) -> RunRecord:
-        run = RunRecord(id=run_id or uuid.uuid4().hex, session_id=session_id, mode=mode)
+        """Record a new run. ``context``: provider, model, data fingerprint (no secrets)."""
+        run = RunRecord(id=run_id or uuid.uuid4().hex, session_id=session_id, mode=mode,
+                        context=context or {})
         with self.connect() as conn:
             conn.execute(
-                "INSERT INTO runs (id, session_id, mode, status, started_at) VALUES (?,?,?,?,?)",
-                (run.id, run.session_id, run.mode.value, run.status.value, _ts(run.started_at)),
+                "INSERT INTO runs (id, session_id, mode, status, started_at, context_json) "
+                "VALUES (?,?,?,?,?,?)",
+                (run.id, run.session_id, run.mode.value, run.status.value, _ts(run.started_at),
+                 json.dumps(run.context, default=str)),
             )
         return run
 
@@ -340,17 +346,25 @@ class Repository:
         llm_calls: int = 0,
         tokens: int = 0,
         error: str | None = None,
+        tokens_in: int = 0,
+        tokens_out: int = 0,
+        llm_latency_s: float = 0.0,
+        iterations: int | None = None,
     ) -> RunRecord:
+        """Close a run with its outcome and aggregated LLM usage (Phase 6 task 3)."""
         run = self.get_run(run_id)
         if run is None:
             raise NotFoundError(f"run {run_id!r} does not exist")
         ended = _now()
         duration = (ended - run.started_at).total_seconds()
+        latency = round(llm_latency_s, 3)
         with self.connect() as conn:
             conn.execute(
                 "UPDATE runs SET status = ?, ended_at = ?, duration_s = ?, llm_calls = ?, "
-                "tokens = ?, error = ? WHERE id = ?",
-                (status.value, _ts(ended), duration, llm_calls, tokens, error, run_id),
+                "tokens = ?, error = ?, tokens_in = ?, tokens_out = ?, llm_latency_s = ?, "
+                "iterations = ? WHERE id = ?",
+                (status.value, _ts(ended), duration, llm_calls, tokens, error, tokens_in,
+                 tokens_out, latency, iterations, run_id),
             )
         return run.model_copy(
             update={
@@ -360,6 +374,10 @@ class Repository:
                 "llm_calls": llm_calls,
                 "tokens": tokens,
                 "error": error,
+                "tokens_in": tokens_in,
+                "tokens_out": tokens_out,
+                "llm_latency_s": latency,
+                "iterations": iterations,
             }
         )
 
@@ -369,6 +387,7 @@ class Repository:
         return self._run(row) if row else None
 
     def list_runs(self, session_id: str | None = None) -> list[RunRecord]:
+        """Runs oldest first (all sessions when ``session_id`` is None)."""
         with self.connect() as conn:
             if session_id is None:
                 rows = conn.execute("SELECT * FROM runs ORDER BY started_at").fetchall()
@@ -391,6 +410,11 @@ class Repository:
             llm_calls=row["llm_calls"],
             tokens=row["tokens"],
             error=row["error"],
+            tokens_in=row["tokens_in"],
+            tokens_out=row["tokens_out"],
+            llm_latency_s=row["llm_latency_s"],
+            iterations=row["iterations"],
+            context=json.loads(row["context_json"] or "{}"),
         )
 
     # ------------------------------------------------------------------ trace events
@@ -413,6 +437,12 @@ class Repository:
                     for e in events
                 ],
             )
+
+    def count_trace_events(self, run_id: str) -> int:
+        with self.connect() as conn:
+            row = conn.execute("SELECT COUNT(*) FROM trace_events WHERE run_id = ?",
+                               (run_id,)).fetchone()
+        return int(row[0])
 
     def add_trace_event(self, event: TraceEvent) -> None:
         self.add_trace_events([event])

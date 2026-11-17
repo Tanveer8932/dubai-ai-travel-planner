@@ -58,6 +58,7 @@ from dubai_planner.orchestration.langgraph.state import PlannerState
 from dubai_planner.storage import Repository
 from dubai_planner.tools.toolbox import Toolbox
 from dubai_planner.tracing import agent_span, emit, run_context
+from dubai_planner.tracing.payloads import record_io
 from dubai_planner.validation.rules import validate_itinerary
 
 MODE = PlannerMode.LANGGRAPH
@@ -119,10 +120,31 @@ def node_span(name: str, state: PlannerState) -> Iterator[dict[str, Any]]:
         try:
             with agent_span(name, kind="node") as span:
                 span["kind"] = "node"
+                record_io(span, inputs=state_inputs(state))
                 yield span
         except GraphBubbleUp:  # interrupt(): the node pauses, it did not fail
             emit(name, TraceEventType.INFO, payload={"kind": "node", "interrupted": True})
             raise
+
+
+def state_inputs(state: PlannerState) -> dict[str, Any]:
+    """What a node can read from the shared state, summarised for the inspector."""
+    research = state.get("research")
+    out: dict[str, Any] = {"iteration": state.get("iteration", 0)}
+    if (request := state.get("request")) is not None:
+        out["request"] = {"dates": f"{request.start_date} to {request.end_date}",
+                          "travellers": request.travellers.total,
+                          "budget_aed": request.budget_aed, "interests": request.interests}
+    if research is not None:
+        out["research"] = {"attractions": len(research.attractions),
+                           "hotels": len(research.hotels), "dining": len(research.dining),
+                           "transport": research.transport is not None,
+                           "weather": research.weather is not None,
+                           "events": len(research.events)}
+    for key in ("feedback", "locked_days"):
+        if state.get(key):
+            out[key] = state.get(key)
+    return out
 
 
 def _message(role: ChatRole, text: str, **meta: Any) -> ChatMessage:
@@ -148,6 +170,7 @@ class PlannerNodes:
                     previous=state.get("draft"), today=state["today"]),
                 self.deps.llm_for(requirements.AGENT), self.deps.tools)
             span.update(complete=result.is_complete, missing=result.missing)
+            record_io(span, output=result)
             return {
                 "draft": result.draft, "request": result.request, "missing": result.missing,
                 "clarification_question": result.clarification_question,
@@ -188,6 +211,7 @@ class PlannerNodes:
                 attractions.AttractionsInput(request=self._request(state)),
                 self.deps.llm_for(attractions.AGENT), self.deps.tools)
             span.update(options=len(out.options))
+            record_io(span, output=out)
             return {"research": {"attractions": out.options}}
 
     def research_accommodation(self, state: PlannerState) -> dict[str, Any]:
@@ -196,6 +220,7 @@ class PlannerNodes:
                 accommodation.AccommodationInput(request=self._request(state)),
                 self.deps.llm_for(accommodation.AGENT), self.deps.tools)
             span.update(options=len(out.options))
+            record_io(span, output=out)
             return {"research": {"hotels": out.options}}
 
     def research_dining(self, state: PlannerState) -> dict[str, Any]:
@@ -203,12 +228,14 @@ class PlannerNodes:
             out = self.deps.agents.dining(dining.DiningInput(request=self._request(state)),
                                           self.deps.llm_for(dining.AGENT), self.deps.tools)
             span.update(options=len(out.options))
+            record_io(span, output=out)
             return {"research": {"dining": out.options}}
 
     def research_transport(self, state: PlannerState) -> dict[str, Any]:
-        with node_span(RESEARCH_TRANSPORT, state):
+        with node_span(RESEARCH_TRANSPORT, state) as span:
             plan = self.deps.agents.transport(
                 transport.TransportInput(request=self._request(state)), None, self.deps.tools)
+            record_io(span, output=plan)
             return {"research": {"transport": plan}}
 
     def research_weather_events(self, state: PlannerState) -> dict[str, Any]:
@@ -219,6 +246,7 @@ class PlannerNodes:
                                                   end_date=req.end_date),
                 None, self.deps.tools)
             span.update(events=len(out.events))
+            record_io(span, output=out)
             return {"research": {"weather": out.weather, "events": out.events}}
 
     def merge_research(self, state: PlannerState) -> dict[str, Any]:
@@ -229,6 +257,7 @@ class PlannerNodes:
                 raise RuntimeError("research fan-in is incomplete")
             span.update(attractions=len(research.attractions), hotels=len(research.hotels),
                         dining=len(research.dining), events=len(research.events))
+            record_io(span, output=research)
             return {}
 
     # ------------------------------------------------------------------ planning
@@ -238,6 +267,7 @@ class PlannerNodes:
                 budget.BudgetInput(request=self._request(state), research=state["research"]),
                 self.deps.llm_for(budget.AGENT), self.deps.tools)
             span.update(feasible=plan.feasible)
+            record_io(span, output=plan)
             return {"budget_plan": plan}
 
     def compose_itinerary(self, state: PlannerState) -> dict[str, Any]:
@@ -253,6 +283,7 @@ class PlannerNodes:
                     day_constraints=list(state.get("day_constraints", []))),
                 self.deps.llm_for(composer.AGENT), self.deps.tools)
             span.update(total=str(itinerary.cost.total), locked_days=locked)
+            record_io(span, output=itinerary)
             return {"itinerary": itinerary}
 
     def validate(self, state: PlannerState) -> dict[str, Any]:
@@ -262,6 +293,7 @@ class PlannerNodes:
                                             catalog=self.deps.tools.catalog)
             span.update(errors=sum(v.severity is Severity.ERROR for v in violations),
                         violations=len(violations))
+            record_io(span, output=violations)
             return {"validation": violations}
 
     def review(self, state: PlannerState) -> dict[str, Any]:
@@ -277,7 +309,9 @@ class PlannerNodes:
                               violations=violations)
             best = better(attempt, state.get("best"))
             summary = attempt_summary(attempt, list(state.get("locked_days", [])))
-            span.update(approved=attempt.approved, score=report.score, errors=attempt.errors)
+            span.update(approved=attempt.approved, score=report.score, errors=attempt.errors,
+                        attempt=summary.model_dump(mode="json"))
+            record_io(span, output=report)
             return {"review": report, "best": best,
                     "attempts": [*state.get("attempts", []), summary]}
 
@@ -287,6 +321,7 @@ class PlannerNodes:
             plan = plan_revision(state["review"], state["itinerary"],  # type: ignore[arg-type]
                                  num_days=self._request(state).num_days)
             span.update(target_days=plan.target_days, locked_days=plan.locked_days)
+            record_io(span, output=plan)
             return {"iteration": state.get("iteration", 0) + 1, "feedback": plan.feedback,
                     "locked_days": plan.locked_days}
 
